@@ -54,21 +54,10 @@ uv run jobhunt eval            # score the hand-scored calibration roles and com
 
 ## How it works
 
-```mermaid
-flowchart LR
-    CC[(Common Crawl index)] -->|monthly harvest| GL[Generated company list]
-    CFG[config/: profile, rules, companies] --> RUN
-    GL --> RUN
-    subgraph RUN[A run: GitHub Actions every 2 hours, or the laptop]
-        F[Fetch job boards<br/>polite HTTP, robots.txt] --> P[Pre-filter<br/>titles, countries, duplicates]
-        P --> T[Title check<br/>Haiku, 100 titles a call]
-        T --> H[Score<br/>Haiku, then Sonnet for 6+]
-    end
-    H --> D[(data branch<br/>JSONL records)]
-    H -->|fit 7+| N[Phone alert]
-    D -->|sync| APP[Web app on localhost]
-    DB[(SQLite: applications,<br/>notes, drafts)] --- APP
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/how-it-works-dark.svg">
+  <img src="docs/images/how-it-works-light.svg" width="880" alt="How it works. A monthly harvest of the Common Crawl index builds the generated company list. That list and your config (profile, rules, companies) feed a run, on GitHub Actions every 2 hours or on the laptop: fetch the job boards (polite HTTP, robots.txt), pre-filter (titles, countries, duplicates), a title check (Haiku, batches of 100), then scoring (Haiku, then Sonnet for promising roles). Scores go to the data branch as JSONL records, and roles at fit 7 or more send a phone alert. The data branch syncs to the local web app, which also reads its own SQLite database of applications, notes and drafts.">
+</picture>
 
 Each run pulls the pipeline's state from a separate git branch, fetches its share of the companies, merges new roles into what it knows, scores within its budget and pushes the result back. The web app reads the same state through a disposable SQLite catalogue, and keeps the user's own data (applications, notes, hidden roles, drafts) in a local SQLite database that never leaves the machine.
 
