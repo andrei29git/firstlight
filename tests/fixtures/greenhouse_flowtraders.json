@@ -1,0 +1,241 @@
+{
+ "jobs": [
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/flowtraders/jobs/8258529",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 3573491,
+   "location": {
+    "name": "Amsterdam"
+   },
+   "metadata": [
+    {
+     "id": 154575,
+     "name": "Contact",
+     "value": "Flow Traders Careers\n+31 (0)20 799 6799 \nrecruitment.europe@flowtraders.com",
+     "value_type": "long_text"
+    },
+    {
+     "id": 10142200,
+     "name": "Start Date",
+     "value": "2026-09-01",
+     "value_type": "date"
+    },
+    {
+     "id": 13763368,
+     "name": "Division",
+     "value": "Technology",
+     "value_type": "single_select"
+    },
+    {
+     "id": 15473164,
+     "name": "High priority",
+     "value": "High priority",
+     "value_type": "single_select"
+    },
+    {
+     "id": 16792934,
+     "name": "Application form required",
+     "value": null,
+     "value_type": "yes_no"
+    }
+   ],
+   "id": 8258529,
+   "updated_at": "2026-10-21T05:17:46-04:00",
+   "requisition_id": "1704",
+   "title": "AI Engineering Manager",
+   "company_name": "Flow Traders",
+   "first_published": "2026-10-16T09:02:17-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;p&gt;&lt;strong&gt;AI Engineering Manager&lt;/strong&gt;&lt;br&gt;&lt;br&gt;We&#39;re setting up a new AI team within Data and AI and are looking for an Engineering Manager to lead it. Good engineering management makes a big difference to how well teams grow, keep their people and deliver, and that is what we want from this role.&lt;br&gt;&lt;br&gt;You&#39;ll look after the planning and people side: delivery, growth, performance, culture and hiring. You work alongside technical leads who own architecture, technical direction and hands-on execution. You need each other, so expect to work closely.&lt;br&gt;We&#39;ll judge you on how your engineers develop and what your team delivers. Most of your time goes to understanding how the business works and unlocking use cases where AI makes a real difference, next to leading your people and your delivery.&lt;br&gt;&lt;br&gt;&lt;strong&gt;What you&#39;ll do:&lt;/strong&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;Get to know how the business runs. Spend time with the teams, understand their processes and find where AI, or sometimes just a better tool, would help.&lt;/li&gt;\n&lt;li&gt;Unlock use cases and take them from first idea to something live, including the business case and how success will be measured.&lt;/li&gt;\n&lt;li&gt;Own the AI roadmap: set priorities and sequence the work in line with company goals.&lt;/li&gt;\n&lt;li&gt;Coach and develop your engineers, including career planning, promotions and regular performance conversations.&lt;/li&gt;\n&lt;li&gt;Build the team: hiring, headcount planning and allocating people to the work that matters most.&lt;/li&gt;\n&lt;li&gt;Keep the team healthy. Pay attention to morale and productivity, and deal with conflict early.&lt;/li&gt;\n&lt;li&gt;Hold regular one-on-ones, give feedback on time and make room for team building.&lt;/li&gt;\n&lt;li&gt;Turn technical and business requirements into clear delivery plans, and flag dependencies and risks up front.&lt;/li&gt;\n&lt;li&gt;Work with Engineering, Trading and Quant to design and roll out new AI solutions.&lt;/li&gt;\n&lt;li&gt;Track progress against plan, handle risk and scope trade-offs, and keep stakeholders informed.&lt;/li&gt;\n&lt;li&gt;Keep improving how we deliver and how fast the team moves.&lt;/li&gt;\n&lt;li&gt;Stay aligned with company goals and timelines, working closely with Tech Leads and Staff Engineers on technical direction.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;What we&#39;re looking for:&lt;/strong&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;A good eye for processes. You&#39;ve worked out how things really run, changed them yourself and can tell when a problem needs AI and when it doesn&#39;t.&lt;/li&gt;\n&lt;li&gt;Strong project management: roadmaps, sequencing, dependencies and risk, in a fast-moving environment.&lt;/li&gt;\n&lt;li&gt;Enough technical background to earn your engineers&#39; respect and join technical discussions with credibility.&lt;/li&gt;\n&lt;li&gt;Experience leading software engineers, growing them and managing their performance.&lt;/li&gt;\n&lt;li&gt;A track record of delivering software through a team while balancing scope, quality and timelines.&lt;/li&gt;\n&lt;li&gt;Good people skills: coaching, giving feedback, resolving conflict and creating a team where engineers do their best work.&lt;/li&gt;\n&lt;li&gt;Good judgment when hiring and developing people.&lt;/li&gt;\n&lt;li&gt;Real interest in AI. You follow what&#39;s happening and can tell what matters for us.&lt;/li&gt;\n&lt;li&gt;Clear communication with technical and non-technical people, including cross-functional stakeholders like Trading and Quant.&lt;/li&gt;\n&lt;li&gt;Based in Amsterdam, or willing to relocate.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;What we offer:&lt;br&gt;&lt;br&gt;&lt;/strong&gt;At Flow Traders, we create the conditions for hard‑working, high‑performing people to do their best work. From a thorough onboarding and ongoing access to Flow Academy, to latest technology and a collaborative, non‑hierarchical culture, we give you the tools, ownership, and support to move fast and drive outcomes. We keep a close‑knit, small‑company feel while offering competitive salary, annual discretionary profit share, and comprehensive benefits, so talent can grow here, and stay here. See our benefits below:&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;Flow Academy and opportunities to attend domain-related conferences&lt;/li&gt;\n&lt;li&gt;Daily catered lunch, great coffee, and a fully stocked kitchen and snack bar&lt;/li&gt;\n&lt;li&gt;In-house Bar and Lounge with arcade, table tennis, billiards, and game consoles&lt;/li&gt;\n&lt;li&gt;Company boat&lt;/li&gt;\n&lt;li&gt;In-house gym and sessions with our nutritionist or personal trainer&lt;/li&gt;\n&lt;li&gt;Bi-weekly massages&lt;/li&gt;\n&lt;li&gt;Annual company trip and a variety of events throughout the year, such as the New Years Event&lt;/li&gt;\n&lt;li&gt;Global rotations across our offices worldwide&lt;/li&gt;\n&lt;li&gt;and more&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;Flow Traders does not accept unsolicited resumes from any professional staffing or search firms. All resumes, and any other information identifying potential candidates, submitted to any employee at Flow Traders via-email, the Internet or directly without a valid and signed search agreement will be deemed free to contact by Flow Traders without any restrictions and no placement fee of any kind will be paid in the event the candidate is hired by Flow Traders.&lt;/em&gt;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 237105,
+     "name": "Data",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "offices": [
+    {
+     "id": 26356,
+     "name": "Amsterdam office",
+     "location": "Amsterdam, Noord-Holland, Netherlands",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": "<p>We use Greenhouse’s AI-powered Talent Matching tool to help compare applications against the requirements of the role. This technology is used solely to support the recruitment process by highlighting potentially relevant skills and experience.</p><p>The tool does not make hiring or screening decisions on behalf of Flow Traders. All applications and CVs are reviewed by members of our recruitment team, and all hiring decisions are made by humans.</p>",
+   "include_ai_disclaimer": true,
+   "ai_opt_out_request_url": "http://app.greenhouse.io/ai_opt_out_request/job_post/8258529/ai_opt_out"
+  },
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/flowtraders/jobs/8288641",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 3584692,
+   "location": {
+    "name": "Amsterdam"
+   },
+   "metadata": [
+    {
+     "id": 154575,
+     "name": "Contact",
+     "value": "Flow Traders Careers\n+31 (0)20 799 6799 \nrecruitment.europe@flowtraders.com",
+     "value_type": "long_text"
+    },
+    {
+     "id": 10142200,
+     "name": "Start Date",
+     "value": "2027-01-01",
+     "value_type": "date"
+    },
+    {
+     "id": 13763368,
+     "name": "Division",
+     "value": "Technology",
+     "value_type": "single_select"
+    },
+    {
+     "id": 15473164,
+     "name": "High priority",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 16792934,
+     "name": "Application form required",
+     "value": null,
+     "value_type": "yes_no"
+    }
+   ],
+   "id": 8288641,
+   "updated_at": "2026-10-23T03:33:05-04:00",
+   "requisition_id": "1712",
+   "title": "Core Data Engineer",
+   "company_name": "Flow Traders",
+   "first_published": "2026-10-23T03:33:05-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;p&gt;&lt;/p&gt;\n&lt;p&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Flow Traders is looking for a Core Data Engineer to own the end-to-end lifecycle of our most fundamental data&amp;nbsp;&lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;products, including our Security Master; our reconciled ETF Compositions; high-resolution historical market &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;data; and records of our trades, orders, quotes, and inquiries. High-quality data is the cornerstone of Flow &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Traders&#39; strategic direction - beyond reducing complexity and BAU for stakeholders across the organization, &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;quality data is a key requirement for our growth of quantitative trading styles.&lt;/span&gt;​&lt;/p&gt;\n&lt;p data-ccp-props=&quot;{&amp;quot;335551550&amp;quot;:1,&amp;quot;335551620&amp;quot;:1,&amp;quot;335559683&amp;quot;:0,&amp;quot;335559685&amp;quot;:0,&amp;quot;335559731&amp;quot;:0,&amp;quot;335559737&amp;quot;:0,&amp;quot;335562764&amp;quot;:2,&amp;quot;335562765&amp;quot;:1,&amp;quot;335562766&amp;quot;:4,&amp;quot;335562767&amp;quot;:0,&amp;quot;335562768&amp;quot;:4,&amp;quot;335562769&amp;quot;:0}&quot;&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Specifically, you will craft and execute the blueprint for these products, leveraging our Data Platform to build &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;and monitor automated pipelines which ensure that users across the organization have reliable data at their &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;fingertips when they need it. Further, you will become an expert in these data sets, leveraging that knowledge &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;to optimize our use of the data we have and explore new sources for additional value. Finally, you will &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;constantly collaborate with teams across the organization to ensure that our in-house systems are designed &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;with data in mind, streamline additional data-related workflows, and work with stakeholders to maximize the &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;value they extract from our data.&lt;/span&gt;​&lt;/p&gt;\n&lt;p data-ccp-props=&quot;{&amp;quot;335551550&amp;quot;:1,&amp;quot;335551620&amp;quot;:1,&amp;quot;335559683&amp;quot;:0,&amp;quot;335559685&amp;quot;:0,&amp;quot;335559731&amp;quot;:0,&amp;quot;335559737&amp;quot;:0,&amp;quot;335562764&amp;quot;:2,&amp;quot;335562765&amp;quot;:1,&amp;quot;335562766&amp;quot;:4,&amp;quot;335562767&amp;quot;:0,&amp;quot;335562768&amp;quot;:4,&amp;quot;335562769&amp;quot;:0}&quot;&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;As the architect and guardian of our most valuable data, you will have a unique opportunity to make your mark &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;on Flow Traders. You will be accountable for delivering these data products at an exceptional level of quality, &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;ensuring that they are not only timely and pristine, but powerful enough to drive Flow Traders&#39; future growth. &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Ultimately, your work will not only provide highly visible benefits that every division feels every day, but it will &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;also deliver one of the most important building blocks to the firm&#39;s strategic growth for the years to come.&lt;/span&gt;​&lt;/p&gt;\n&lt;h4&gt;What you will do&lt;/h4&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;strong&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Craft datasets with quants. &lt;/span&gt;&lt;/strong&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Take an underspecified research question and turn it into the right &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;dataset: aligned, adjusted, point-in-time correct, documented, and reproducible.&lt;/span&gt;​&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Develop and own the end-to-end lifecycle of these data products. &lt;/span&gt;&lt;/strong&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Build and maintain &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;pipelines, develop quality checks, correct day-to-day operational issues, and &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;systematize/automate manual &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;processing steps&lt;/span&gt;​&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Own data quality where it matters. &lt;/span&gt;&lt;/strong&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Design the checks and alerts that catch the problems that &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;would actually hurt a strategy, and deliberately leave out the ones that are just noise.&lt;/span&gt;​&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Build shared foundations. &lt;/span&gt;&lt;/strong&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Reference data, instrument identifiers, corporate actions and &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;vendor feeds that every researcher and trading desk depends on.&lt;/span&gt;​&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Keep critical pipelines running. &lt;/span&gt;&lt;/strong&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Markets in several regions, and digital asset markets that &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;never close, depend on this data. You will be part of a team that supports it across time zones.&lt;/span&gt;​&lt;/li&gt;\n&lt;/ul&gt;\n&lt;h4&gt;What you need to succeed&lt;/h4&gt;\n&lt;p data-ccp-props=&quot;{&amp;quot;335551550&amp;quot;:1,&amp;quot;335551620&amp;quot;:1,&amp;quot;335559683&amp;quot;:0,&amp;quot;335559685&amp;quot;:0,&amp;quot;335559731&amp;quot;:0,&amp;quot;335559737&amp;quot;:0,&amp;quot;335562764&amp;quot;:2,&amp;quot;335562765&amp;quot;:1,&amp;quot;335562766&amp;quot;:4,&amp;quot;335562767&amp;quot;:0,&amp;quot;335562768&amp;quot;:4,&amp;quot;335562769&amp;quot;:0}&quot;&gt;&lt;strong&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Required&lt;/span&gt;&lt;/strong&gt;​&lt;/p&gt;\n&lt;ul&gt;\n&lt;li data-charcodes=&quot;8226&quot; data-font=&quot;Arial,Sans-Serif&quot; data-buautonum=&quot;8&quot; data-margin=&quot;450&quot; data-aria-posinset=&quot;1&quot; data-aria-level=&quot;1&quot;&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Analytics or data engineering experience, ideally at a startup or scale-up through a growth phase&lt;/span&gt;​&lt;/li&gt;\n&lt;li data-charcodes=&quot;8226&quot; data-font=&quot;Arial,Sans-Serif&quot; data-buautonum=&quot;8&quot; data-margin=&quot;450&quot; data-aria-posinset=&quot;2&quot; data-aria-level=&quot;1&quot;&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Strong data modelling and data quality practice: tests, contracts, lineage, observability in production&lt;/span&gt;​&lt;/li&gt;\n&lt;li data-charcodes=&quot;8226&quot; data-font=&quot;Arial,Sans-Serif&quot; data-buautonum=&quot;8&quot; data-margin=&quot;450&quot; data-aria-posinset=&quot;3&quot; data-aria-level=&quot;1&quot;&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Strong proficiency in Python (ideally familiarity with another statically-typed language)&lt;/span&gt;​&lt;/li&gt;\n&lt;li data-charcodes=&quot;8226&quot; data-font=&quot;Arial,Sans-Serif&quot; data-buautonum=&quot;8&quot; data-margin=&quot;450&quot; data-aria-posinset=&quot;4&quot; data-aria-level=&quot;1&quot;&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Working proficiency with SQL and relational databases, and version control systems&lt;/span&gt;​&lt;/li&gt;\n&lt;li data-charcodes=&quot;8226&quot; data-font=&quot;Arial,Sans-Serif&quot; data-buautonum=&quot;8&quot; data-margin=&quot;450&quot; data-aria-posinset=&quot;5&quot; data-aria-level=&quot;1&quot;&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Demonstrated ability to work with large datasets and familiarity with big data solutions&lt;/span&gt;​&lt;/li&gt;\n&lt;li data-charcodes=&quot;8226&quot; data-font=&quot;Arial,Sans-Serif&quot; data-buautonum=&quot;8&quot; data-margin=&quot;450&quot; data-aria-posinset=&quot;6&quot; data-aria-level=&quot;1&quot;&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;You have owned something in production, not only built it&lt;/span&gt;​&lt;/li&gt;\n&lt;li data-charcodes=&quot;8226&quot; data-font=&quot;Arial,Sans-Serif&quot; data-buautonum=&quot;8&quot; data-margin=&quot;450&quot; data-aria-posinset=&quot;7&quot; data-aria-level=&quot;1&quot;&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;You enjoy working directly with the people who use your data&lt;/span&gt;​&lt;/li&gt;\n&lt;li data-charcodes=&quot;8226&quot; data-font=&quot;Arial,Sans-Serif&quot; data-buautonum=&quot;8&quot; data-margin=&quot;450&quot; data-aria-posinset=&quot;8&quot; data-aria-level=&quot;1&quot;&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Strong interpersonal and communication skills, with the ability to collaborate effectively with technical and &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;non-technical stakeholders&lt;/span&gt;​&lt;/li&gt;\n&lt;li data-charcodes=&quot;8226&quot; data-font=&quot;Arial,Sans-Serif&quot; data-buautonum=&quot;8&quot; data-margin=&quot;450&quot; data-aria-posinset=&quot;9&quot; data-aria-level=&quot;1&quot;&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Ability to balance individual stakeholder requirements with data quality, consistency, and broad &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;applicability &lt;/span&gt;​&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p data-ccp-props=&quot;{&amp;quot;335551550&amp;quot;:1,&amp;quot;335551620&amp;quot;:1,&amp;quot;335559683&amp;quot;:0,&amp;quot;335559685&amp;quot;:0,&amp;quot;335559731&amp;quot;:0,&amp;quot;335559737&amp;quot;:0,&amp;quot;335562764&amp;quot;:2,&amp;quot;335562765&amp;quot;:1,&amp;quot;335562766&amp;quot;:4,&amp;quot;335562767&amp;quot;:0,&amp;quot;335562768&amp;quot;:4,&amp;quot;335562769&amp;quot;:0}&quot;&gt;&lt;strong&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Strongly preferred&lt;/span&gt;&lt;/strong&gt;​&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Experience with financial data: prices, market data, transactions, instruments&lt;/span&gt;​&lt;/li&gt;\n&lt;li&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Familiarity with point-in-time data, look-ahead bias and survivorship bias&lt;/span&gt;​&lt;/li&gt;\n&lt;li&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Experience with a modern cloud data stack, such as Spark or Databricks, &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;dbt&lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;, a cloud warehouse, and &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;orchestration&lt;/span&gt;​&lt;/li&gt;\n&lt;li&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Experience with Airflow, Kafka, and GCP (esp. GKE, &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Dataproc&lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;, and Big Query), strongly preferred&lt;/span&gt;​&lt;/li&gt;\n&lt;li&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Experience with Polars, Pandas, Spark, Apache Beam, Apache &lt;/span&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;NiFi&lt;/span&gt;​&lt;/li&gt;\n&lt;li&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;Experience at a trading firm, systematic fund, brokerage, crypto exchange or market data company&lt;/span&gt;​&lt;/li&gt;\n&lt;li&gt;&lt;span data-usefontface=&quot;false&quot; data-contrast=&quot;none&quot;&gt;On-call or incident response experience&lt;/span&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;strong&gt;What we offer&lt;br&gt;&lt;/strong&gt;At Flow Traders, we create the conditions for hard‑working, high‑performing people to do their best work. From a thorough onboarding and ongoing access to Flow Academy, to latest &amp;nbsp;technology and a collaborative, non‑hierarchical culture, we give you the tools, ownership, and support to move fast and drive outcomes. We keep a close‑knit, small‑company feel while offering competitive salary, annual discretionary profit share, and comprehensive benefits,&amp;nbsp;so talent can grow here, and stay here.&lt;strong&gt;&amp;nbsp;&lt;/strong&gt;See our benefits below:&lt;/p&gt;\n&lt;ul type=&quot;disc&quot;&gt;\n&lt;li&gt;Flow Academy and opportunities to attend domain-related conferences&lt;/li&gt;\n&lt;li&gt;Daily catered lunch, great coffee, and a fully stocked kitchen and snack bar&lt;/li&gt;\n&lt;li&gt;In-house Bar and Lounge with arcade, table tennis, billiards, and game consoles&lt;/li&gt;\n&lt;li&gt;Company boat&lt;/li&gt;\n&lt;li&gt;In-house gym and sessions with our nutritionist or personal trainer&lt;/li&gt;\n&lt;li&gt;Bi-weekly massages&lt;/li&gt;\n&lt;li&gt;Annual company trip and a variety of events throughout the year, such as the New Years Event&lt;/li&gt;\n&lt;li&gt;Global rotations across our offices worldwide&lt;/li&gt;\n&lt;li&gt;and more&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&lt;em&gt;Flow Traders does not accept unsolicited resumes from any professional staffing or search firms. All resumes, and any other information identifying potential candidates, submitted to any employee at Flow Traders via-email, the Internet or directly without a valid and signed search agreement will be deemed free to contact by Flow Traders without any restrictions and no placement fee of any kind will be paid in the event the candidate is hired by Flow Traders.&lt;/em&gt;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 237105,
+     "name": "Data",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "offices": [
+    {
+     "id": 26356,
+     "name": "Amsterdam office",
+     "location": "Amsterdam, Noord-Holland, Netherlands",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": "<p>We use Greenhouse’s AI-powered Talent Matching tool to help compare applications against the requirements of the role. This technology is used solely to support the recruitment process by highlighting potentially relevant skills and experience.</p><p>The tool does not make hiring or screening decisions on behalf of Flow Traders. All applications and CVs are reviewed by members of our recruitment team, and all hiring decisions are made by humans.</p>",
+   "include_ai_disclaimer": true,
+   "ai_opt_out_request_url": "http://app.greenhouse.io/ai_opt_out_request/job_post/8288641/ai_opt_out"
+  },
+  {
+   "absolute_url": "https://job-boards.greenhouse.io/flowtraders/jobs/8255381",
+   "data_compliance": [
+    {
+     "type": "gdpr",
+     "requires_consent": false,
+     "requires_processing_consent": false,
+     "requires_retention_consent": false,
+     "retention_period": null,
+     "demographic_data_consent_applies": false
+    }
+   ],
+   "internal_job_id": 3572306,
+   "location": {
+    "name": "New York"
+   },
+   "metadata": [
+    {
+     "id": 154575,
+     "name": "Contact",
+     "value": "Alex Rickles\nRecruiter\nNew York Office\n+1 917 210 5000\ncareers.newyork@us.flowtraders.com",
+     "value_type": "long_text"
+    },
+    {
+     "id": 10142200,
+     "name": "Start Date",
+     "value": "2027-01-11",
+     "value_type": "date"
+    },
+    {
+     "id": 13763368,
+     "name": "Division",
+     "value": "Business Support",
+     "value_type": "single_select"
+    },
+    {
+     "id": 15473164,
+     "name": "High priority",
+     "value": null,
+     "value_type": "single_select"
+    },
+    {
+     "id": 16792934,
+     "name": "Application form required",
+     "value": null,
+     "value_type": "yes_no"
+    }
+   ],
+   "id": 8255381,
+   "updated_at": "2026-10-13T16:53:09-04:00",
+   "requisition_id": "1702",
+   "title": "Corporate Receptionist",
+   "company_name": "Flow Traders",
+   "first_published": "2026-10-05T12:54:25-04:00",
+   "language": "en",
+   "application_deadline": null,
+   "content": "&lt;p&gt;Flow Traders is seeking a Corporate Receptionist to join our growing Office Management team in New York. The ideal candidate is passionate about workplace experience and takes the lead to create a positive and impactful impression for employees and visitors to the office. This is a unique opportunity to join a leading proprietary trading firm with an entrepreneurial and innovative culture at the heart of its business. We value quick-witted, creative minds, and challenge them to make full use of their capacities.&lt;/p&gt;\n&lt;p&gt;As the Corporate Receptionist, you will play an important role in supporting the Office Management team’s mission: establish an exceptional workplace experience. This mission will be carried out through employee and visitor interactions, visitor management, travel coordination, vendor communications, administrative support, and the execution of concierge services. With hospitality and professionalism at the forefront of your mind, you will be responsible for ensuring employees and visitors have access to all the services and amenities we offer in the workplace. We are looking for someone who will bring energy, passion, and a strong work ethic.&lt;/p&gt;\n&lt;p&gt;This position will be full time.&amp;nbsp;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;Lead the department&#39;s mission to deliver exceptional workplace experience as the primary front-of-house specialist.&lt;/li&gt;\n&lt;li&gt;Open the office on time and ensure readiness to welcome, greet, and register employees, visitors, vendors, clients, and corporate executives.&lt;/li&gt;\n&lt;li&gt;Oversee the reception area and boardroom, ensuring meeting rooms are clean, functional, fully stocked, and properly reset after each meeting.&lt;/li&gt;\n&lt;li&gt;Manage meeting-room conflicts, including double bookings, unplanned meetings, and extended reservations.&lt;/li&gt;\n&lt;li&gt;Screen incoming calls, direct them to the appropriate contacts, and take messages for timely follow-up.&lt;/li&gt;\n&lt;li&gt;Process and log incoming and outgoing mail and courier services accurately and efficiently.&lt;/li&gt;\n&lt;li&gt;Assist the Office Manager with business travel coordination and related arrangements.&lt;/li&gt;\n&lt;li&gt;Monitor office-supply inventory and place orders as needed.&lt;/li&gt;\n&lt;li&gt;Prepare office expense reports and maintain accurate budget-tracking spreadsheets.&lt;/li&gt;\n&lt;li&gt;Support coordination and set up of some office initiatives, events, and scheduling in alignment with organizational priorities.&lt;/li&gt;\n&lt;li&gt;Coordinate and schedule routine office vendor visits and service requests.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;What You Need to Succeed&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;Bachelor’s degree required&lt;/li&gt;\n&lt;li&gt;3+ years of experience as a receptionist or administrative support role within a corporate, leisure or hospitality environment&lt;/li&gt;\n&lt;li&gt;High degree of professionalism with experience working with high profile clientele&lt;/li&gt;\n&lt;li&gt;Very strong interpersonal relationship skills&lt;/li&gt;\n&lt;li&gt;Excellent written and verbal communication skills&lt;/li&gt;\n&lt;li&gt;Experience balancing multiple requests and telephone lines&lt;/li&gt;\n&lt;li&gt;Punctual, dependable, proactive and anticipatory; quick to meet challenges and think outside the box to formulate solutions&lt;/li&gt;\n&lt;li&gt;Self-motivated and entrepreneurial with flexibility to support requests outside of considered job scope&lt;/li&gt;\n&lt;li&gt;Excellent “hands on” technical and analytical skills&lt;/li&gt;\n&lt;li&gt;Highly organized with the ability to handle multiple tasks and apply judgment to prioritize&lt;/li&gt;\n&lt;li&gt;Consistent attention to detail and accuracy never letting anything fall through the cracks and ability to close the loop&lt;/li&gt;\n&lt;li&gt;Proven track record to think creatively, problem solve, and develop scalable, innovative solutions&lt;/li&gt;\n&lt;li&gt;Works well with team members by sharing responsibilities productively&lt;/li&gt;\n&lt;li&gt;Can identify projects in addition to executing them&lt;/li&gt;\n&lt;li&gt;High proficiency with office technology, equipment, and applications, including Microsoft Word, Excel, PowerPoint and Outlook&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;At Flow Traders, we acknowledge the importance of open and transparent communication whether it be with our employees, our stakeholders, or our local and global communities. When it comes to salary, Flow Traders uses reliable market research to create base ranges. Where candidates will fall within the range depends on a few different factors including but not limited to level of experience, location, and specific skill set. We also consider ourselves one global team, and to demonstrate that, all employees are eligible to share in the company’s success through an annual discretionary variable remuneration allocated based on company, group and individual performance and contribution.&lt;/p&gt;\n&lt;p&gt;Per NYC salary transparency law, the total compensation for this role includes an hourly rate of $36-37.&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;Flow Traders does not accept unsolicited resumes from any professional staffing or search firms. All resumes, and any other information identifying potential candidates, submitted to any employee at Flow Traders via-email, the Internet or directly without a valid and signed search agreement will be deemed free to contact by Flow Traders without any restrictions and no placement fee of any kind will be paid in the event the candidate is hired by Flow Traders.&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;",
+   "departments": [
+    {
+     "id": 133296,
+     "name": "Facilities & Office Management ",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "offices": [
+    {
+     "id": 26353,
+     "name": "New York office",
+     "location": "New York, New York, United States",
+     "child_ids": [],
+     "parent_id": null
+    }
+   ],
+   "ai_disclaimer": "<p>We use Greenhouse’s AI-powered Talent Matching tool to help compare applications against the requirements of the role. This technology is used solely to support the recruitment process by highlighting potentially relevant skills and experience.</p><p>The tool does not make hiring or screening decisions on behalf of Flow Traders. All applications and CVs are reviewed by members of our recruitment team, and all hiring decisions are made by humans.</p>",
+   "include_ai_disclaimer": true,
+   "ai_opt_out_request_url": "http://app.greenhouse.io/ai_opt_out_request/job_post/8255381/ai_opt_out"
+  }
+ ],
+ "meta": {
+  "total": 3
+ }
+}

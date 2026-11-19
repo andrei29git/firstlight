@@ -1,0 +1,11 @@
+{# Next steps due: a slim strip above the table (the rows themselves are highlighted). #}
+{% if due %}
+  <div class="due-strip" role="note">
+    <svg width="16" height="16" class="icon" aria-hidden="true"><use href="#i-clock"/></svg>
+    <span class="due-strip-label">Next step{{ "s" if due|length > 1 else "" }}</span>
+    {% for a in due %}
+      <a class="due-item {{ a.next_step_status }}" href="#app-{{ a.id }}">
+        <strong>{{ a.company|company }}</strong> {% if a.next_step_status == "past" %}overdue since{% else %}by{% endif %} {{ a.next_step_by|nice_date }}</a>{% if not loop.last %}<span class="sep" aria-hidden="true">·</span>{% endif %}
+    {% endfor %}
+  </div>
+{% endif %}

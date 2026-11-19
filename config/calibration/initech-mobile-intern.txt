@@ -1,0 +1,4 @@
+Initech Mobile Engineer Intern (Lisbon)
+
+Six-month internship on our iOS and Android apps. You will write Swift and Kotlin daily.
+Requirements: shipped at least one mobile app; strong Swift or Kotlin.

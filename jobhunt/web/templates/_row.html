@@ -1,0 +1,41 @@
+{% set ls = list_stage if list_stage is defined else selected_stage %}
+<tr id="app-{{ a.id }}" class="row"
+    hx-get="/applications/{{ a.id }}/sheet" hx-target="#sheet" hx-swap="innerHTML"
+    hx-trigger="click[!event.target.closest('select, button, a, input')]">
+  <td class="primary">
+    <div class="title-line">
+      <button type="button" class="row-title" hx-get="/applications/{{ a.id }}/sheet" hx-target="#sheet"
+              hx-swap="innerHTML" aria-haspopup="dialog">{{ a.company|company }}</button>
+      {% if a.notes %}<span class="row-hint" data-tip="Has notes: {{ a.notes|truncate(80) }}" data-tip-wrap><svg width="16" height="16" class="icon mini" role="img" aria-label="Has notes"><use href="#i-note"/></svg></span>{% endif %}
+      {% if a.contact %}<span class="row-hint" data-tip="Recruiter contact: {{ a.contact }}" data-tip-wrap><svg width="16" height="16" class="icon mini" role="img" aria-label="Recruiter contact"><use href="#i-envelope"/></svg></span>{% endif %}
+    </div>
+    <div class="secondary">{{ a.role }}</div>
+    {% if a.location %}<div class="secondary small app-location">{{ a.location|places }}</div>{% endif %}
+  </td>
+  <td class="secondary col-location">{{ a.location|places }}</td>
+  <td class="nowrap">{{ a.applied_on|short_date }}</td>
+  {% set updated_note = ("Approximate, from the imported sheet: it had no date for this stage, so this counts from the application date" if a.last_change_approximate else "Stage last changed " ~ (a.last_change|short_date)) ~ (". No change in " ~ a.days_since_update ~ " days: worth a follow-up?" if a.ghosted else "") %}
+  <td class="nowrap col-updated {% if a.ghosted %}ghosted{% else %}secondary{% endif %}">
+    <span class="updated-text" data-tip="{{ updated_note }}" data-tip-wrap>
+      {% if a.ghosted %}<span class="stale-dot" aria-hidden="true"></span>{% endif %}
+      {{ a.days_since_update|ago }}<span class="visually-hidden"> ({{ updated_note }})</span>
+    </span>
+  </td>
+  <td class="nowrap col-next">
+    {% if a.next_step_by %}
+      <span class="next {{ a.next_step_status or '' }}"
+            data-tip="{{ 'Overdue' if a.next_step_status == 'past' else ('Due within ' ~ next_step_warning_days ~ ' days' if a.next_step_status == 'soon' else 'Next step') }}">
+        {% if a.next_step_status == "past" %}Overdue · {% endif %}{{ a.next_step_by|short_date }}
+      </span>
+    {% endif %}
+  </td>
+  <td class="nowrap">
+    <span class="capsule stage-{{ a.stage }}">
+      <select name="stage" aria-label="Stage for {{ a.company|company }}"
+              hx-post="/applications/{{ a.id }}" hx-trigger="change" hx-target="closest tr" hx-swap="outerHTML"
+              hx-vals='{"list_stage": {{ (ls or "")|tojson }}}'>
+        {% include "_stage_options.html" %}
+      </select>
+    </span>
+  </td>
+</tr>

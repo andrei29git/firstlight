@@ -1,0 +1,2 @@
+Vercors Data builds forecasting models for ski resorts. Six-month machine learning internship: PyTorch, model
+evaluation, some data engineering. Enrolled students only (internship agreement).

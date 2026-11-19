@@ -1,0 +1,64 @@
+# Application limits. The tool warns before any application that would use one up.
+# In phase 1 this drives the "Limit warning" tracker column; in phase 2 it is checked before drafting.
+#
+# scope: what the limit counts across ("company", "graduate_programmes", "role", "business_location", "global").
+# max + window_days: at most `max` applications per rolling window.
+# cooldown_days: wait this long after the trigger before applying again.
+# Leave a field out when the rule does not use it. `note` keeps the rule in plain words.
+
+[[limit]]
+company = "LSEG"
+scope = "graduate_programmes"
+max = 1
+note = "Only the first application across all graduate programmes is reviewed."
+
+[[limit]]
+company = "BNP Paribas"
+scope = "graduate_programmes"
+max = 1
+window = "academic_year"
+note = "One graduate role per academic year; more than one means automatic rejection."
+
+[[limit]]
+company = "Mistral"
+scope = "company"
+max = 3
+window_days = 90
+note = "Max 3 applications per 90 days across all roles."
+
+[[limit]]
+company = "Mistral"
+scope = "role"
+cooldown_days = 180
+note = "Wait 180 days before reapplying to the same role."
+
+[[limit]]
+company = "Optiver"
+scope = "global"
+cooldown_days = 243
+trigger = "assessment_or_interview"
+note = "8-month cooldown after completing an assessment or interview, covering internships, graduate roles and programmes globally."
+
+[[limit]]
+company = "IMC"
+scope = "company"
+window = "season"
+note = "Reapply only after a full season."
+
+[[limit]]
+company = "Goldman Sachs"
+scope = "business_location"
+max = 4
+window = "recruiting_year"
+note = "Max 4 applications per business and location per recruiting year."
+
+[[limit]]
+company = "Bending Spoons"
+scope = "company"
+cooldown_days = 365
+note = "Wait a year before reapplying."
+
+[[limit]]
+company = "Google"
+scope = "company"
+note = "Limits concurrent applications. Current number unverified: check before relying on it."

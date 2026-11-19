@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+{% set r = row.result %}
+{% block title %}{{ row.company_name }}: {{ row.record.title }} · {{ app_name }}{% endblock %}
+
+{% block sidebar %}
+<div id="sidebar" hx-get="/applications/sidebar" hx-trigger="applications-changed from:body" hx-swap="innerHTML">
+  {% include "_sidebar.html" %}
+</div>
+{% endblock %}
+
+{% from "_fit.html" import fit_ring %}
+{% block content %}
+<p class="back job-back"><a href="{{ back }}" data-back>‹ {{ back_label }}</a></p>
+<header class="toolbar job-head">
+  <div class="titles">
+    <h1>{{ row.record.title }}</h1>
+    <p class="subtitle">
+      {{ row.company_name }} · {{ row.places|join("; ") or "location not stated" }}
+    </p>
+  </div>
+  <div class="tools">
+    <form method="post" action="/wishlist/star" data-replace>
+      <input type="hidden" name="key" value="{{ row.key }}"><input type="hidden" name="from" value="detail"><input type="hidden" name="back" value="{{ back }}">
+      <input type="hidden" name="on" value="{{ 0 if row.wishlist else 1 }}">
+      {# The star alone (2026-11-18): Open posting is the one primary action here. #}
+      <button class="btn icon-only star-toggle{% if row.wishlist %} on{% endif %}" type="submit" aria-pressed="{{ 'true' if row.wishlist else 'false' }}"
+              data-tip="{{ 'On your wishlist' if row.wishlist else 'Add to wishlist' }}"
+              title="{{ 'Remove ' ~ row.company_name ~ ' from the wishlist' if row.wishlist else 'Check ' ~ row.company_name ~ ' every 2 hours and mark it with a star' }}">
+        <svg width="16" height="16" class="icon" aria-hidden="true"><use href="#i-star"/></svg>
+        <span class="visually-hidden">{{ "On wishlist" if row.wishlist else "Add to wishlist" }}</span>
+      </button>
+    </form>
+    {# The company's other action sits with its star: a menu, as blocking is rare (2026-11-18). #}
+    <details class="row-menu head-menu">
+      <summary class="btn icon-only" data-tip="More for {{ row.company_name }}" aria-label="More for {{ row.company_name }}">
+        <svg width="16" height="16" class="icon" aria-hidden="true"><use href="#i-ellipsis"/></svg>
+      </summary>
+      <div class="menu" role="menu">
+        <form method="post" action="/blocked/set" data-replace
+              {% if row.wishlist %}onsubmit="return confirm({{ (row.company_name ~ ' is on your wishlist. Block it anyway? It leaves the wishlist (Undo puts it back).')|tojson|forceescape }})"{% endif %}>
+          <input type="hidden" name="name" value="{{ row.record.company }}"><input type="hidden" name="on" value="1">
+          <input type="hidden" name="from" value="detail"><input type="hidden" name="back" value="{{ back }}">
+          <button type="submit" role="menuitem" title="Not fetched or scored any more; its roles show nowhere">Block {{ row.company_name }}</button>
+        </form>
+      </div>
+    </details>
+    <a class="btn" href="{{ linkedin_url(row) }}" target="_blank" rel="noopener noreferrer">Check LinkedIn</a>
+    <a class="btn btn-primary" href="{{ row.record.url }}" target="_blank" rel="noopener noreferrer">Open posting</a>
+  </div>
+</header>
+
+{% if error %}<p class="banner" role="alert">{{ error }}</p>{% endif %}
+{% if notice %}<p class="banner ok" role="status">{{ notice }}</p>{% endif %}
+{% if row.on_hold %}<p class="banner warn" role="note">You have an application On hold at {{ row.company_name }}: contact the recruiter rather than applying cold.</p>{% endif %}
+{% for note in row.limit_notes %}<p class="banner warn" role="note">Application limit at {{ row.company_name }}: {{ note }}</p>{% endfor %}
+{% if row.record.source == "email" %}<p class="banner" role="note">From a job alert email: the score is provisional, made from the title and the email's text. The tool never follows alert links, so open the posting to read it.</p>{% endif %}
+{% if row.record.closed %}<p class="banner" role="note">This posting has gone from the board (closed {{ row.record.closed_at|short_date }}). Watch for it reopening.</p>{% endif %}
+
+{# Two columns (2026-11-19): the score, help and posting in a main column capped at a reading width;
+   the status, details and notes in a sticky sidebar, which moves under the score in narrow windows. #}
+<div class="job-layout">
+  <section class="card pad job-score">
+    {% if r %}
+      {# The score's header (2026-11-19): the ring anchors it; status and odds read as on Jobs. #}
+      <div class="score-head">
+        {{ fit_ring(r.fit, big=True) }}
+        <div class="score-head-text">
+          <div class="score-facts">
+            <span class="status status-{{ row.status }}"{% if row.blocker_text %} title="{{ row.blocker_text }}"{% endif %}><span class="status-dot" aria-hidden="true"></span>{{ row.status|capitalize }}</span>
+            <span class="score-sep" aria-hidden="true">·</span><span>{{ action_labels[row.action] }}</span>
+            <span class="score-sep" aria-hidden="true">·</span><span class="secondary">Odds {{ r.odds }}</span>
+          </div>
+          <div class="secondary small scored-by">Scored by {{ row.score.model|capitalize }} on {{ row.score.scored_at|short_date }}
+          {%- if posting and demo %} · <button class="link-btn" type="button" data-reveal="#score-demo-note" aria-controls="score-demo-note">Rescore</button>
+          {%- elif posting %} · <form method="post" action="/job/rescore" class="inline-form" data-replace onsubmit="this.querySelector('button').disabled = true; this.querySelector('button').textContent = 'Scoring…'">
+            <input type="hidden" name="key" value="{{ row.key }}"><input type="hidden" name="back" value="{{ back }}">
+            <button class="link-btn" type="submit" title="Score again with the current rules (one Sonnet call, about 20 seconds)">Rescore</button>
+          </form>{% endif %}</div>
+        </div>
+      </div>
+      {# In the demo, Rescore says so in place (2026-11-19): no reload, nothing red, the help tab kept. #}
+      {% if demo %}<p class="banner demo-note" id="score-demo-note" role="note" hidden>{{ demo_off.rescore }}</p>{% endif %}
+      <p class="explanation">{{ r.explanation }}</p>
+      {% if r.angle %}<p class="fact-line"><strong>Lead with:</strong> {{ r.angle|angle }}</p>{% endif %}
+      {# Blockers read like "Lead with" and "Gaps": one line each, the kind in plain secondary text. #}
+      {% for b in r.blockers %}
+        <p class="fact-line blocker-line"><strong>{{ "Blocker" if b.severity == "blocking" else "To check" }}:</strong> {{ b.detail }} <span class="secondary">· {{ b.type }}</span></p>
+      {% endfor %}
+      {# Gaps on one line, like "Lead with" (2026-11-18). #}
+      {% if r.gaps %}<p class="fact-line gaps-line"><strong>Gaps:</strong> {{ r.gaps|map("gap_text")|join(", ") }}</p>{% endif %}
+    {% else %}
+      <h2 class="card-title">Not scored</h2>
+      <p class="secondary">
+        {% if row.view == "skipped" %}It was already open when its company was first fetched and is older than the backlog window, so it is not scored.
+        {% else %}Waiting: the next runs score it.{% endif %}
+      </p>
+      {% if posting and demo %}<p class="small"><button class="link-btn" type="button" data-reveal="#score-demo-note" aria-controls="score-demo-note">Score it now</button></p>
+        <p class="banner demo-note" id="score-demo-note" role="note" hidden>Scoring is switched off in the demo: it would send this posting to Claude.</p>
+      {% elif posting %}<p class="small"><form method="post" action="/job/rescore" class="inline-form" data-replace onsubmit="this.querySelector('button').disabled = true; this.querySelector('button').textContent = 'Scoring…'">
+            <input type="hidden" name="key" value="{{ row.key }}"><input type="hidden" name="back" value="{{ back }}">
+            <button class="link-btn" type="submit" title="Score again with the current rules (one Sonnet call, about 20 seconds)">Score it now</button>
+          </form></p>{% endif %}
+    {% endif %}
+  </section>
+
+  <aside class="card pad side job-side" aria-label="Your status, details and notes">
+    {% if not row.stage or row.stage == "to_apply" %}
+      <form method="post" action="/job/stage" class="field" data-replace>
+        <input type="hidden" name="key" value="{{ row.key }}"><input type="hidden" name="from" value="detail"><input type="hidden" name="back" value="{{ back }}">
+        <input type="hidden" name="stage" value="applied">
+        <span>{{ "To apply" if row.stage == "to_apply" else "Not applied" }}</span>
+        <button class="btn btn-primary small-btn" type="submit" title="Applied today: moves the role to the Applications page">Mark as applied</button>
+      </form>
+    {% else %}
+      <div class="field"><span>{{ stage_labels[row.stage] }}</span>
+        <a href="/applications?stage={{ row.stage }}" title="Change the stage on the Applications page">Change stage</a></div>
+    {% endif %}
+    <form method="post" action="/job/mark" data-replace>
+      <input type="hidden" name="key" value="{{ row.key }}"><input type="hidden" name="from" value="detail"><input type="hidden" name="back" value="{{ back }}">
+      <input type="hidden" name="hidden" value="{{ 0 if row.mark.hidden else 1 }}">
+      <div class="field"><span>{{ "Hidden" if row.mark.hidden else "Shown on Jobs" }}</span>
+        <button class="btn small-btn" type="submit">{{ "Show again" if row.mark.hidden else "Hide" }}</button></div>
+    </form>
+    <dl class="facts">
+      {% if row.deadline %}<dt>Deadline</dt>{% set tone = row.deadline|due_tone %}<dd class="deadline {{ tone }}">{% if tone == "past" %}Passed on {{ row.deadline|short_date }}{% elif (row.deadline|due) in ("Due today", "Due tomorrow") %}{{ (row.deadline|due)[4:]|capitalize }}{% else %}{{ row.deadline|short_date }}{% endif %}</dd>{% endif %}
+      {% if r and r.start_date %}<dt>Start</dt><dd>{{ r.start_date|start_date }}</dd>{% endif %}
+      {% if row.record.posted %}<dt>Posted</dt><dd>{{ row.record.posted|short_date }}</dd>{% endif %}
+      <dt>Found</dt><dd>{{ row.record.first_seen|short_date }}</dd>
+      <dt>Source</dt><dd>{{ row.record.source|capitalize }}{% if row.record.origin == "generated" %} (generated list){% endif %}</dd>
+      {% if row.record.department %}<dt>Department</dt><dd>{{ row.record.department }}</dd>{% endif %}
+      {% if row.record.employment_type %}<dt>Type</dt><dd>{{ row.record.employment_type }}</dd>{% endif %}
+    </dl>
+    {# Notes save as you type (2026-11-18). #}
+    <form class="notes-form" data-autosave onsubmit="return false">
+      <input type="hidden" name="key" value="{{ row.key }}"><input type="hidden" name="autosave" value="1">
+      <label class="field stacked"><span>Notes</span><textarea name="notes" rows="3" data-autogrow hx-post="/job/mark" hx-include="closest form"
+        hx-trigger="input changed delay:700ms, change" hx-swap="none">{{ row.mark.notes }}</textarea></label>
+      <p class="autosave-status secondary small" aria-live="polite">Saved as you type</p>
+    </form>
+    {% if history %}
+      <h3 class="section-title">History</h3>
+      <ol class="timeline">
+        {% for h in history %}
+          <li><span class="dot stage-{{ h.stage }}" aria-hidden="true"></span>
+            <span class="timeline-stage">{{ stage_labels[h.stage] }}</span>
+            <time datetime="{{ h.changed_at[:10] }}">{{ h.changed_at|short_date }}</time></li>
+        {% endfor %}
+      </ol>
+    {% endif %}
+  </aside>
+
+  <div class="job-help">
+    <div hx-get="/job/help?key={{ row.key|urlencode }}&amp;tab={{ help_tab }}" hx-trigger="load" hx-swap="outerHTML">
+      <section id="help" class="card pad help"><h2 class="card-title">Application help</h2><p class="secondary small">Loading…</p></section>
+    </div>
+  </div>
+
+  <section class="card pad posting job-posting">
+    <h2 class="card-title">Posting</h2>
+    {% if posting %}<div class="posting-text rich">{{ posting|rich }}</div>
+    {% else %}<p class="secondary">The posting text has not been fetched yet (only roles that can be scored are fetched in full). <a href="{{ row.record.url }}" target="_blank" rel="noopener noreferrer">Open it on the board</a>.</p>{% endif %}
+  </section>
+</div>
+{% endblock %}

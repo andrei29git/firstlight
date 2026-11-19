@@ -1,0 +1,1 @@
+QA automation engineer for our dispatch apps: Playwright tests, test plans, release checks.

@@ -1,0 +1,63 @@
+# Display names for generated-list companies the board knows only by a slug or a Workday tenant
+# (2026-11-19). Key: the slug or tenant, lowercase, no separators. Names you write yourself in
+# companies.toml or the wishlist always win over these.
+a1group	A1 Group
+absyscyborg	Absys Cyborg
+aikidosecurity	Aikido Security
+airliquidehr	Air Liquide
+alfalaval	Alfa Laval
+analogdevices	Analog Devices
+antonivanleeuwenhoek	Antoni van Leeuwenhoek
+armatisfrance	Armatis France
+axiansgroup	Axians
+bakerhughes	Baker Hughes
+ballastnedam	Ballast Nedam
+cbsconsulting	CBS Consulting
+circlek	Circle K
+dfdsprofessionals	DFDS
+duravermeer	Dura Vermeer
+dxctechnology	DXC Technology
+edelmanngroup	Edelmann Group
+erstedigital	Erste Digital
+fourseasons	Four Seasons
+freseniusmedicalcare	Fresenius Medical Care
+fticonsulting	FTI Consulting
+gehc	GE HealthCare
+gevernova	GE Vernova
+ggzcentraal	GGZ Centraal
+globalfoundries	GlobalFoundries
+hemeriagroup	Hemeria Group
+hoganlovells	Hogan Lovells
+huaweiresearchcentergermanyaustria	Huawei Research Center Germany & Austria
+ingrammicro	Ingram Micro
+institutminestelecom	Institut Mines-Télécom
+juliusbaer	Julius Baer
+kiongroup	KION Group
+knowmadmood	Knowmad Mood
+leonardocompany	Leonardo
+leroymerlingreece	Leroy Merlin Greece
+leroymerlinspain	Leroy Merlin Spain
+levistraussandco	Levi Strauss & Co.
+logicalisespana	Logicalis España
+maisonsdumonde	Maisons du Monde
+mdlz	Mondelēz International
+michelinhr	Michelin
+myjewellery	My Jewellery
+onetp	Teleperformance
+pierrefabre	Pierre Fabre
+rockwellautomation	Rockwell Automation
+rockwoolgroup	ROCKWOOL
+rollsroyce	Rolls-Royce
+roxelfrance	Roxel France
+saabgroup	Saab
+storaenso	Stora Enso
+swisslife	Swiss Life
+thermofisher	Thermo Fisher Scientific
+transperfect	TransPerfect
+transperfect4	TransPerfect
+vencomaticgroup	Vencomatic Group
+villeroyboch	Villeroy & Boch
+vionfoodgroup	Vion Food Group
+wspcentraleurope	WSP Central Europe
+xebiacareers	Xebia
+zeissgroup	ZEISS

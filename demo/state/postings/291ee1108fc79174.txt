@@ -1,0 +1,2 @@
+Danubit's payments team takes deposits and refunds for 300 hotels. Graduate role: Go services, PostgreSQL,
+payment provider integrations. Final-year students are welcome to apply; English at work.

@@ -1,0 +1,42 @@
+# Example candidate for tests, the demo mode and the public version. Entirely made up.
+# Same keys as the real config, so rules.md renders the same way.
+
+[candidate]
+example = true
+name = "Andrei"
+full_name = "Andrei Example"
+surname = "Example"
+
+[availability]
+full_time_from = "September 2028"
+current_commitments = "Until May 2028 he works part time at Acme Payments, alongside his final year."
+
+[enrolment]
+master_decision = "He plans to stop after his bachelor's."
+
+[visa]
+citizenship = "Spanish EU citizen"
+clear_regions = "EU, EEA and Swiss locations are clear."
+sponsorship_countries = "UK and US"
+policy = "A `visa` check, or blocking if the posting says it does not sponsor."
+country_notes = """
+  - UK: he would need Skilled Worker sponsorship.
+  - US: graduate roles need H-1B sponsorship; internships usually need J-1 sponsorship."""
+
+[languages]
+summary = "English C1, Spanish native, French B1."
+other_than = "English or Spanish"
+
+[grade]
+summary = "University of Exampleton cumulative 8.1/10, roughly a UK First."
+blocking_rule = "Grade requirements are rarely a problem for him; flag any as a check."
+
+[stack]
+strong = "Python and Go"
+poor_fit = "Roles centred on mobile, embedded C, or game engines"
+
+[portfolio]
+summary = "Public GitHub with two maintained open-source tools."
+
+[odds]
+rubric = """Odds measures how likely the candidate is to get the role given the applicant pool, separately from fit. Use low for the most selective employers regardless of match, medium for competitive graduate programmes at large, well-known companies, and high for smaller or less well-known companies, when he has a referral or inside track, or when his profile is unusual for the applicant pool."""

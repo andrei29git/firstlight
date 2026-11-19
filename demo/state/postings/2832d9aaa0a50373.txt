@@ -1,0 +1,8 @@
+Danubit builds the booking engine behind 300 hotels in Romania and Bulgaria.
+We are looking for a junior backend developer to join the availability team.
+
+- Go microservices, PostgreSQL, Redis.
+- REST and gRPC APIs consumed by our partners.
+- Mentoring from senior engineers, a clear growth path.
+
+Requirements: up to two years of experience, Go or a strong wish to work in it, SQL. English required.

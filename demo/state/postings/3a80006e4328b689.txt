@@ -1,0 +1,1 @@
+Embedded C++ on the robots' motion controllers, real-time Linux. German at B2.

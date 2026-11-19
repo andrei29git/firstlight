@@ -1,0 +1,8 @@
+Carpatica Software builds scheduling and dispatch software for regional transport companies across Central Europe.
+Join our 2027 graduate intake in Cluj-Napoca.
+
+- Backend work in Python (FastAPI) on PostgreSQL, deployed on Kubernetes.
+- A rotation through two teams in the first year: routing and integrations.
+- Pairing, code review and a training budget from day one.
+
+Requirements: a computer science degree (final-year students welcome), Python, SQL, Git. English at work; Romanian is not needed.

@@ -1,0 +1,3 @@
+{# Stages for an application. To apply sends a found role back to Jobs (and off this page), so it
+   is offered only for those; an application added by hand has no Jobs row to go back to. #}
+{% for s in stages %}{% if s.key != "to_apply" or (a and a.found) %}<option value="{{ s.key }}" {% if a and s.key == a.stage %}selected{% elif not a and s.key == "applied" %}selected{% endif %}>{{ s.label }}</option>{% endif %}{% endfor %}

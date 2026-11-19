@@ -1,0 +1,80 @@
+{
+ "status": 200,
+ "error": {
+  "message": "",
+  "body": ""
+ },
+ "data": {
+  "positions": [
+   {
+    "id": 1970393557041034,
+    "displayJobId": "200061989",
+    "name": "Support Sales Specialist",
+    "locations": [
+     "Romania, Multiple Locations, Multiple Locations",
+     "Ireland, Dublin, Dublin",
+     "Bulgaria, Multiple Locations, Multiple Locations"
+    ],
+    "standardizedLocations": [
+     "RO",
+     "Dublin, D, IE",
+     "BG"
+    ],
+    "postedTs": 1793183956,
+    "solrScore": null,
+    "stars": 0,
+    "department": "Digital Solution Area Specialists",
+    "creationTs": 1792014393,
+    "isHot": 0,
+    "workLocationOption": "onsite",
+    "locationFlexibility": null,
+    "atsJobId": "200061989",
+    "positionUrl": "/careers/job/1970393557041034"
+   },
+   {
+    "id": 1970393556982085,
+    "displayJobId": "200051972",
+    "name": "Technical Support Engineering Manager",
+    "locations": [
+     "Romania, Bucharest, Bucharest"
+    ],
+    "standardizedLocations": [
+     "Bucharest, Bucharest, RO"
+    ],
+    "postedTs": 1793125933,
+    "solrScore": null,
+    "stars": 0,
+    "department": "Technical Support Engineering",
+    "creationTs": 1787781969,
+    "isHot": 0,
+    "workLocationOption": "onsite",
+    "locationFlexibility": null,
+    "atsJobId": "200051972",
+    "positionUrl": "/careers/job/1970393556982085"
+   },
+   {
+    "id": 1970393556873383,
+    "displayJobId": "200039648",
+    "name": "Technical Support Advisor",
+    "locations": [
+     "Romania, Bucharest, Bucharest"
+    ],
+    "standardizedLocations": [
+     "Bucharest, Bucharest, RO"
+    ],
+    "postedTs": 1793125735,
+    "solrScore": null,
+    "stars": 0,
+    "department": "Technical Support Advisory",
+    "creationTs": 1780638185,
+    "isHot": 0,
+    "workLocationOption": "onsite",
+    "locationFlexibility": null,
+    "atsJobId": "200039648",
+    "positionUrl": "/careers/job/1970393556873383"
+   }
+  ],
+  "count": 3
+ },
+ "metadata": null
+}

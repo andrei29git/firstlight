@@ -1,0 +1,1 @@
+Python services for sensor ingestion. Junior level, English-speaking.

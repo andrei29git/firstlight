@@ -1,0 +1,500 @@
+{
+ "items": [
+  {
+   "SearchId": 1,
+   "Keyword": null,
+   "CorrectedKeyword": null,
+   "UseExactKeywordFlag": false,
+   "SuggestedKeyword": null,
+   "ExecuteSpellCheckFlag": true,
+   "Location": null,
+   "LocationId": null,
+   "Radius": 0,
+   "RadiusUnit": "MI",
+   "SelectedTitlesFacet": null,
+   "SelectedCategoriesFacet": null,
+   "SelectedPostingDatesFacet": null,
+   "SelectedLocationsFacet": null,
+   "LastSelectedFacet": null,
+   "Facets": "TITLES;LOCATIONS;LOCATION_LEVEL1;LOCATION_LEVEL2;LOCATION_LEVEL3;CATEGORIES;POSTING_DATES;WORK_LOCATIONS;FLEX_FIELDS;ORGANIZATIONS;WORKPLACE_TYPES",
+   "Offset": 0,
+   "Limit": 200,
+   "SortBy": "POSTING_DATES_DESC",
+   "TotalJobsCount": 575,
+   "Latitude": null,
+   "Longitude": null,
+   "SiteNumber": "CX_1",
+   "JobFamilyId": null,
+   "PostingStartDate": null,
+   "PostingEndDate": null,
+   "SelectedWorkLocationsFacet": null,
+   "RequisitionId": null,
+   "CandidateNumber": null,
+   "WorkLocationZipCode": null,
+   "WorkLocationCountryCode": null,
+   "SelectedFlexFieldsFacets": null,
+   "OrganizationId": null,
+   "SelectedOrganizationsFacet": null,
+   "UserTargetFacetName": null,
+   "UserTargetFacetInputTerm": null,
+   "HotJobFlag": null,
+   "WorkplaceType": null,
+   "SelectedWorkplaceTypesFacet": null,
+   "BotQRShortCode": null,
+   "requisitionList": [
+    {
+     "Id": "34387",
+     "Title": "IP Network Designer",
+     "PostedDate": "2026-10-29",
+     "PostingEndDate": null,
+     "Language": "US",
+     "PrimaryLocationCountry": "RO",
+     "GeographyId": 300000000471997,
+     "HotJobFlag": true,
+     "WorkplaceTypeCode": null,
+     "JobFamily": null,
+     "JobFunction": null,
+     "WorkerType": null,
+     "ContractType": null,
+     "ManagerLevel": null,
+     "JobSchedule": null,
+     "JobShift": null,
+     "JobType": null,
+     "StudyLevel": null,
+     "DomesticTravelRequired": null,
+     "InternationalTravelRequired": null,
+     "WorkDurationYears": null,
+     "WorkDurationMonths": null,
+     "WorkHours": null,
+     "WorkDays": null,
+     "LegalEmployer": null,
+     "BusinessUnit": null,
+     "Department": null,
+     "Organization": null,
+     "BusinessUnitId": 300000006664246,
+     "LegalEmployerId": 300000006344670,
+     "OrganizationId": 300000790515317,
+     "MediaThumbURL": null,
+     "ShortDescriptionStr": "We are seeking an IP Network Designer with deep expertise in networking protocols (e.g., TCP/IP, MPLS, BGP, OSPF, IPv4/IPv6), IP/MPLS networks, WLAN technologies, and ISP subscriber technologies, alongside hands-on experience with Cisco and Juniper systems, network automation, and virtualization. Strong problem-solving, cross-functional collaboration, and communication skills, coupled with certifications like CCNP/CCIE or JNCIP/JNCIE, are essential for success in this role.",
+     "PrimaryLocation": "Romania",
+     "Distance": 1793232000000.0,
+     "TrendingFlag": true,
+     "BeFirstToApplyFlag": false,
+     "Relevancy": 15,
+     "WorkplaceType": "",
+     "ExternalQualificationsStr": null,
+     "ExternalResponsibilitiesStr": null,
+     "secondaryLocations": []
+    },
+    {
+     "Id": "41680",
+     "Title": "Trainee, Investment Management",
+     "PostedDate": "2026-10-29",
+     "PostingEndDate": null,
+     "Language": "US",
+     "PrimaryLocationCountry": "FI",
+     "GeographyId": 300000000471640,
+     "HotJobFlag": true,
+     "WorkplaceTypeCode": "ORA_HYBRID",
+     "JobFamily": null,
+     "JobFunction": null,
+     "WorkerType": null,
+     "ContractType": null,
+     "ManagerLevel": null,
+     "JobSchedule": null,
+     "JobShift": null,
+     "JobType": null,
+     "StudyLevel": null,
+     "DomesticTravelRequired": null,
+     "InternationalTravelRequired": null,
+     "WorkDurationYears": null,
+     "WorkDurationMonths": null,
+     "WorkHours": null,
+     "WorkDays": null,
+     "LegalEmployer": null,
+     "BusinessUnit": null,
+     "Department": null,
+     "Organization": null,
+     "BusinessUnitId": 300000006664246,
+     "LegalEmployerId": 300000006345690,
+     "OrganizationId": 300001495832514,
+     "MediaThumbURL": null,
+     "ShortDescriptionStr": "We are looking for a Financial Data Engineering Trainee to join our Investment & Patent Portfolio Management team at Nokia Technology Standards. In this hands-on technical role, you will build reliable data foundations for patent cost and portfolio analytics. You will bring together data from different sources, resolve data quality issues, and develop practical tools and visual outputs that make complex information easier to use.",
+     "PrimaryLocation": "Finland",
+     "Distance": 1793232000000.0,
+     "TrendingFlag": false,
+     "BeFirstToApplyFlag": false,
+     "Relevancy": 15,
+     "WorkplaceType": "Hybrid",
+     "ExternalQualificationsStr": null,
+     "ExternalResponsibilitiesStr": null,
+     "secondaryLocations": []
+    },
+    {
+     "Id": "41449",
+     "Title": "Director Product Management",
+     "PostedDate": "2026-10-29",
+     "PostingEndDate": null,
+     "Language": "US",
+     "PrimaryLocationCountry": "DE",
+     "GeographyId": 300000000471601,
+     "HotJobFlag": false,
+     "WorkplaceTypeCode": "ORA_HYBRID",
+     "JobFamily": null,
+     "JobFunction": null,
+     "WorkerType": null,
+     "ContractType": null,
+     "ManagerLevel": null,
+     "JobSchedule": null,
+     "JobShift": null,
+     "JobType": null,
+     "StudyLevel": null,
+     "DomesticTravelRequired": null,
+     "InternationalTravelRequired": null,
+     "WorkDurationYears": null,
+     "WorkDurationMonths": null,
+     "WorkHours": null,
+     "WorkDays": null,
+     "LegalEmployer": null,
+     "BusinessUnit": null,
+     "Department": null,
+     "Organization": null,
+     "BusinessUnitId": 300000006664259,
+     "LegalEmployerId": 300000006365666,
+     "OrganizationId": 10001596,
+     "MediaThumbURL": null,
+     "ShortDescriptionStr": "The Product Manager is accountable for the complete product lifecycle of products / services, from conception and scale-up through to ramp-down, including release update planning and execution. Ensures product competitiveness, stickiness, and excellent customer experience, as well as improve Customer Perceived Value Index (CPVI) through the respective product / service. Responsible for providing updated product / service roadmaps, delivery guidelines, sales guidance as well as the achievement of revenue and profitability goals of the assigned product / service.",
+     "PrimaryLocation": "Germany",
+     "Distance": 1793232000000.0,
+     "TrendingFlag": false,
+     "BeFirstToApplyFlag": true,
+     "Relevancy": 9,
+     "WorkplaceType": "Hybrid",
+     "ExternalQualificationsStr": null,
+     "ExternalResponsibilitiesStr": null,
+     "secondaryLocations": []
+    }
+   ],
+   "categoriesFacet": [
+    {
+     "Id": 300000009357764,
+     "Name": "Applied R&D",
+     "TotalCount": 284
+    },
+    {
+     "Id": 300000009357791,
+     "Name": "Corporate Services",
+     "TotalCount": 58
+    },
+    {
+     "Id": 300000009357785,
+     "Name": "Direct Production",
+     "TotalCount": 54
+    },
+    {
+     "Id": 300000009357800,
+     "Name": "Customer Services",
+     "TotalCount": 49
+    },
+    {
+     "Id": 300000009357755,
+     "Name": "Information Technology",
+     "TotalCount": 24
+    },
+    {
+     "Id": 300000009357752,
+     "Name": "Pre-Sales",
+     "TotalCount": 19
+    },
+    {
+     "Id": 300000009357809,
+     "Name": "Supply",
+     "TotalCount": 18
+    },
+    {
+     "Id": 300000009357788,
+     "Name": "Product, Portfolio & Solution Management",
+     "TotalCount": 13
+    },
+    {
+     "Id": 300000009357761,
+     "Name": "Legal",
+     "TotalCount": 11
+    },
+    {
+     "Id": 300000009357797,
+     "Name": "Patent Operations",
+     "TotalCount": 8
+    }
+   ],
+   "locationsFacet": [
+    {
+     "Id": 300000000480126,
+     "Name": "United States",
+     "TotalCount": 243
+    },
+    {
+     "Id": 300000000471745,
+     "Name": "India",
+     "TotalCount": 141
+    },
+    {
+     "Id": 300000000471544,
+     "Name": "Canada",
+     "TotalCount": 79
+    },
+    {
+     "Id": 300000000471904,
+     "Name": "Malaysia",
+     "TotalCount": 36
+    },
+    {
+     "Id": 300000000471982,
+     "Name": "Portugal",
+     "TotalCount": 28
+    },
+    {
+     "Id": 300000000471640,
+     "Name": "Finland",
+     "TotalCount": 25
+    },
+    {
+     "Id": 300000000480081,
+     "Name": "Thailand",
+     "TotalCount": 20
+    },
+    {
+     "Id": 300000000471601,
+     "Name": "Germany",
+     "TotalCount": 14
+    },
+    {
+     "Id": 300000000471760,
+     "Name": "Italy",
+     "TotalCount": 14
+    },
+    {
+     "Id": 300000000471967,
+     "Name": "Poland",
+     "TotalCount": 10
+    }
+   ],
+   "postingDatesFacet": [
+    {
+     "Id": 7,
+     "Name": "Less than 7 days",
+     "TotalCount": 71
+    },
+    {
+     "Id": 30,
+     "Name": "Less than 30 days",
+     "TotalCount": 262
+    },
+    {
+     "Id": 31,
+     "Name": "Greater than 30 days",
+     "TotalCount": 313
+    }
+   ],
+   "titlesFacet": [
+    {
+     "Id": "SWA",
+     "Name": "Software",
+     "TotalCount": 92
+    },
+    {
+     "Id": "DHA",
+     "Name": "Digital Hardware",
+     "TotalCount": 82
+    },
+    {
+     "Id": "TRA",
+     "Name": "Trainee",
+     "TotalCount": 50
+    },
+    {
+     "Id": "IVT",
+     "Name": "Integration, Verification & Testing",
+     "TotalCount": 41
+    },
+    {
+     "Id": "DPO",
+     "Name": "Direct Production",
+     "TotalCount": 27
+    },
+    {
+     "Id": "EDE",
+     "Name": "Electromechanical Design",
+     "TotalCount": 25
+    },
+    {
+     "Id": "NWD",
+     "Name": "NW Design & Optimisation",
+     "TotalCount": 20
+    },
+    {
+     "Id": "SDS",
+     "Name": "Sales Development & Solutioning",
+     "TotalCount": 19
+    },
+    {
+     "Id": "RDA",
+     "Name": "R&D Architecture",
+     "TotalCount": 16
+    },
+    {
+     "Id": "MEN",
+     "Name": "Manufacturing Engineer",
+     "TotalCount": 13
+    }
+   ],
+   "workLocationsFacet": [
+    {
+     "Id": 300000764022944,
+     "Name": "Infinera Bordeaux Dr",
+     "TotalCount": 65
+    },
+    {
+     "Id": 300000011420108,
+     "Name": "3201 Olympus Boulevard",
+     "TotalCount": 57
+    },
+    {
+     "Id": 300000892229126,
+     "Name": "Infinera Prestige Solitaire",
+     "TotalCount": 55
+    },
+    {
+     "Id": 300000892203500,
+     "Name": "Infinera San Ignacio Av FAB 2.0",
+     "TotalCount": 51
+    },
+    {
+     "Id": 300000011420199,
+     "Name": "520 Almanor Avenue",
+     "TotalCount": 36
+    },
+    {
+     "Id": 300000011385779,
+     "Name": "March Rd Tower 1",
+     "TotalCount": 33
+    },
+    {
+     "Id": 300000892203493,
+     "Name": "Infinera Windsor Dr",
+     "TotalCount": 33
+    },
+    {
+     "Id": 300000011378351,
+     "Name": "Manyata L5",
+     "TotalCount": 27
+    },
+    {
+     "Id": 300000011385726,
+     "Name": "March Rd Corp",
+     "TotalCount": 26
+    },
+    {
+     "Id": 300000011418751,
+     "Name": "Manyata E2",
+     "TotalCount": 26
+    }
+   ],
+   "flexFieldsFacet": [
+    {
+     "Name": "AttributeChar12",
+     "Label": "Role Type"
+    },
+    {
+     "Name": "AttributeChar18",
+     "Label": "Laptop - support with ordering needed"
+    },
+    {
+     "Name": "AttributeChar15",
+     "Label": "Hot Job"
+    },
+    {
+     "Name": "AttributeChar19",
+     "Label": "Incentive Bonus"
+    },
+    {
+     "Name": "AttributeChar20",
+     "Label": "Salary Range PL"
+    },
+    {
+     "Name": "AttributeChar21",
+     "Label": "Experience level"
+    }
+   ],
+   "organizationsFacet": [
+    {
+     "Id": 10003346,
+     "Name": "NI ON PSE HW&TE Test Eng PSS Syst&Plug (L05)",
+     "TotalCount": 14
+    },
+    {
+     "Id": 300000806573521,
+     "Name": "NI ON PSE HW&TE Test Eng VI Integr Prod (L05)",
+     "TotalCount": 13
+    },
+    {
+     "Id": 300000945986418,
+     "Name": "NI ON Mfg PIC Production Fab 4 (L07)",
+     "TotalCount": 10
+    },
+    {
+     "Id": 300001778049661,
+     "Name": "MI AN EMS NCMT 1 (L05)",
+     "TotalCount": 8
+    },
+    {
+     "Id": 300001897519370,
+     "Name": "NI FN AI & Emerging SW Platforms (L03)",
+     "TotalCount": 7
+    },
+    {
+     "Id": 52610023,
+     "Name": "NI FN BBN Fiber DU Transport Apps (L05)",
+     "TotalCount": 6
+    },
+    {
+     "Id": 53152285,
+     "Name": "NI ON Comp R&D SS R&D AdOp Adv Packaging (L06)",
+     "TotalCount": 6
+    },
+    {
+     "Id": 53152281,
+     "Name": "NI ON PSE HW&TE Plug HW & Optical (L05)",
+     "TotalCount": 5
+    },
+    {
+     "Id": 300000806569563,
+     "Name": "NI ON Comp R&D ASICs & Architecture 1A (L06)",
+     "TotalCount": 5
+    },
+    {
+     "Id": 300000806569943,
+     "Name": "NI ON Mfg PIC Production Fab 1 (L07)",
+     "TotalCount": 5
+    }
+   ],
+   "workplaceTypesFacet": [
+    {
+     "Id": "ORA_HYBRID",
+     "Name": "Hybrid",
+     "TotalCount": 353
+    },
+    {
+     "Id": "ORA_ON_SITE",
+     "Name": "Onsite",
+     "TotalCount": 220
+    },
+    {
+     "Id": "ORA_REMOTE",
+     "Name": "Remote",
+     "TotalCount": 2
+    }
+   ]
+  }
+ ]
+}

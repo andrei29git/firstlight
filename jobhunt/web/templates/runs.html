@@ -1,0 +1,171 @@
+{% extends "base.html" %}
+{% block title %}Runs · {{ app_name }}{% endblock %}
+
+{% block sidebar %}
+<div id="sidebar" hx-get="/applications/sidebar?page=runs" hx-trigger="applications-changed from:body" hx-swap="innerHTML">
+  {% include "_sidebar.html" %}
+</div>
+{% endblock %}
+
+{% block content %}
+{# The page's one button in its header row, at the content's right edge (2026-11-19). #}
+<header class="page-head{% if workflow_url %} with-action{% endif %}">
+  {% if workflow_url %}<a class="btn head-action" href="{{ workflow_url }}" target="_blank" rel="noopener noreferrer">Workflow on GitHub</a>{% endif %}
+  <h1>Runs</h1>
+  <p class="subtitle">{{ runs_total|num }} run{{ "" if runs_total == 1 else "s" }}{% if last_github %} · last on GitHub {{ last_github.started_at|when }}{% else %} · none on GitHub yet{% endif %}</p>
+</header>
+
+<div class="overview">
+  <section class="card pad tile health-{{ health.level }}"
+           title="{% if health.last %}The last GitHub run finished {{ health.last|when }}. Orange after 3 hours, red after 6.{% endif %}{% if health.expected %} Next expected around {{ health.expected|when }} ({{ 'cron-job.org' if health.expected_by == 'cron-job.org' else 'GitHub backup schedule' }}).{% endif %}">
+    <h2 class="tile-title">Last GitHub run</h2>
+    <p class="tile-figure">{% if health.last %}{{ "%.0f min"|format(health.hours * 60) if health.hours < 1 else "%.1f h"|format(health.hours) }}<span class="unit"> ago</span>{% else %}None{% endif %}</p>
+    <p class="tile-line">{% if health.expected %}Next around {{ health.expected|when }}{% else %}No schedule found{% endif %}</p>
+  </section>
+
+  {% include "_minutes_tile.html" %}
+
+  <section class="card pad tile" title="About {{ guard.used_windows }} of ~{{ windows_per_week|round|int }} five-hour windows in the last 7 days, the tool's own calls. {{ guard_text }}{% if helper_usage.calls %} Application help: {{ helper_usage.calls }} calls, {{ '%.1f'|format(100 * helper_usage.windows / windows_per_week) }}% of the week.{% endif %}{% if guard.claude %} Claude's figures as of {{ guard.claude.at|when }}; they count all your Claude use, the tool's runs since the week began are a part of them.{% endif %}">
+    {# Per Claude account (2026-11-18): the figure is the token's account, which GitHub's runs use;
+       other accounts that scored this week are listed below it and never count towards its guard. #}
+    <h2 class="tile-title">This week <span class="secondary">· {{ guard.account }}</span></h2>
+    {% set week_used = guard.claude.utilization if guard.claude else guard.share_of_week %}
+    <p class="tile-figure">{{ "%.0f"|format(100 * week_used) }}%</p>
+    <div class="meter {{ 'warn' if (guard.claude.utilization if guard.claude else (guard.scheduled_share or 0)) >= guard.on_at else '' }}" role="meter" aria-valuemin="0" aria-valuemax="100"
+         aria-valuenow="{{ (100 * week_used)|round|int }}" aria-label="Share of the weekly limit used"><span style="width: {{ [100 * week_used, 100]|min }}%"></span></div>
+    {% set limits = (guard.claude.limits or {}) if guard.claude else {} %}
+    {# The tool's runs over the same week as Claude's figure: a part of it, the rest is your own Claude use. #}
+    {% set tool_part = (" · about %.0f%% from the tool's runs" % (100 * [guard.tool_claude_week, week_used]|min)) if guard.claude and guard.tool_claude_week is not none else "" %}
+    {# The second weekly limit is named only when it is the higher one (2026-11-18). #}
+    {% if guard.claude and limits.weekly and limits.second and limits.second.utilization > limits.weekly.utilization %}
+      <p class="tile-line">of the second weekly limit (weekly limit {{ "%.0f"|format(100 * limits.weekly.utilization) }}%){{ tool_part }}</p>
+    {% elif guard.claude and limits.weekly and limits.second %}
+      <p class="tile-line">of the week{{ tool_part }}</p>
+    {% elif guard.claude %}
+      <p class="tile-line">of the {{ "second weekly limit" if guard.claude.limit == "second" else "weekly limit" }}, Claude's figure{{ tool_part }}</p>
+    {% else %}
+      <p class="tile-line">of the weekly limit · scheduled runs {{ "%.0f"|format(100 * (guard.scheduled_share or 0)) }}%</p>
+    {% endif %}
+    {% set others = ((waiting or {}).get("claude_weeks") or {}).items()|rejectattr(0, "equalto", guard.account)|list %}
+    {% if others %}
+      <ul class="tile-accounts">
+        {% for key, week in others %}<li title="Claude's figure for {{ key }}, from its own calls (laptop runs and rescores)"><strong>{{ key }}</strong> {{ "%.0f"|format(100 * week.utilization) }}%{% if week.limit == "second" %} of its second weekly limit{% endif %}</li>{% endfor %}
+      </ul>
+    {% endif %}
+  </section>
+
+  {% set parts = waiting.parts if waiting else {} %}
+  {% set gen = parts.get("generated list", {}) %}
+  {% set mine = parts.get("my companies", {}) %}
+  {% set keys = ["waiting for posting text", "waiting for the title check", "waiting for a first score", "waiting for Sonnet (Haiku 6+)"] %}
+  <section class="card pad tile" title="{% for k in keys %}{{ k|capitalize }}: {{ mine.get(k, 0) }} yours, {{ gen.get(k, 0) }} generated. {% endfor %}{% for name, part in parts.items() %}{% if part.get('backlog total') %}Backlog ({{ 'your companies' if name == 'my companies' else name }}): {{ part.get('backlog done', 0) }} of {{ part['backlog total'] }} done. {% endif %}{% endfor %}">
+    <h2 class="tile-title">Waiting</h2>
+    <p class="tile-figure">{{ waiting_total|num if waiting else "–" }}</p>
+    <p class="tile-line">{% if gen.get("backlog total") %}roles to score · backlog {{ "%.0f"|format(100 * gen.get("backlog done", 0) / gen["backlog total"]) }}% done{% else %}roles to score{% endif %}</p>
+  </section>
+
+  {# The laptop's own runs (the launchd job, 2026-11-18): sites that refuse GitHub, and GitHub's latest failures. #}
+  <section class="card pad tile" title="The launchd job runs uv run jobhunt run --local-only at 08:00 and 20:00, and after a wake when one was missed.{% if laptop_log %} Its output: logs/local-run.log.{% endif %}">
+    <h2 class="tile-title">Last laptop run</h2>
+    {% if laptop %}
+      <p class="tile-figure small-figure">{{ laptop.started_at|when }}</p>
+      <p class="tile-line">{{ laptop.companies|num }} companies · {{ laptop.seconds|duration }}{% if laptop.errors %} · <span class="error-text">{{ laptop.errors }} failed</span>{% endif %}</p>
+    {% else %}
+      <p class="tile-figure">–</p>
+      <p class="tile-line">None yet: <code>uv run jobhunt launchd install</code></p>
+    {% endif %}
+  </section>
+</div>
+
+{% if guard.paused_boards %}<p class="banner warn small">Weekly guard on: {{ guard_boards }} paused for the generated list; your companies and wishlist are still scored. They resume below {{ "%.0f"|format(100 * guard.off_at) }}%.</p>{% endif %}
+{% if waiting and waiting.week_nearly_full %}{% set week = waiting.week_nearly_full %}
+  <p class="banner warn small">Week nearly full: {{ week.message }}{% if week.resets_at %}, resets {{ week.resets_at|when }}{% endif %}. Scheduled runs score only your companies and wishlist until it clears.</p>
+{% endif %}
+
+{% if triggers %}
+  <section class="group">
+    <h2 class="group-title">Recent triggers</h2>
+    <div class="card">
+      <ul class="trigger-list">
+        {% for t in triggers[:8] %}
+          <li><span class="trigger-when">{{ t.at|when }}</span><span class="trigger-by">{{ t.by }}</span>
+            <span class="trigger-outcome outcome-{{ t.outcome.split(' ')[0] }}">{{ t.outcome }}</span>
+            {% if t.url %}<a class="icon-btn small log-link" href="{{ t.url }}" target="_blank" rel="noopener noreferrer" data-tip="Log on GitHub"><svg width="14" height="14" class="icon" aria-hidden="true"><use href="#i-external"/></svg><span class="visually-hidden">Log on GitHub</span></a>{% endif %}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+{% endif %}
+
+<form class="filters runs-filters" method="get" action="/runs" data-autosubmit>
+  <label class="filter"><span>Where</span>
+    <select name="where">
+      <option value="">Anywhere</option>
+      <option value="github" {% if where == "github" %}selected{% endif %}>GitHub</option>
+      <option value="laptop" {% if where == "laptop" %}selected{% endif %}>Laptop</option>
+    </select>
+  </label>
+  <label class="filter"><span>Kind</span>
+    <select name="kind">
+      <option value="">Any</option>
+      {% for k in kinds %}<option value="{{ k }}" {% if kind == k %}selected{% endif %} title="{{ k }}">{{ k|run_kind }}</option>{% endfor %}
+    </select>
+  </label>
+  {% if where or kind %}<span class="secondary small">{{ runs_total }} of {{ all_total }} runs</span>{% endif %}
+</form>
+
+{% if rows %}
+  <div class="card">
+    <table class="list runs">
+      {# Fixed widths, Notes taking the rest; narrower windows drop Deferred and Alerts, then Closed
+         and Kind (all of them are in the run's sheet). #}
+      <colgroup>
+        <col class="w-when"><col class="w-where"><col class="w-kind col-kind"><col class="w-took"><col class="w-count">
+        <col class="w-count"><col class="w-count col-closed"><col class="w-calls"><col class="w-count col-deferred">
+        <col class="w-calls"><col class="w-calls col-alerts"><col>
+      </colgroup>
+      <thead>
+        <tr>
+          <th scope="col">When</th><th scope="col">Where</th><th scope="col" class="col-kind">Kind</th>
+          <th scope="col" class="num">Took</th><th scope="col" class="num">Fetched</th><th scope="col" class="num">New</th>
+          <th scope="col" class="num col-closed">Closed</th><th scope="col" class="num">Calls</th><th scope="col" class="num col-deferred">Deferred</th>
+          <th scope="col" class="num">Usage</th><th scope="col" class="num col-alerts">Alerts</th><th scope="col">Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in rows %}{% set t = r.totals %}
+          <tr class="row" hx-get="/runs/{{ r.index }}/sheet" hx-target="#sheet" hx-swap="innerHTML" tabindex="0"
+              hx-trigger="click, keydown[key=='Enter']">
+            <td class="nowrap">{{ r.started_at|when }}</td>
+            <td><span class="tag where-{{ r.ran_on }}">{{ "GitHub" if r.ran_on == "github" else "Laptop" }}</span>
+              <div class="secondary small run-account" title="Claude account{{ ' (launchd run)' if r.launchd }}">{{ r.account }}</div></td>
+            <td class="secondary col-kind" title="{{ r.kind }}">{{ r.kind|run_kind }}</td>
+            <td class="num nowrap">{{ r.seconds|duration }}</td>
+            <td class="num">{{ "{:,}".format(t.fetched) if t.fetched else "–" }}</td>
+            <td class="num">{{ "{:,}".format(t.new) if t.new else "–" }}</td>
+            <td class="num col-closed">{{ "{:,}".format(t.closed) if t.closed else "–" }}</td>
+            <td class="num">{{ r.calls or "–" }}</td>
+            <td class="num col-deferred">{{ r.deferred or "–" }}</td>
+            <td class="num" title="Share of a five-hour window">{{ "%.0f"|format(100 * r.usage) ~ "%" if r.usage else "–" }}</td>
+            <td class="num col-alerts">{{ r.alerts or "–" }}</td>
+            <td class="notes-cell" title="{{ (r.errors + r.stops + r.notes)|join('\n') }}">
+              {% if r.errors %}<span class="{{ 'tag error-tag' if r.mine_failed else 'secondary small' }}">{{ r.errors|length }} error{{ "" if r.errors|length == 1 else "s" }}</span>{% endif %}
+              {% if r.stops %}<span class="secondary small">{{ r.stops[0]|truncate(60) }}</span>{% endif %}
+              {% if r.notes %}<span class="secondary small">{{ r.notes[0]|truncate(60) }}</span>{% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if pages > 1 %}
+    <nav class="pager" aria-label="Pages">
+      {% if page > 1 %}<a class="btn" href="/runs?page={{ page - 1 }}&amp;where={{ where }}&amp;kind={{ kind|urlencode }}">Newer</a>{% endif %}
+      <span class="secondary">Page {{ page }} of {{ pages }}</span>
+      {% if page < pages %}<a class="btn" href="/runs?page={{ page + 1 }}&amp;where={{ where }}&amp;kind={{ kind|urlencode }}">Older</a>{% endif %}
+    </nav>
+  {% endif %}
+{% else %}
+  <div class="card empty"><p>No runs{% if where or kind %} with these filters{% endif %}.</p></div>
+{% endif %}
+{% endblock %}

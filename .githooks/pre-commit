@@ -1,0 +1,21 @@
+#!/bin/sh
+# Every commit of the code runs the tests and the leak check; any failure stops the commit
+# (2026-10-28: a commit once went in with failing tests). Enabled once per clone with
+#   git config core.hooksPath .githooks
+# The data branch's worktree (.data) has no tests, so the sync's commits there are left alone.
+top=$(git rev-parse --show-toplevel) || exit 1
+if [ ! -f "$top/pyproject.toml" ] || [ ! -d "$top/tests" ]; then
+  exit 0
+fi
+cd "$top" || exit 1
+# Git passes GIT_DIR, GIT_INDEX_FILE and others to hooks; the sync tests run git in temporary
+# repositories, which must not see them.
+for name in $(env | sed -n 's/^\(GIT_[A-Z_]*\)=.*/\1/p'); do unset "$name"; done
+if ! uv run python -m pytest -q -x -p no:cacheprovider; then
+  echo "pre-commit: tests failed, so nothing was committed." >&2
+  exit 1
+fi
+if ! uv run jobhunt leakcheck; then
+  echo "pre-commit: the leak check failed, so nothing was committed." >&2
+  exit 1
+fi

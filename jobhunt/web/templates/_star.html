@@ -1,0 +1,10 @@
+{# The wishlist star for a role's company: saves at once; every star of that company follows. #}
+{% set company = row.record.company %}
+<button type="button" class="star-btn{% if row.wishlist %} on{% endif %}" aria-pressed="{{ 'true' if row.wishlist else 'false' }}"
+        data-wishlist-company="{{ row.company_id }}" data-company-name="{{ company }}"
+        data-tip="{{ 'Remove from the wishlist' if row.wishlist else 'Add to the wishlist' }}" data-tip-side="left"
+        hx-post="/wishlist/star" hx-vals='{"key": {{ row.key|tojson }}, "on": "{{ 0 if row.wishlist else 1 }}", "list_view": {{ (lv or "")|tojson }}{{ vals_extra if vals_extra is defined else "" }}}'
+        hx-target="closest tr" hx-swap="outerHTML">
+  <svg width="14" height="14" class="icon mini" aria-hidden="true"><use href="#i-star"/></svg>
+  <span class="visually-hidden">Wishlist {{ row.company_name }}</span>
+</button>

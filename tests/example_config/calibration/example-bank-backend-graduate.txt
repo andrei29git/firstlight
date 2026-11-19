@@ -1,0 +1,5 @@
+Example Bank Backend Graduate Programme (Madrid)
+
+Join our two-year graduate programme building payment services in Python and Go.
+You will rotate across three backend teams. Open to final-year students graduating in 2028.
+Requirements: a computer science degree, Python or Go, interest in distributed systems.

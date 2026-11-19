@@ -1,0 +1,35 @@
+{# Why a company of yours is not fully covered, and what can be done (2026-10-29). #}
+<div class="sheet-form coverage-sheet">
+  <h2 id="sheet-title" class="sheet-title">{{ c.label or c.name }}</h2>
+  <p class="sheet-subtitle"><span class="coverage-status coverage-{{ cov.status }}">{{ cov.label }}</span></p>
+  <p>{{ cov.detail }}</p>
+  {% if c.note and cov.status != "partial" %}<p class="secondary small">{{ c.note }}</p>{% endif %}
+
+  {% if cov.status == "partial" %}
+    <p class="secondary small">Roles beyond what the listing shows are not seen, and a role missing from it is never closed. Check its careers page for the rest.</p>
+  {% elif cov.action == "alerts" %}
+    <p>Sign up for its job alerts{% if c.careers_url %} on <a href="{{ c.careers_url }}" target="_blank" rel="noopener noreferrer">its careers page</a>{% endif %}, and file them under the Gmail label for job alerts: the job alert email source (planned after 4 November) turns those emails into roles here.</p>
+  {% elif cov.status == "no_adapter" %}
+    <p class="secondary small">An adapter for {{ c.system or "this system" }} may come later; until then, check its careers page{% if c.careers_url %} (<a href="{{ c.careers_url }}" target="_blank" rel="noopener noreferrer">open it</a>){% endif %}.</p>
+  {% endif %}
+
+  {% if cov.action == "retry" %}
+    <form class="retry-form" hx-post="/wishlist/find" hx-target="#sheet" hx-swap="innerHTML" hx-disabled-elt="find button">
+      <input type="hidden" name="name" value="{{ c.name }}"><input type="hidden" name="retry" value="1">
+      <input type="hidden" name="company_id" value="{{ c.id }}">
+      <label class="field"><span>Careers page</span>
+        <input name="url" type="url" value="{{ c.careers_url }}" placeholder="Paste the page that lists its jobs" required></label>
+      <p class="secondary small">Try again reads the page on this laptop: a job board it links to, or the site itself as a custom board (its links, sitemaps and search pages; robots.txt respected). You see what it finds before anything is saved; a board found is saved with the star.</p>
+      <button class="btn btn-primary" type="submit"><span class="when-idle">Try again</span><span class="when-busy">Looking…</span></button>
+    </form>
+  {% elif c.careers_url and cov.action != "alerts" %}
+    <p><a href="{{ c.careers_url }}" target="_blank" rel="noopener noreferrer">Open its careers page</a></p>
+  {% endif %}
+
+  <form class="remind-form" hx-post="/companies/remind" hx-target="#sheet" hx-swap="innerHTML">
+    <input type="hidden" name="company" value="{{ c.id }}"><input type="hidden" name="on" value="{{ 0 if c.remind else 1 }}">
+    <label class="check"><input type="checkbox" {% if c.remind %}checked{% endif %} onchange="this.form.requestSubmit()">
+      Remind me to check manually <span class="secondary small">(a weekly item on Today with a link to its careers page)</span></label>
+  </form>
+  <footer class="sheet-actions"><button class="btn btn-primary" type="button" data-close>Done</button></footer>
+</div>

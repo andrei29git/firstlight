@@ -1,0 +1,151 @@
+{
+ "items": [
+  {
+   "Id": "34387",
+   "Title": "IP Network Designer",
+   "Category": "Customer Services",
+   "RequisitionType": "Standard (Internal Only)",
+   "JobGrade": null,
+   "RequisitionId": 300001844349324,
+   "ExternalPostedStartDate": "2026-10-29T10:25:51+00:00",
+   "JobLevel": null,
+   "JobSchedule": "Full time",
+   "JobShift": null,
+   "StudyLevel": "College degree level 1 (2-3 yrs)",
+   "InternationalTravelRequired": null,
+   "ExternalContactName": null,
+   "ExternalContactEmail": null,
+   "ContractType": "Regular",
+   "ExternalPostedEndDate": null,
+   "JobFamilyId": 300000009357800,
+   "GeographyId": 300000000471997,
+   "GeographyNodeId": 100002145190023,
+   "ExternalDescriptionStr": "<p>As an IP Network Designer, you will be responsible for the design, development, and optimization of networking IP solutions, contributing to the&nbsp; advancement of internet protocol architectures and technologies. Leveraging your expertise in IP design and networking protocols, you&nbsp; will architect, design, and optimize IP blocks to support high-performance, scalable, and secure network systems. Additionally, you will&nbsp; provide 3rd line support, conduct problem analysis, and work within a DevOps environment.<br>&nbsp;</p>",
+   "CorporateDescriptionStr": "<div>\n <b>Advancing connectivity to secure a brighter world.</b>\n</div>\n<div>\n <p><span style=\"box-sizing: border-box;\">Nokia is a global leader in connectivity for the AI era. With expertise across fixed, mobile and transport networks, powered by the innovation of Nokia Bell Labs, we\u2019re advancing connectivity to secure a brighter world.&nbsp;</span></p>\n</div>\n<div>\n <a href=\"https://www.nokia.com/careers/life-at-nokia/\" target=\"_blank\" rel=\"nofollow\">Learn more about life at Nokia</a>.\n</div>\n<div style=\"\">\n <br/>\n</div>\n<div style=\"\">\n <br/>\n</div>\n<div style=\"\">\n <p style=\"\"><b>Our recruitment process</b></p>\n <p style=\"\">We act inclusively and respect the uniqueness of people. Our employment decisions are made regardless of race, color, national or ethnic origin, religion, gender, sexual orientation, gender identity or expression, age, marital status, disability, protected veteran status or other characteristics protected by law. We are committed to a culture of inclusion built upon our core value of respect.</p>\n <p style=\"\">If you\u2019re interested in this role but don\u2019t meet every listed requirement, we still encourage you to apply. Unique backgrounds, perspectives, and experiences enrich our teams, and you may be just the right candidate for this or another opportunity.</p>\n <p style=\"\">The length of the recruitment process may vary depending on the specific role's requirements. We strive to ensure a smooth and inclusive experience for all candidates.&nbsp;<a href=\"https://www.nokia.com/careers/#recruitment-process\" target=\"_blank\" rel=\"nofollow\" style=\"\">Discover more about the recruitment process at Nokia</a>.&nbsp;</p>\n</div>",
+   "OrganizationDescriptionStr": "<div style=\"\">\n Some of our benefits in&nbsp;<a href=\"https://www.nokia.com/careers/our-locations/romania/\" target=\"_blank\" rel=\"nofollow\" style=\"\">Romania</a>:\n</div>\n<div style=\"\">\n <ul style=\"\">\n  <li style=\"\">Flexible working arrangements to support work\u2013life balance</li>\n  <li style=\"\">A minimum of 90 days of Maternity and Paternity Leave, with the option to return to work within a year following the birth or adoption of a child (based on eligibility)</li>\n  <li style=\"\">Medical insurance plan and annual reimbursements for dental, eyeglasses, or lenses</li>\n  <li style=\"\">Sports, wellness, and culture reimbursements, including monthly support for activities, kindergarten, and after-school expenses</li>\n  <li style=\"\">Ticket Restaurant e-card and transportation allowance for daily convenience</li>\n  <li style=\"\">Generous referral bonus for referring qualified candidates</li>\n  <li style=\"\">24+ paid vacation days and three annual bonuses (Performance, Christmas, and Easter)</li>\n  <li style=\"\">Well-being programs to support your mental and physical health</li>\n  <li style=\"\">Opportunities to engage with Nokia Employee Resource Groups (NERGs), as well as access to mentors, coaches, and Employee Growth Solutions</li>\n  <li style=\"\">A learning culture that promotes continuous personal and professional growth \u2013 for your role and beyond</li>\n </ul>\n</div>",
+   "ShortDescriptionStr": "We are seeking an IP Network Designer with deep expertise in networking protocols (e.g., TCP/IP, MPLS, BGP, OSPF, IPv4/IPv6), IP/MPLS networks, WLAN technologies, and ISP subscriber technologies, alongside hands-on experience with Cisco and Juniper systems, network automation, and virtualization. Strong problem-solving, cross-functional collaboration, and communication skills, coupled with certifications like CCNP/CCIE or JNCIP/JNCIE, are essential for success in this role.",
+   "ContentLocale": "en",
+   "PrimaryLocation": "Romania",
+   "PrimaryLocationCountry": "RO",
+   "ObjectVerNumberProfile": null,
+   "ApplyWhenNotPostedFlag": null,
+   "ExternalQualificationsStr": "<ul><li>Bachelor or Master\u2019s degree or equivalent level gained by experience, in Information Technology / Electronics / Telecommunications / Data communications Engineering</li><li>Expertise in Networking Protocols: In-depth knowledge and experience in networking protocols, including TCP/IP, Ethernet, UDP, IPv4/IPv6, MPLS, BGP, OSPF, ISIS and others, with a strong understanding of their architecture, operation, and implementation.</li><li>Cross-functional Collaboration: Excellent communication and collaboration skills, with the ability to work effectively with multidisciplinary teams to achieve project objectives and deliver high-quality networking solutions.</li><li>Problem-solving and Debugging: Strong problem-solving and debugging skills, with the ability to analyze complex networking issues and implement effective solutions to ensure robustness and reliability.</li><li><p>Documentation and Communication: Excellent documentation and communication skills, with the ability to prepare clear and concise design documentation, effectively communicate technical concepts, and collaborate with cross-functional teams and stakeholders.</p><p><strong>Specific knowledge</strong></p></li><li>Experience on IP routing protocol such as IGP ISIS/OSPF,BGP, Segment Routing MPLS, RSVP, TE, Gigabit Ethernet, Multicast, SNMP, IPv4/6 and QOS In-depth knowledge and understanding of IP networks and architecture.</li><li>Good understanding and experience in WLAN technology, ISP subscriber technologies, such as IPoE, DHCP and RADIUS.</li><li>Strong knowledge of IP/MPLS networks, including L2VPN and L3VPN technologies.</li><li>Experience in Service Provider networks Fixed and Mobile ( 4G/5G and Enterprise 4G/5G).</li><li>Experience in designing/operating IP networks using Cisco and Juniper networking technologies.</li><li>Experience in network automation and virtualization technologies is an advantage</li><li><p>IP Network certifications, including Cisco CCNP/CCIE or Juniper JNCIP/JNCIE is also desired.</p><p><strong>Specific competencies</strong></p></li><li>Pro-active, open, curious</li><li>Perform under pressure</li><li>Good communicator</li><li>\u201cCan do\u201d mentality</li><li>Business focus</li><li>Result driven</li><li>Team player</li><li>Flexible</li></ul>",
+   "InternalQualificationsStr": "<ul><li>Bachelor or Master\u2019s degree or equivalent level gained by experience, in Information Technology / Electronics / Telecommunications / Data communications Engineering</li><li>Expertise in Networking Protocols: In-depth knowledge and experience in networking protocols, including TCP/IP, Ethernet, UDP, IPv4/IPv6, MPLS, BGP, OSPF, ISIS and others, with a strong understanding of their architecture, operation, and implementation.</li><li>Cross-functional Collaboration: Excellent communication and collaboration skills, with the ability to work effectively with multidisciplinary teams to achieve project objectives and deliver high-quality networking solutions.</li><li>Problem-solving and Debugging: Strong problem-solving and debugging skills, with the ability to analyze complex networking issues and implement effective solutions to ensure robustness and reliability.</li><li><p>Documentation and Communication: Excellent documentation and communication skills, with the ability to prepare clear and concise design documentation, effectively communicate technical concepts, and collaborate with cross-functional teams and stakeholders.</p><p><strong>Specific knowledge</strong></p></li><li>Experience on IP routing protocol such as IGP ISIS/OSPF,BGP, Segment Routing MPLS, RSVP, TE, Gigabit Ethernet, Multicast, SNMP, IPv4/6 and QOS In-depth knowledge and understanding of IP networks and architecture.</li><li>Good understanding and experience in WLAN technology, ISP subscriber technologies, such as IPoE, DHCP and RADIUS.</li><li>Strong knowledge of IP/MPLS networks, including L2VPN and L3VPN technologies.</li><li>Experience in Service Provider networks Fixed and Mobile ( 4G/5G and Enterprise 4G/5G).</li><li>Experience in designing/operating IP networks using Cisco and Juniper networking technologies.</li><li>Experience in network automation and virtualization technologies is an advantage</li><li><p>IP Network certifications, including Cisco CCNP/CCIE or Juniper JNCIP/JNCIE is also desired.</p><p><strong>Specific competencies</strong></p></li><li>Pro-active, open, curious</li><li>Perform under pressure</li><li>Good communicator</li><li>\u201cCan do\u201d mentality</li><li>Business focus</li><li>Result driven</li><li>Team player</li><li>Flexible</li></ul>",
+   "InternalResponsibilitiesStr": "<ul><li>IP Design: Collaborate with system architects to define the architectural design and functionality of networking IP blocks, ensuring alignment with project requirements and industry standards..</li><li>Implementation: Collaborate with Operations to ensure timely and first time right implementation of IP designs ensuring compliance with industry standards and performance targets.</li><li>Protocol Compliance: Ensure compliance of networking IP designs with relevant networking protocols and standards, such as TCP/IP, Ethernet, UDP, IPv4/IPv6, MPLS, and others, to facilitate interoperability and compatibility with existing network infrastructure.&nbsp;</li><li>Design: Design network solutions based on business requirements, including the preparation of High-Level Designs (HLD) and Low-Level Designs (LLD), as well as the preparation of detailed network diagrams and document network configurations.&nbsp;</li><li>3rd Line Support and Problem Analysis: Provide expert-level support for IP-related issues, conducting thorough problem analysis, debugging complex design issues, and implementing effective solutions to ensure robustness and reliability.</li><li>Cross-functional Collaboration: Collaborate closely with cross-functional teams, including system architects, security engineers, and operations engineers, to ensure seamless integration and implementation of networking IP designs within larger network systems.</li><li>Continuous Improvement: Stay abreast of the latest networking technologies and methodologies, evaluating and adopting best practices to enhance IP design capabilities and efficiency.</li><li>Software Testing: Lead the testing of software releases for networking IP solutions, including functional testing, regression testing, and performance testing, to ensure reliability, robustness, and compatibility with diverse network environments.</li><li>Migration Scripts: Develop migration scripts and tools to facilitate the seamless transition and integration of networking IP solutions into existing network infrastructure, ensuring minimal disruption and downtime.</li><li>Automation: Implement automation strategies and tools for IP design, verification, testing, and deployment processes, to increase efficiency, reduce manual effort, and accelerate time-to-market for networking solutions.</li><li>DevOps Environment: Work in a DevOps environment, collaborating with operations teams to streamline IP development testing and maintenance processes.<br>&nbsp;</li></ul>",
+   "ExternalResponsibilitiesStr": "<ul><li>IP Design: Collaborate with system architects to define the architectural design and functionality of networking IP blocks, ensuring alignment with project requirements and industry standards..</li><li>Implementation: Collaborate with Operations to ensure timely and first time right implementation of IP designs ensuring compliance with industry standards and performance targets.</li><li>Protocol Compliance: Ensure compliance of networking IP designs with relevant networking protocols and standards, such as TCP/IP, Ethernet, UDP, IPv4/IPv6, MPLS, and others, to facilitate interoperability and compatibility with existing network infrastructure.&nbsp;</li><li>Design: Design network solutions based on business requirements, including the preparation of High-Level Designs (HLD) and Low-Level Designs (LLD), as well as the preparation of detailed network diagrams and document network configurations.&nbsp;</li><li>3rd Line Support and Problem Analysis: Provide expert-level support for IP-related issues, conducting thorough problem analysis, debugging complex design issues, and implementing effective solutions to ensure robustness and reliability.</li><li>Cross-functional Collaboration: Collaborate closely with cross-functional teams, including system architects, security engineers, and operations engineers, to ensure seamless integration and implementation of networking IP designs within larger network systems.</li><li>Continuous Improvement: Stay abreast of the latest networking technologies and methodologies, evaluating and adopting best practices to enhance IP design capabilities and efficiency.</li><li>Software Testing: Lead the testing of software releases for networking IP solutions, including functional testing, regression testing, and performance testing, to ensure reliability, robustness, and compatibility with diverse network environments.</li><li>Migration Scripts: Develop migration scripts and tools to facilitate the seamless transition and integration of networking IP solutions into existing network infrastructure, ensuring minimal disruption and downtime.</li><li>Automation: Implement automation strategies and tools for IP design, verification, testing, and deployment processes, to increase efficiency, reduce manual effort, and accelerate time-to-market for networking solutions.</li><li>DevOps Environment: Work in a DevOps environment, collaborating with operations teams to streamline IP development testing and maintenance processes.<br>&nbsp;</li></ul>",
+   "JobFunctionCode": "MSE",
+   "HotJobFlag": true,
+   "TrendingFlag": true,
+   "BeFirstToApplyFlag": false,
+   "WorkplaceTypeCode": null,
+   "WorkplaceType": "",
+   "OtherRequisitionTitle": null,
+   "NumberOfOpenings": null,
+   "HiringManager": null,
+   "Organization": null,
+   "BusinessUnitId": 300000006664246,
+   "LegalEmployerId": 300000006344670,
+   "OrganizationId": 300000790515317,
+   "WorkerType": null,
+   "JobType": "Experienced",
+   "WorkMonths": null,
+   "WorkYears": null,
+   "WorkHours": null,
+   "WorkDays": null,
+   "LegalEmployer": null,
+   "BusinessUnit": null,
+   "Department": null,
+   "DomesticTravelRequired": null,
+   "JobFunction": "Managed Services",
+   "secondaryLocations": [],
+   "media": [],
+   "workLocation": [
+    {
+     "LocationId": 300000865982202,
+     "LocationName": "Hotspot Workhub",
+     "AddressLine1": "Calea Grivitei 82-98",
+     "AddressLine2": null,
+     "AddressLine3": null,
+     "AddressLine4": null,
+     "Building": null,
+     "TownOrCity": "Bucharest",
+     "PostalCode": "010735",
+     "Country": "RO",
+     "Region1": null,
+     "Region2": null,
+     "Region3": null,
+     "Longitude": "26.08063",
+     "Latitude": "44.44602"
+    }
+   ],
+   "otherWorkLocations": [
+    {
+     "RequisitionWorkLocationId": 300002008273572,
+     "LocationId": 300000011413311,
+     "LocationName": "Timisoara Campus Building I",
+     "AddressLine1": "21st Republicii Boulevard",
+     "AddressLine2": null,
+     "AddressLine3": null,
+     "AddressLine4": null,
+     "Building": null,
+     "TownOrCity": "Timisoara",
+     "PostalCode": "300159",
+     "Country": "RO",
+     "Region1": null,
+     "Region2": null,
+     "Region3": null,
+     "Latitude": "45.75099",
+     "Longitude": "21.2141"
+    }
+   ],
+   "requisitionFlexFields": [
+    {
+     "Prompt": "Will NSA/CAPS approval be required? (E.g., accessing a US Customer Network?)",
+     "Value": "No",
+     "ControlType": "SingleChoiceList",
+     "SequenceNumber": 5
+    },
+    {
+     "Prompt": "Role Type",
+     "Value": "Individual contributor",
+     "ControlType": null,
+     "SequenceNumber": 8
+    },
+    {
+     "Prompt": "Laptop - support with ordering needed",
+     "Value": "Yes",
+     "ControlType": "SingleChoiceList",
+     "SequenceNumber": 10
+    },
+    {
+     "Prompt": "Experience level",
+     "Value": "Experienced",
+     "ControlType": "SingleChoiceList",
+     "SequenceNumber": 22
+    }
+   ],
+   "primaryLocationCoordinates": [
+    {
+     "GeographyNodeId": 100002145190023,
+     "GeographyId": 300000000471997,
+     "Latitude": "45.79987",
+     "Longitude": "26.62781",
+     "CountryCode": "RO"
+    }
+   ],
+   "skills": []
+  }
+ ],
+ "count": 1,
+ "hasMore": false,
+ "limit": 499,
+ "offset": 0,
+ "links": [
+  {
+   "rel": "self",
+   "href": "https://fa-evmr-saasfaprod1.fa.ocs.oraclecloud.com:443/hcmRestApi/resources/11.13.18.05/recruitingCEJobRequisitionDetails",
+   "name": "recruitingCEJobRequisitionDetails",
+   "kind": "collection"
+  }
+ ]
+}

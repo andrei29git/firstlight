@@ -1,0 +1,42 @@
+[project]
+name = "jobhunt"
+version = "0.1.0"
+description = "Finds graduate and junior engineering roles on company job boards, scores them with AI, and tracks applications."
+requires-python = ">=3.14,<3.15"
+dependencies = [
+    "fastapi>=0.115",
+    "jinja2>=3.1",
+    "python-multipart>=0.0.9",
+    "requests>=2.34.2",
+    "uvicorn>=0.30",
+]
+
+[project.scripts]
+jobhunt = "jobhunt.cli:main"
+
+[dependency-groups]
+dev = [
+    "httpx2>=2.16.0",
+    "pytest>=8",
+]
+# Rendering JavaScript-only career sites (custom sites with render = true), on the laptop; its
+# browser is installed once with `uv run playwright install chromium`.
+render = [
+    "playwright>=1.48",
+]
+
+[tool.uv]
+default-groups = ["dev", "render"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["jobhunt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# End-to-end browser tests run with `pytest -m e2e` (and in CI), not in the quick default run.
+addopts = "-m 'not e2e'"
+markers = ["e2e: browser tests against the demo (Playwright, Chromium)"]

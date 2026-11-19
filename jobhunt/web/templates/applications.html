@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} · {{ app_name }}{% endblock %}
+
+{% block sidebar %}
+<div id="sidebar" hx-get="/applications/sidebar?page=applications&amp;stage={{ selected_stage or '' }}&amp;view={{ selected_view or '' }}"
+     hx-trigger="applications-changed from:body" hx-swap="innerHTML">
+  {% include "_sidebar.html" %}
+</div>
+{% endblock %}
+
+{% block content %}
+<header class="page-head">
+  <h1>{{ title }}</h1>
+  <p class="subtitle">{{ shown }} application{{ "" if shown == 1 else "s" }}
+      {% for a in due %}<a class="next-chip {{ a.next_step_status }}" href="#app-{{ a.id }}" title="{{ a.role }} · {{ a.stage_label }}">{{ "Overdue" if a.next_step_status == "past" else "Next" }}: {{ a.company|company }}, {{ a.next_step_by|nice_date }}</a>{% endfor %}</p>
+</header>
+
+<div class="page-toolbar">
+  <label class="search">
+    <svg width="18" height="18" class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+    <input id="search" type="search" placeholder="Company or role" aria-label="Search applications" autocomplete="off">
+  </label>
+  <nav class="stage-tabs" aria-label="Filter by stage">
+    <a class="stage-tab{% if not selected_stage and not selected_view %} on{% endif %}" href="/applications">All <span class="count">{{ total|num }}</span></a>
+    {% if stale %}<a class="stage-tab{% if selected_view == 'stale' %} on{% endif %}" href="/applications?view=stale">Needs follow-up <span class="count">{{ stale|num }}</span></a>{% endif %}
+    {% for s in stages if counts[s.key] and s.key != "to_apply" %}
+      <a class="stage-tab{% if selected_stage == s.key %} on{% endif %}" href="/applications?stage={{ s.key }}"><span class="dot stage-{{ s.key }}" aria-hidden="true"></span>{{ s.label }} <span class="count">{{ counts[s.key]|num }}</span></a>
+    {% endfor %}
+  </nav>
+  <span class="toolbar-end">
+    <button class="btn btn-primary" type="button" data-open="add-sheet">
+      <svg width="18" height="18" class="icon" aria-hidden="true"><use href="#i-plus"/></svg> Add
+    </button>
+  </span>
+</div>
+
+{% if error %}<p class="banner" role="alert">{{ error }}</p>{% endif %}
+{# From Today (2026-11-19): an application the tool did not find opens its own sheet. #}
+{% if open_app %}<div hidden hx-get="/applications/{{ open_app }}/sheet" hx-trigger="load" hx-target="#sheet" hx-swap="innerHTML"></div>{% endif %}
+
+{% set total_items = groups|map(attribute=1)|map("length")|sum %}
+{% if total_items %}
+  {% for name, items in groups if items %}
+    {# The Next step column only in a group where some application has one (2026-11-19). #}
+    {% set show_next = items|selectattr("next_step_by")|list|length > 0 %}
+    <section class="group" data-group>
+      {% if name %}<h2 class="group-title">{{ name }} <span class="group-count">{{ items|length }}</span>{% if name == "In progress" %}<span class="group-sort">latest update first</span>{% endif %}</h2>{% endif %}
+      <div class="card">
+        {# Every group's table has the same fixed column widths, so they line up. #}
+        <table class="list apps{% if not show_next %} no-next{% endif %}">
+          <colgroup>
+            <col><col class="w-location col-location"><col class="w-applied"><col class="w-updated col-updated">
+            {% if show_next %}<col class="w-next">{% endif %}<col class="w-stage">
+          </colgroup>
+          <thead>
+            <tr>
+              <th scope="col">Company</th>
+              <th scope="col" class="col-location">Location</th>
+              <th scope="col">Applied</th>
+              <th scope="col" class="col-updated">Updated</th>
+              {% if show_next %}<th scope="col">Next step</th>{% endif %}
+              <th scope="col">Stage</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for a in items %}{% include "_row.html" %}{% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  {% endfor %}
+{% else %}
+  <div class="card empty">
+    <svg width="18" height="18" class="icon" aria-hidden="true"><use href="#i-tray"/></svg>
+    <p>Nothing here.</p>
+  </div>
+{% endif %}
+<p class="no-matches" hidden>No applications match your search.</p>
+
+<dialog id="add-sheet" class="sheet" aria-labelledby="add-title">
+  <form method="post" action="/applications" class="sheet-form">
+    <h2 id="add-title" class="sheet-title">New application</h2>
+    <p class="sheet-subtitle">For roles the tool did not find itself.</p>
+    <div class="form-group">
+      <label class="field"><span>Company</span><input name="company" required autocomplete="off"></label>
+      <label class="field"><span>Role</span><input name="role" required autocomplete="off"></label>
+      <label class="field"><span>Location</span><input name="location" autocomplete="off"></label>
+    </div>
+    <div class="form-group">
+      <label class="field"><span>Stage</span>
+        <select name="stage">
+          {% with a = none %}{% include "_stage_options.html" %}{% endwith %}
+        </select>
+      </label>
+      <label class="field"><span>Applied on</span><span class="date-pick"><input type="date" name="applied_on" value="{{ today }}" data-date-pick><span class="date-text" aria-hidden="true">{{ (today)|long_date or "Not set" }}</span></span></label>
+    </div>
+    <div class="form-group">
+      <label class="field stacked"><span>Notes</span><textarea name="notes" rows="3"></textarea></label>
+    </div>
+    <footer class="sheet-actions">
+      <button type="button" class="btn" data-close>Cancel</button>
+      <button type="submit" class="btn btn-primary">Add application</button>
+    </footer>
+  </form>
+</dialog>
+{% endblock %}

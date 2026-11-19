@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Not found · {{ app_name }}{% endblock %}
+
+{% block sidebar %}
+<div id="sidebar" hx-get="/applications/sidebar" hx-trigger="applications-changed from:body" hx-swap="innerHTML">
+  {% include "_sidebar.html" %}
+</div>
+{% endblock %}
+
+{% block content %}
+<p class="back"><a href="{{ back }}" data-back>‹ {{ back_label }}</a></p>
+<div class="card empty missing">
+  <svg width="28" height="28" class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+  <h1 class="missing-title">{{ heading }}</h1>
+  <p class="secondary">{{ message }}</p>
+</div>
+{% endblock %}

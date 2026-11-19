@@ -1,0 +1,34 @@
+# Personal data and generated output: never commit
+exports/
+~$*.xlsx
+*.db
+# SQLite's companion files hold recent changes to the database: never commit them.
+*.db-wal
+*.db-shm
+*.db-journal
+*.sqlite
+*.sqlite3
+backups/
+config/personal.toml
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# macOS
+.DS_Store
+.data/
+.data.*/
+catalog.db.*
+
+# The Runs page's cache of GitHub Actions minutes (local only).
+actions_usage.json
+screenshots/
+
+# Job alert emails: the Google OAuth client, the token and the ids of messages read (laptop only).
+.gmail/
+
+# The laptop's scheduled run log (launchd).
+logs/

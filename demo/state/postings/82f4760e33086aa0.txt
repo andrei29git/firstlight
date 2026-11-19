@@ -1,0 +1,8 @@
+Isarflow Robotics builds autonomous floor robots for warehouses. The Fleet Backend team runs the services that send
+missions to 1,500 robots and collect their telemetry.
+
+- Python and Go services, PostgreSQL and TimescaleDB, MQTT.
+- Graduate programme with a mentor and a structured first year.
+- German at B2 or better: our customers and much of the team work in German.
+
+A computer science degree, finished or finishing in 2027.

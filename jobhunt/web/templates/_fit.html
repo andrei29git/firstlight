@@ -1,0 +1,12 @@
+{# The fit score (2026-11-19): the number inside a ring that fills to it; green at the Apply now
+   threshold or above, grey below. One shape on Jobs, Today and Job detail. #}
+{% macro fit_ring(fit, big=False, title="") %}
+  {%- if fit is none -%}
+    <span class="fit-ring none{{ ' big' if big }}" title="Not scored">–</span>
+  {%- else -%}
+    {%- set strong = fit >= apply_min_fit() -%}
+    <span class="fit-ring{{ ' big' if big }}{{ ' strong' if strong }}" style="--f: {{ fit }}"
+          title="{{ title or ('Fit ' ~ fit ~ ' of 10') }}" role="img"
+          aria-label="Fit {{ fit }} of 10{{ ', at or above your Apply now threshold' if strong }}">{{ fit }}</span>
+  {%- endif -%}
+{% endmacro %}

@@ -1,0 +1,12 @@
+Spreewerk Analytics turns retail footfall data into forecasts for 400 stores across Germany.
+Our platform team keeps the data pipelines and 60 services running on Kubernetes.
+
+You will
+- Improve our deployment tooling (GitHub Actions, Argo CD, Terraform).
+- Write the internal tools developers use every day, mostly in Go and Python.
+- Help us move from hand-written dashboards to proper SLOs.
+
+You have
+- One year of experience running services on Kubernetes in production, or equivalent internship experience.
+- Go or Python, Docker, Linux.
+English-speaking team, office in Kreuzberg, two days a week.

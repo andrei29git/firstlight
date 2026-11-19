@@ -1,0 +1,2 @@
+Vercors Data's platform team serves forecasts to 80 ski resorts through a public API. Graduate backend engineer:
+Go, PostgreSQL, Docker; small team, English or French.

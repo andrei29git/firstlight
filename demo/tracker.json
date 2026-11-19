@@ -1,0 +1,186 @@
+{
+ "applications": [
+  {
+   "role": "Graduate Backend Engineer (Go)",
+   "stage": "interviewing",
+   "history": [
+    [
+     "applied",
+     "2026-11-14T17:24:00+00:00"
+    ],
+    [
+     "oa_pending",
+     "2026-11-15T19:48:00+00:00"
+    ],
+    [
+     "oa_done",
+     "2026-11-16T15:00:00+00:00"
+    ],
+    [
+     "interviewing",
+     "2026-11-18T10:12:00+00:00"
+    ]
+   ],
+   "next_step_by": "2026-11-21",
+   "notes": "Technical interview with the payments team: system design and a Go exercise.",
+   "job_key": "greenhouse:Polderbyte:pb-1",
+   "company": "Polderbyte",
+   "location": "Amsterdam, Netherlands"
+  },
+  {
+   "role": "Graduate Software Engineer (Python)",
+   "stage": "applied",
+   "history": [
+    [
+     "applied",
+     "2026-11-16T15:00:00+00:00"
+    ]
+   ],
+   "job_key": "ashby:Carpatica Software:cs-1",
+   "company": "Carpatica Software",
+   "location": "Cluj-Napoca, Romania"
+  },
+  {
+   "role": "Graduate Software Engineer, Fleet Backend",
+   "stage": "oa_pending",
+   "history": [
+    [
+     "applied",
+     "2026-11-14T03:00:00+00:00"
+    ],
+    [
+     "oa_pending",
+     "2026-11-17T15:00:00+00:00"
+    ]
+   ],
+   "next_step_by": "2026-11-23",
+   "notes": "Online assessment: 90 minutes, Python.",
+   "job_key": "smartrecruiters:Isarflow Robotics:if-1",
+   "company": "Isarflow Robotics",
+   "location": "Munich, Germany"
+  },
+  {
+   "role": "Junior Backend Developer (Go)",
+   "stage": "to_apply",
+   "history": [
+    [
+     "to_apply",
+     "2026-11-18T15:00:00+00:00"
+    ]
+   ],
+   "job_key": "recruitee:Danubit:db-1",
+   "company": "Danubit",
+   "location": "Bucharest, Romania"
+  },
+  {
+   "company": "Kestrel Pay",
+   "role": "Backend Intern",
+   "location": "Lisbon, Portugal",
+   "stage": "rejected",
+   "history": [
+    [
+     "applied",
+     "2026-10-16T15:00:00+00:00"
+    ],
+    [
+     "rejected",
+     "2026-10-30T15:00:00+00:00"
+    ]
+   ]
+  },
+  {
+   "company": "Aalto Freight",
+   "role": "Junior Software Engineer",
+   "location": "Helsinki, Finland",
+   "stage": "applied",
+   "history": [
+    [
+     "applied",
+     "2026-10-23T15:00:00+00:00"
+    ]
+   ]
+  }
+ ],
+ "notes": {
+  "ashby:Rivoli Ledger:rl-1": "Mention the French at B1 in the cover letter, and that I am improving it."
+ },
+ "hidden": [
+  "greenhouse:Polderbyte:pb-2"
+ ],
+ "questions": {
+  "greenhouse:Polderbyte:pb-1": [
+   {
+    "id": "q1",
+    "label": "Why do you want to join Polderbyte's graduate programme?",
+    "kind": "text",
+    "required": true,
+    "max_words": 150
+   },
+   {
+    "id": "q2",
+    "label": "Tell us about a time you made a system faster or more reliable.",
+    "kind": "text",
+    "required": true
+   },
+   {
+    "id": "q3",
+    "label": "Do you need a visa to work in the Netherlands?",
+    "kind": "choice",
+    "required": true,
+    "options": [
+     "Yes",
+     "No"
+    ]
+   }
+  ]
+ },
+ "messages": {
+  "greenhouse:Polderbyte:pb-1": [
+   [
+    "user",
+    "Which of my projects should I mention for this role, and why?"
+   ],
+   [
+    "assistant",
+    "Lead with **the refunds service at Acme Payments**: it is the closest to what Polderbyte's graduates build.\n\n- It is Go on payments, the team's own stack.\n- Idempotent requests and tests that prove the money adds up answer the posting's \"build and run\" line.\n- You own the service end to end, which suits a programme that gives ownership from week one.\n\nThen the route-planning API at Globex Logistics, for the p95 latency work: it shows you measure before you change things."
+   ]
+  ]
+ },
+ "drafts": [
+  {
+   "role": "pb-1",
+   "kind": "question",
+   "qid": "q1",
+   "answer": "I want to build payment systems that people can rely on, and Polderbyte's rails sit exactly there. At Acme Payments I am building a refunds service in Go, and the part I enjoy most is the care it takes: idempotent requests, clear states and tests that prove the money adds up. Your graduate programme would let me keep doing that work at a larger scale, with a mentor and real ownership from the first weeks. I also like that routing, refunds and settlement live in one team, so I could follow a payment from the shop to the payout. Amsterdam and an English-speaking team make it a place I can start contributing to straight away.",
+   "job_key": "greenhouse:Polderbyte:pb-1"
+  },
+  {
+   "role": "pb-1",
+   "kind": "question",
+   "qid": "q2",
+   "answer": "At Globex Logistics I worked on the route-planning API, whose slowest requests took about 900 ms at the 95th percentile. I profiled the endpoint, found that most of the time went into repeated database queries for each stop, and replaced them with one batched query and a small cache for reference data. I added a latency test to CI so the gain would not slip back. The p95 came down to 210 ms, and the planners using the tool noticed the difference the same week.",
+   "job_key": "greenhouse:Polderbyte:pb-1"
+  },
+  {
+   "role": "pb-1",
+   "kind": "question",
+   "qid": "q3",
+   "answer": "No",
+   "choices": [
+    "No"
+   ],
+   "job_key": "greenhouse:Polderbyte:pb-1"
+  },
+  {
+   "role": "rl-1",
+   "kind": "letter",
+   "qid": "letter",
+   "answer": "Dear Rivoli Ledger team,\n\nI am applying for the Junior Software Engineer role on the Payments Platform. I am in the final year of a BSc in Computer Science and work part time as a backend intern at Acme Payments, where I am building a refunds service in Go. Getting every state transition right, and proving it with tests, is the part of the job I care about most, and it is what your platform asks for.\n\nBefore that, at Globex Logistics, I brought the p95 latency of a route-planning API down from 900 ms to 210 ms by batching queries and adding a latency check to CI. I work in Python and Go every day, on PostgreSQL and Docker.\n\nMy French is at B1 and I am working on it, so I could follow the finance team's discussions and grow into them.\n\nThank you for your time; I would be glad to talk.\n\n[Your name]",
+   "missing": [
+    "Your name as it should appear under the letter"
+   ],
+   "job_key": "ashby:Rivoli Ledger:rl-1"
+  }
+ ],
+ "updated_at": "2026-11-19T03:00:00+00:00"
+}

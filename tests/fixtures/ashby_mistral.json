@@ -1,0 +1,217 @@
+{
+ "jobs": [
+  {
+   "id": "22fee4f2-f6c9-4516-a0cd-92d6aeb21a52",
+   "title": "AI Deployment Strategist - USA",
+   "department": "Solutions",
+   "team": "Deployment Strategist",
+   "employmentType": "FullTime",
+   "location": "Palo Alto",
+   "secondaryLocations": [
+    {
+     "location": "New York",
+     "address": {
+      "postalAddress": {
+       "addressRegion": "New York",
+       "addressCountry": "United States",
+       "addressLocality": "New York"
+      }
+     }
+    },
+    {
+     "location": "San Francisco",
+     "address": {
+      "postalAddress": {
+       "addressRegion": "California",
+       "addressCountry": "United States",
+       "addressLocality": "San Francisco"
+      }
+     }
+    }
+   ],
+   "publishedAt": "2026-07-10T17:15:03.403+00:00",
+   "isListed": true,
+   "isRemote": true,
+   "workplaceType": "Hybrid",
+   "address": {
+    "postalAddress": {
+     "addressRegion": "California",
+     "addressCountry": "United States",
+     "addressLocality": "Palo Alto"
+    }
+   },
+   "jobUrl": "https://jobs.ashbyhq.com/mistral.ai/22fee4f2-f6c9-4516-a0cd-92d6aeb21a52",
+   "applyUrl": "https://jobs.ashbyhq.com/mistral.ai/22fee4f2-f6c9-4516-a0cd-92d6aeb21a52/application",
+   "descriptionHtml": "<h2><strong>About Mistral</strong></h2><p style=\"min-height:1.5em\">Mistral provides full-stack AI solutions: from frontier models to developer tools, applications, and compute. We partner with enterprises tackling the hardest problems across high-stakes industries like finance, manufacturing, defense, healthcare, and the public sector, co-creating customized AI systems that they can run on their terms.</p><p style=\"min-height:1.5em\">We are a dynamic, collaborative team passionate about AI and its potential to transform society. Our diverse workforce thrives in competitive environments and is committed to driving innovation. Our teams are distributed between Europe, North America, Asia and the Middle East. We are creative, low-ego and team-spirited.</p><p style=\"min-height:1.5em\"></p><p style=\"min-height:1.5em\"><strong>Role Summary </strong></p><p style=\"min-height:1.5em\"></p><p style=\"min-height:1.5em\">As an <strong>AI Deployment Strategist</strong>, you will drive the adoption and deployment of Mistral’s AI solutions, working closely with customers from strategic vision to production implementation. This role sits at the intersection of business strategy, AI innovation, and hands-on deployment, ensuring our customers achieve transformative outcomes.</p><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><p style=\"min-height:1.5em\">You will partner with senior executives to design AI roadmaps, collaborate with the Applied AI team to deliver solutions in production, and ensure seamless transitions from presales to postsales. Your work will directly contribute to customer success, bridging the gap between strategy and execution.</p><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><p style=\"min-height:1.5em\">This role is ideal for those who thrive in a fast-paced environment, enjoy solving complex business challenges, and are passionate about turning AI potential into real-world impact.</p><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><p style=\"min-height:1.5em\"><strong>What you will do</strong></p><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><p style=\"min-height:1.5em\"><strong>Strategic Discovery &amp; Vision Setting</strong></p><p style=\"min-height:1.5em\">• Lead executive-level workshops to identify business challenges and opportunities where Mistral’s AI can drive step-change improvements.</p><p style=\"min-height:1.5em\">• Co-create AI adoption roadmaps with customers, articulating the “art of the possible” and a clear path to value.</p><p style=\"min-height:1.5em\">• Collaborate with Account Executives to develop business cases, quantify ROI, and align solutions with customer objectives.</p><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><p style=\"min-height:1.5em\"><strong>AI Solution Design &amp; Deployment</strong></p><p style=\"min-height:1.5em\">• Architect end-to-end AI solutions, integrating Mistral’s models and platform into customer workflows and technical infrastructure.</p><p style=\"min-height:1.5em\">• Partner with the Applied AI team to design, prototype, and deploy AI solutions in production, ensuring scalability and impact.</p><p style=\"min-height:1.5em\">• Own the execution of pilot projects and proofs-of-value, demonstrating the potential of our technology and paving the way for full-scale deployment.</p><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><p style=\"min-height:1.5em\"><strong>Value Realization &amp; Customer Success</strong></p><p style=\"min-height:1.5em\">• Serve as a trusted advisor to customers, guiding their AI strategy and ensuring they maximize the value of their investment in Mistral.</p><p style=\"min-height:1.5em\">• Monitor key performance indicators (KPIs) tied to business outcomes, and communicate progress to executive sponsors.</p><p style=\"min-height:1.5em\">• Proactively identify expansion opportunities within accounts, building on initial successes to drive long-term partnerships.</p><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><p style=\"min-height:1.5em\"><strong>Cross-Functional Collaboration</strong></p><p style=\"min-height:1.5em\">• Act as the bridge between customers and Mistral’s internal teams, synthesizing feedback to influence product and research roadmaps.</p><p style=\"min-height:1.5em\">• Develop reusable assets, best practices, and playbooks to scale go-to-market efforts and ensure consistent delivery excellence.</p><p style=\"min-height:1.5em\">• Travel (~30-60%) to foster deep client relationships and support on-site deployment.</p><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><p style=\"min-height:1.5em\"><strong>About you</strong></p><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><p style=\"min-height:1.5em\">• 4+ years in a client-facing strategic and technical role (e.g., data science consulting, value engineering, or technical sales).</p><p style=\"min-height:1.5em\">• You hold a degree in a relevant scientific field (e.g., Computer Science, Data Science, Engineering, etc.)</p><p style=\"min-height:1.5em\">• Foundational knowledge of AI/ML/Data Science, with the credibility to advise both technical and non-technical audiences.</p><p style=\"min-height:1.5em\">• Hands-on experience building and deploying AI applications (Python, JavaScript, or similar) to demonstrate value.</p><p style=\"min-height:1.5em\">• Strong business acumen and problem-solving skills, with the ability to structure ambiguous challenges into actionable solutions.</p><p style=\"min-height:1.5em\">• Executive presence and communication skills to influence senior stakeholders (VP, C-level).</p><p style=\"min-height:1.5em\">• Hands on experience building and deploying AI applications (Python)</p><p style=\"min-height:1.5em\">• Resilient, results-driven, and comfortable leading through influence in a collaborative environment.</p><p style=\"min-height:1.5em\">• Experience with sales qualification frameworks (e.g., MEDDPICC) and value-based selling is a plus.</p><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><p style=\"min-height:1.5em\"><strong>Why This Role Matters</strong> You will play a pivotal role in shaping how enterprises adopt and deploy AI, ensuring Mistral’s solutions deliver measurable impact. By partnering with the Applied AI team, you’ll help turn strategic visions into production-ready solutions, making Mistral an indispensable partner for our customers.</p><div style=\"min-height:1.2em;margin-top:0px;margin-bottom:0px\"> </div><p style=\"min-height:1.5em\"></p><h2><strong>What We Offer</strong></h2><p style=\"min-height:1.5em\">We offer a comprehensive benefits package designed to support your well-being, growth, and work-life balance. Benefits vary by country and may include healthcare coverage, parental leave, retirement plans, relocation support, wellness programs, meal and transportation allowances, and other location-specific perks.</p><p style=\"min-height:1.5em\">For the most up-to-date details on benefits available in your location, please refer to our <a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://app.notion.com/p/mistralai/Benefits-at-Mistral-36e6ba59a7fe836b93dd01737fcc27ef?source=copy_link\">Benefits page</a>.</p><p style=\"min-height:1.5em\"></p><h2><strong>Privacy Policy</strong></h2><p style=\"min-height:1.5em\">Your privacy matters to us. You can learn more about how we handle your personal data in our <a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://legal.mistral.ai/terms/applicant-privacy-policy\"><u>Applicant Privacy Policy</u></a>.</p>",
+   "descriptionPlain": "ABOUT MISTRAL\n\nMistral provides full-stack AI solutions: from frontier models to developer tools, applications, and compute. We partner with enterprises tackling the hardest problems across high-stakes industries like finance, manufacturing, defense, healthcare, and the public sector, co-creating customized AI systems that they can run on their terms.\n\nWe are a dynamic, collaborative team passionate about AI and its potential to transform society. Our diverse workforce thrives in competitive environments and is committed to driving innovation. Our teams are distributed between Europe, North America, Asia and the Middle East. We are creative, low-ego and team-spirited.\n\n\n\nRole Summary \n\n\n\nAs an AI Deployment Strategist, you will drive the adoption and deployment of Mistral’s AI solutions, working closely with customers from strategic vision to production implementation. This role sits at the intersection of business strategy, AI innovation, and hands-on deployment, ensuring our customers achieve transformative outcomes.\n\n \n\nYou will partner with senior executives to design AI roadmaps, collaborate with the Applied AI team to deliver solutions in production, and ensure seamless transitions from presales to postsales. Your work will directly contribute to customer success, bridging the gap between strategy and execution.\n\n \n\nThis role is ideal for those who thrive in a fast-paced environment, enjoy solving complex business challenges, and are passionate about turning AI potential into real-world impact.\n\n \n\nWhat you will do\n\n \n\nStrategic Discovery & Vision Setting\n\n• Lead executive-level workshops to identify business challenges and opportunities where Mistral’s AI can drive step-change improvements.\n\n• Co-create AI adoption roadmaps with customers, articulating the “art of the possible” and a clear path to value.\n\n• Collaborate with Account Executives to develop business cases, quantify ROI, and align solutions with customer objectives.\n\n \n\nAI Solution Design & Deployment\n\n• Architect end-to-end AI solutions, integrating Mistral’s models and platform into customer workflows and technical infrastructure.\n\n• Partner with the Applied AI team to design, prototype, and deploy AI solutions in production, ensuring scalability and impact.\n\n• Own the execution of pilot projects and proofs-of-value, demonstrating the potential of our technology and paving the way for full-scale deployment.\n\n \n\nValue Realization & Customer Success\n\n• Serve as a trusted advisor to customers, guiding their AI strategy and ensuring they maximize the value of their investment in Mistral.\n\n• Monitor key performance indicators (KPIs) tied to business outcomes, and communicate progress to executive sponsors.\n\n• Proactively identify expansion opportunities within accounts, building on initial successes to drive long-term partnerships.\n\n \n\nCross-Functional Collaboration\n\n• Act as the bridge between customers and Mistral’s internal teams, synthesizing feedback to influence product and research roadmaps.\n\n• Develop reusable assets, best practices, and playbooks to scale go-to-market efforts and ensure consistent delivery excellence.\n\n• Travel (~30-60%) to foster deep client relationships and support on-site deployment.\n\n \n \n\nAbout you\n\n \n\n• 4+ years in a client-facing strategic and technical role (e.g., data science consulting, value engineering, or technical sales).\n\n• You hold a degree in a relevant scientific field (e.g., Computer Science, Data Science, Engineering, etc.)\n\n• Foundational knowledge of AI/ML/Data Science, with the credibility to advise both technical and non-technical audiences.\n\n• Hands-on experience building and deploying AI applications (Python, JavaScript, or similar) to demonstrate value.\n\n• Strong business acumen and problem-solving skills, with the ability to structure ambiguous challenges into actionable solutions.\n\n• Executive presence and communication skills to influence senior stakeholders (VP, C-level).\n\n• Hands on experience building and deploying AI applications (Python)\n\n• Resilient, results-driven, and comfortable leading through influence in a collaborative environment.\n\n• Experience with sales qualification frameworks (e.g., MEDDPICC) and value-based selling is a plus.\n\n \n\nWhy This Role Matters You will play a pivotal role in shaping how enterprises adopt and deploy AI, ensuring Mistral’s solutions deliver measurable impact. By partnering with the Applied AI team, you’ll help turn strategic visions into production-ready solutions, making Mistral an indispensable partner for our customers.\n\n \n\n\n\n\nWHAT WE OFFER\n\nWe offer a comprehensive benefits package designed to support your well-being, growth, and work-life balance. Benefits vary by country and may include healthcare coverage, parental leave, retirement plans, relocation support, wellness programs, meal and transportation allowances, and other location-specific perks.\n\nFor the most up-to-date details on benefits available in your location, please refer to our Benefits page https://app.notion.com/p/mistralai/Benefits-at-Mistral-36e6ba59a7fe836b93dd01737fcc27ef?source=copy_link.\n\n\n\n\nPRIVACY POLICY\n\nYour privacy matters to us. You can learn more about how we handle your personal data in our Applicant Privacy Policy https://legal.mistral.ai/terms/applicant-privacy-policy."
+  },
+  {
+   "id": "647826f5-37f4-48b7-b5b8-5b7bee6d8e23",
+   "title": "Engineering Team Lead, Fleet Delivery",
+   "department": "Engineering & Infra",
+   "team": "Cloud",
+   "employmentType": "FullTime",
+   "location": "Paris",
+   "secondaryLocations": [
+    {
+     "location": "Zurich",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Switzerland"
+      }
+     }
+    },
+    {
+     "location": "Madrid",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Spain"
+      }
+     }
+    },
+    {
+     "location": "Amsterdam",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Netherlands",
+       "addressLocality": "Amsterdam"
+      }
+     }
+    },
+    {
+     "location": "Warsaw",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Poland",
+       "addressLocality": "Warsaw"
+      }
+     }
+    },
+    {
+     "location": "Linz",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Austria",
+       "addressLocality": "Linz"
+      }
+     }
+    },
+    {
+     "location": "Munich",
+     "address": {
+      "postalAddress": {
+       "addressRegion": "Bavaria",
+       "addressCountry": "Germany",
+       "addressLocality": "Munich"
+      }
+     }
+    },
+    {
+     "location": "London",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "United Kingdom",
+       "addressLocality": "London"
+      }
+     }
+    },
+    {
+     "location": "Berlin",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Germany",
+       "addressLocality": "Berlin"
+      }
+     }
+    }
+   ],
+   "publishedAt": "2026-10-06T14:45:48.979+00:00",
+   "isListed": true,
+   "isRemote": true,
+   "workplaceType": "Remote",
+   "address": {
+    "postalAddress": {
+     "addressRegion": "Ile-de-France",
+     "addressCountry": "France",
+     "addressLocality": "Paris"
+    }
+   },
+   "jobUrl": "https://jobs.ashbyhq.com/mistral.ai/647826f5-37f4-48b7-b5b8-5b7bee6d8e23",
+   "applyUrl": "https://jobs.ashbyhq.com/mistral.ai/647826f5-37f4-48b7-b5b8-5b7bee6d8e23/application",
+   "descriptionHtml": "<h2><strong>About Mistral</strong></h2><p style=\"min-height:1.5em\">Mistral provides full-stack AI solutions: from frontier models to developer tools, applications, and compute. We partner with enterprises tackling the hardest problems across high-stakes industries like finance, manufacturing, defense, healthcare, and the public sector, co-creating customized AI systems that they can run on their terms.</p><p style=\"min-height:1.5em\">We are a dynamic, collaborative team passionate about AI and its potential to transform society. Our diverse workforce thrives in competitive environments and is committed to driving innovation. Our teams are distributed between Europe, North America, Asia and the Middle East. We are creative, low-ego and team-spirited.</p><p style=\"min-height:1.5em\"></p><h2>The team</h2><p style=\"min-height:1.5em\">Mistral is building a sovereign AI cloud for Europe. Our customers in finance, healthcare, and the public sector run frontier models on European-jurisdiction infrastructure, and the Cloud Platform team builds the systems that make that possible — compute orchestration, Kubernetes, bare metal, storage, networking, and the datacenter fleet that runs it all.</p><p style=\"min-height:1.5em\">European Compute Units let enterprises commit to multi-year capacity on that infrastructure, and we are scaling toward a gigawatt of compute across Europe by 2030. You will design and ship the layer every sovereign AI deployment depends on and shape the team building it.</p><p style=\"min-height:1.5em\"></p><h2>The Role</h2><p style=\"min-height:1.5em\">A datacenter is not a cloud until software makes it one. You will lead the team that turns arriving hardware into accepted clusters.</p><p style=\"min-height:1.5em\">Cabling validation, burn-in, firmware, deployment validation, software stack install — all of it automated, none of it click-ops. Your KPI is time to acceptance: the hours between a rack being physically installed and it serving customer workloads. Across the industry that number is measured in weeks. You will drive it toward days, then hours, as we scale toward a gigawatt of compute across Europe.</p><p style=\"min-height:1.5em\">This is a founding leadership role at the intersection of hardware and software. Early on it is deliberately hands-on: most of your time in the code and the architecture, some of it on datacenter floors, because the automation has to survive contact with the machines it runs on.</p><p style=\"min-height:1.5em\">But the job is building and leading a team from day one — hiring your first engineers, coaching them, setting their growth paths, and running the rituals that keep quality high. As the team grows, the balance shifts toward people leadership, and you decide how fast. You shape this new team's charter and set the standard for how every future Mistral datacenter comes online.</p><p style=\"min-height:1.5em\"></p><h2>What You Will Do</h2><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">Build the delivery pipeline in Go: provisioning, configuration, validation, burn-in, network bring-up, software stack install.</p></li><li><p style=\"min-height:1.5em\">Build the team from scratch: make the first hires, onboard and coach them, own their performance and growth paths — and set the tooling standards and the playbook every future site reuses.</p></li><li><p style=\"min-height:1.5em\">Own time-to-acceptance and drive it down relentlessly — measure it, break it down, kill the slowest step first.</p></li><li><p style=\"min-height:1.5em\">Work shoulder-to-shoulder with Hardware Design and Fleet Health — reliability starts at delivery.</p></li><li><p style=\"min-height:1.5em\">Handle GPU fleets at scale: H100 and GB200-class nodes, InfiniBand and RoCE fabrics, and the failure modes they bring.</p></li><li><p style=\"min-height:1.5em\">Partner with Product Managers and the datacenter org to plan delivery waves against capacity commitments.</p></li></ul><p style=\"min-height:1.5em\"></p><h2>What We're Looking For</h2><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">You have automated bare-metal fleets — you have written the software that turns racks into clusters. If you have done it by hand, you resented it and scripted it.</p></li><li><p style=\"min-height:1.5em\">Hardware fluency: servers, GPUs, NICs, switches, firmware — you can read a parts list and a topology diagram.</p></li><li><p style=\"min-height:1.5em\">8+ years building backend or infrastructure systems, with at least 2 years leading engineers — real people leadership: you have hired, coached, and grown engineers, not just set technical direction.</p></li><li><p style=\"min-height:1.5em\">Deep Linux: you are comfortable well below the application layer.</p></li><li><p style=\"min-height:1.5em\">You have shipped production systems in Go. Not dabbled. Shipped.</p></li><li><p style=\"min-height:1.5em\">Willing to travel to datacenter sites when the work demands it.</p></li><li><p style=\"min-height:1.5em\">A low-ego, team-first mindset. We care less about your exact domain and more about whether you are the kind of technical force other engineers want to work alongside.</p></li></ul><p style=\"min-height:1.5em\"></p><h2><strong>What We Offer</strong></h2><p style=\"min-height:1.5em\">We offer a comprehensive benefits package designed to support your well-being, growth, and work-life balance. Benefits vary by country and may include healthcare coverage, parental leave, retirement plans, relocation support, wellness programs, meal and transportation allowances, and other location-specific perks.</p><p style=\"min-height:1.5em\">For the most up-to-date details on benefits available in your location, please refer to our <a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://app.notion.com/p/mistralai/Benefits-at-Mistral-36e6ba59a7fe836b93dd01737fcc27ef?source=copy_link\">Benefits page</a>.</p><p style=\"min-height:1.5em\"></p><h2><strong>Privacy Policy</strong></h2><p style=\"min-height:1.5em\">Your privacy matters to us. You can learn more about how we handle your personal data in our <a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://legal.mistral.ai/terms/applicant-privacy-policy\"><u>Applicant Privacy Policy</u></a>.</p>",
+   "descriptionPlain": "ABOUT MISTRAL\n\nMistral provides full-stack AI solutions: from frontier models to developer tools, applications, and compute. We partner with enterprises tackling the hardest problems across high-stakes industries like finance, manufacturing, defense, healthcare, and the public sector, co-creating customized AI systems that they can run on their terms.\n\nWe are a dynamic, collaborative team passionate about AI and its potential to transform society. Our diverse workforce thrives in competitive environments and is committed to driving innovation. Our teams are distributed between Europe, North America, Asia and the Middle East. We are creative, low-ego and team-spirited.\n\n\n\n\nTHE TEAM\n\nMistral is building a sovereign AI cloud for Europe. Our customers in finance, healthcare, and the public sector run frontier models on European-jurisdiction infrastructure, and the Cloud Platform team builds the systems that make that possible — compute orchestration, Kubernetes, bare metal, storage, networking, and the datacenter fleet that runs it all.\n\nEuropean Compute Units let enterprises commit to multi-year capacity on that infrastructure, and we are scaling toward a gigawatt of compute across Europe by 2030. You will design and ship the layer every sovereign AI deployment depends on and shape the team building it.\n\n\n\n\nTHE ROLE\n\nA datacenter is not a cloud until software makes it one. You will lead the team that turns arriving hardware into accepted clusters.\n\nCabling validation, burn-in, firmware, deployment validation, software stack install — all of it automated, none of it click-ops. Your KPI is time to acceptance: the hours between a rack being physically installed and it serving customer workloads. Across the industry that number is measured in weeks. You will drive it toward days, then hours, as we scale toward a gigawatt of compute across Europe.\n\nThis is a founding leadership role at the intersection of hardware and software. Early on it is deliberately hands-on: most of your time in the code and the architecture, some of it on datacenter floors, because the automation has to survive contact with the machines it runs on.\n\nBut the job is building and leading a team from day one — hiring your first engineers, coaching them, setting their growth paths, and running the rituals that keep quality high. As the team grows, the balance shifts toward people leadership, and you decide how fast. You shape this new team's charter and set the standard for how every future Mistral datacenter comes online.\n\n\n\n\nWHAT YOU WILL DO\n\n - Build the delivery pipeline in Go: provisioning, configuration, validation, burn-in, network bring-up, software stack install.\n\n - Build the team from scratch: make the first hires, onboard and coach them, own their performance and growth paths — and set the tooling standards and the playbook every future site reuses.\n\n - Own time-to-acceptance and drive it down relentlessly — measure it, break it down, kill the slowest step first.\n\n - Work shoulder-to-shoulder with Hardware Design and Fleet Health — reliability starts at delivery.\n\n - Handle GPU fleets at scale: H100 and GB200-class nodes, InfiniBand and RoCE fabrics, and the failure modes they bring.\n\n - Partner with Product Managers and the datacenter org to plan delivery waves against capacity commitments.\n\n\n\n\nWHAT WE'RE LOOKING FOR\n\n - You have automated bare-metal fleets — you have written the software that turns racks into clusters. If you have done it by hand, you resented it and scripted it.\n\n - Hardware fluency: servers, GPUs, NICs, switches, firmware — you can read a parts list and a topology diagram.\n\n - 8+ years building backend or infrastructure systems, with at least 2 years leading engineers — real people leadership: you have hired, coached, and grown engineers, not just set technical direction.\n\n - Deep Linux: you are comfortable well below the application layer.\n\n - You have shipped production systems in Go. Not dabbled. Shipped.\n\n - Willing to travel to datacenter sites when the work demands it.\n\n - A low-ego, team-first mindset. We care less about your exact domain and more about whether you are the kind of technical force other engineers want to work alongside.\n\n\n\n\nWHAT WE OFFER\n\nWe offer a comprehensive benefits package designed to support your well-being, growth, and work-life balance. Benefits vary by country and may include healthcare coverage, parental leave, retirement plans, relocation support, wellness programs, meal and transportation allowances, and other location-specific perks.\n\nFor the most up-to-date details on benefits available in your location, please refer to our Benefits page https://app.notion.com/p/mistralai/Benefits-at-Mistral-36e6ba59a7fe836b93dd01737fcc27ef?source=copy_link.\n\n\n\n\nPRIVACY POLICY\n\nYour privacy matters to us. You can learn more about how we handle your personal data in our Applicant Privacy Policy https://legal.mistral.ai/terms/applicant-privacy-policy."
+  },
+  {
+   "id": "f090ef1d-372e-40dc-bf46-ce0bf2850204",
+   "title": "AI Scientist - Agentic Engineering",
+   "department": "Science",
+   "team": "AI for Science",
+   "employmentType": "FullTime",
+   "location": "Paris",
+   "secondaryLocations": [
+    {
+     "location": "Amsterdam",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Netherlands",
+       "addressLocality": "Amsterdam"
+      }
+     }
+    },
+    {
+     "location": "Linz",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Austria",
+       "addressLocality": "Linz"
+      }
+     }
+    },
+    {
+     "location": "Munich",
+     "address": {
+      "postalAddress": {
+       "addressRegion": "Bavaria",
+       "addressCountry": "Germany",
+       "addressLocality": "Munich"
+      }
+     }
+    },
+    {
+     "location": "London",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "United Kingdom",
+       "addressLocality": "London"
+      }
+     }
+    },
+    {
+     "location": "Berlin",
+     "address": {
+      "postalAddress": {
+       "addressCountry": "Germany",
+       "addressLocality": "Berlin"
+      }
+     }
+    }
+   ],
+   "publishedAt": "2026-09-04T16:28:21.680+00:00",
+   "isListed": true,
+   "isRemote": true,
+   "workplaceType": "Hybrid",
+   "address": {
+    "postalAddress": {
+     "addressRegion": "Ile-de-France",
+     "addressCountry": "France",
+     "addressLocality": "Paris"
+    }
+   },
+   "jobUrl": "https://jobs.ashbyhq.com/mistral.ai/f090ef1d-372e-40dc-bf46-ce0bf2850204",
+   "applyUrl": "https://jobs.ashbyhq.com/mistral.ai/f090ef1d-372e-40dc-bf46-ce0bf2850204/application",
+   "descriptionHtml": "<h2><strong>About Mistral</strong></h2><p style=\"min-height:1.5em\">Mistral provides full-stack AI solutions: from frontier models to developer tools, applications, and compute. We partner with enterprises tackling the hardest problems across high-stakes industries like finance, manufacturing, defense, healthcare, and the public sector, co-creating customized AI systems that they can run on their terms.</p><p style=\"min-height:1.5em\">We are a dynamic, collaborative team passionate about AI and its potential to transform society. Our diverse workforce thrives in competitive environments and is committed to driving innovation. Our teams are distributed between Europe, North America, Asia and the Middle East. We are creative, low-ego and team-spirited.</p><p style=\"min-height:1.5em\"></p><p style=\"min-height:1.5em\"><strong>The Role</strong></p><p style=\"min-height:1.5em\">Mistral is looking for AI Scientists with deep ML expertise and hands-on engineering experience to expand what our agentic tools can do across the engineering lifecycle — CAE (CFD, FEA, etc.) and EDA/Semi.</p><p style=\"min-height:1.5em\">Working within the AI4Engineering Science team, your core work is building the pre and post-training data for Mistral's LLMs to reason about and execute real engineering tasks. Because Mistral trains its own frontier LLMs, the data and verifiers you design ship directly into models you can hold, a rare position, and the core of the job. </p><p style=\"min-height:1.5em\">Alongside this, you'll help shape the agent architectures and harness that let these models operate reliably inside multi-step engineering workflows, not just answer isolated questions.</p><p style=\"min-height:1.5em\">You'll work closely with domain experts across CAE and EDA or other domains to ground this work in how engineers actually work, and with the broader research team to translate that domain grounding into training signal and evaluation benchmarks that measure genuine task competence.</p><p style=\"min-height:1.5em\">This is early-stage work, and that's the point: you'd be joining at the foundation, shaping the data, verifiers, and agent scaffolding that decide whether these systems become reliable or stay demo-grade. There's no inherited playbook, you'll help define what good looks like, and your work will set the direction the team builds on rather than extend an existing one.<br /><br /><strong>What you will do</strong></p><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">Design pretraining, SFT, and RL data for engineering tasks across CAD, CAE, and semiconductor/EDA</p></li><li><p style=\"min-height:1.5em\">Define verifiers and evaluation criteria that capture what \"correct\" and \"high-quality\" actually mean for each engineering task, beyond surface-level plausibility</p></li><li><p style=\"min-height:1.5em\">Design and improve agent architectures and harnesses: how models plan, call tools, recover from errors, and chain steps together across long-horizon engineering workflows</p></li><li><p style=\"min-height:1.5em\">Build evaluation benchmarks and diagnostic tooling to identify where models fail on engineering tasks, and trace those failures back to gaps in data, reward design, or agent scaffolding</p></li><li><p style=\"min-height:1.5em\">Collaborate with domain experts across CAE and EDA or other domains (and the science and solutions teams more broadly) to identify which engineering workflows are highest-value to target next</p></li><li><p style=\"min-height:1.5em\">Contribute to Mistral's broader pre and post-training research, sharing findings and methodology across the science organization</p></li></ul><p style=\"min-height:1.5em\"><strong>What we're looking for</strong></p><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">Fluent English with excellent communication skills, able to explain technical ML and engineering concepts to both engineering and non-technical audiences</p></li><li><p style=\"min-height:1.5em\">Deep, hands-on machine learning expertise, particularly LLM development</p></li><li><p style=\"min-height:1.5em\">Demonstrated experience running, debugging, and validating real engineering workflows in at least one of CAD, CAE, semiconductor simulation, or EDA</p></li><li><p style=\"min-height:1.5em\">You write clean, readable Python code and are comfortable in Linux/HPC environments</p></li><li><p style=\"min-height:1.5em\">Self-directed,  you don't need detailed roadmaps to make progress</p></li><li><p style=\"min-height:1.5em\">Low-ego, collaborative, and eager to learn at the intersection of engineering and ML</p></li></ul><p style=\"min-height:1.5em\"><strong>It would be great if you</strong></p><ul style=\"min-height:1.5em\"><li><p style=\"min-height:1.5em\">Have experience building or fine-tuning agentic systems (tool use, multi-step planning, agent orchestration frameworks)</p></li><li><p style=\"min-height:1.5em\">Have experience with reward modeling, RLHF/RLAIF/RLVR, or preference-based training</p></li><li><p style=\"min-height:1.5em\">Have industrial or academic experience with CAE or EDA tools (e.g. SolidWorks, CATIA, Fluent, Abaqus, LS-DYNA, STAR-CCM+, Cadence/Synopsys/Siemens EDA tools)</p></li><li><p style=\"min-height:1.5em\">Have contributed to a large open-source or industry codebase</p></li><li><p style=\"min-height:1.5em\">Have publications in engineering and ML venues (NeurIPS, ICLR, JFM, AIAA, etc.)</p></li></ul><p style=\"min-height:1.5em\"></p><h2><strong>What We Offer</strong></h2><p style=\"min-height:1.5em\">We offer a comprehensive benefits package designed to support your well-being, growth, and work-life balance. Benefits vary by country and may include healthcare coverage, parental leave, retirement plans, relocation support, wellness programs, meal and transportation allowances, and other location-specific perks.</p><p style=\"min-height:1.5em\">For the most up-to-date details on benefits available in your location, please refer to our <a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://app.notion.com/p/mistralai/Benefits-at-Mistral-36e6ba59a7fe836b93dd01737fcc27ef?source=copy_link\">Benefits page</a>.</p><p style=\"min-height:1.5em\"></p><h2><strong>Privacy Policy</strong></h2><p style=\"min-height:1.5em\">Your privacy matters to us. You can learn more about how we handle your personal data in our <a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"https://legal.mistral.ai/terms/applicant-privacy-policy\"><u>Applicant Privacy Policy</u></a>.</p>",
+   "descriptionPlain": "ABOUT MISTRAL\n\nMistral provides full-stack AI solutions: from frontier models to developer tools, applications, and compute. We partner with enterprises tackling the hardest problems across high-stakes industries like finance, manufacturing, defense, healthcare, and the public sector, co-creating customized AI systems that they can run on their terms.\n\nWe are a dynamic, collaborative team passionate about AI and its potential to transform society. Our diverse workforce thrives in competitive environments and is committed to driving innovation. Our teams are distributed between Europe, North America, Asia and the Middle East. We are creative, low-ego and team-spirited.\n\n\n\nThe Role\n\nMistral is looking for AI Scientists with deep ML expertise and hands-on engineering experience to expand what our agentic tools can do across the engineering lifecycle — CAE (CFD, FEA, etc.) and EDA/Semi.\n\nWorking within the AI4Engineering Science team, your core work is building the pre and post-training data for Mistral's LLMs to reason about and execute real engineering tasks. Because Mistral trains its own frontier LLMs, the data and verifiers you design ship directly into models you can hold, a rare position, and the core of the job. \n\nAlongside this, you'll help shape the agent architectures and harness that let these models operate reliably inside multi-step engineering workflows, not just answer isolated questions.\n\nYou'll work closely with domain experts across CAE and EDA or other domains to ground this work in how engineers actually work, and with the broader research team to translate that domain grounding into training signal and evaluation benchmarks that measure genuine task competence.\n\nThis is early-stage work, and that's the point: you'd be joining at the foundation, shaping the data, verifiers, and agent scaffolding that decide whether these systems become reliable or stay demo-grade. There's no inherited playbook, you'll help define what good looks like, and your work will set the direction the team builds on rather than extend an existing one.\n\nWhat you will do\n\n - Design pretraining, SFT, and RL data for engineering tasks across CAD, CAE, and semiconductor/EDA\n\n - Define verifiers and evaluation criteria that capture what \"correct\" and \"high-quality\" actually mean for each engineering task, beyond surface-level plausibility\n\n - Design and improve agent architectures and harnesses: how models plan, call tools, recover from errors, and chain steps together across long-horizon engineering workflows\n\n - Build evaluation benchmarks and diagnostic tooling to identify where models fail on engineering tasks, and trace those failures back to gaps in data, reward design, or agent scaffolding\n\n - Collaborate with domain experts across CAE and EDA or other domains (and the science and solutions teams more broadly) to identify which engineering workflows are highest-value to target next\n\n - Contribute to Mistral's broader pre and post-training research, sharing findings and methodology across the science organization\n\nWhat we're looking for\n\n - Fluent English with excellent communication skills, able to explain technical ML and engineering concepts to both engineering and non-technical audiences\n\n - Deep, hands-on machine learning expertise, particularly LLM development\n\n - Demonstrated experience running, debugging, and validating real engineering workflows in at least one of CAD, CAE, semiconductor simulation, or EDA\n\n - You write clean, readable Python code and are comfortable in Linux/HPC environments\n\n - Self-directed,  you don't need detailed roadmaps to make progress\n\n - Low-ego, collaborative, and eager to learn at the intersection of engineering and ML\n\nIt would be great if you\n\n - Have experience building or fine-tuning agentic systems (tool use, multi-step planning, agent orchestration frameworks)\n\n - Have experience with reward modeling, RLHF/RLAIF/RLVR, or preference-based training\n\n - Have industrial or academic experience with CAE or EDA tools (e.g. SolidWorks, CATIA, Fluent, Abaqus, LS-DYNA, STAR-CCM+, Cadence/Synopsys/Siemens EDA tools)\n\n - Have contributed to a large open-source or industry codebase\n\n - Have publications in engineering and ML venues (NeurIPS, ICLR, JFM, AIAA, etc.)\n\n\n\n\nWHAT WE OFFER\n\nWe offer a comprehensive benefits package designed to support your well-being, growth, and work-life balance. Benefits vary by country and may include healthcare coverage, parental leave, retirement plans, relocation support, wellness programs, meal and transportation allowances, and other location-specific perks.\n\nFor the most up-to-date details on benefits available in your location, please refer to our Benefits page https://app.notion.com/p/mistralai/Benefits-at-Mistral-36e6ba59a7fe836b93dd01737fcc27ef?source=copy_link.\n\n\n\n\nPRIVACY POLICY\n\nYour privacy matters to us. You can learn more about how we handle your personal data in our Applicant Privacy Policy https://legal.mistral.ai/terms/applicant-privacy-policy."
+  }
+ ],
+ "apiVersion": "1"
+}

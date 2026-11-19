@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block title %}Companies · {{ app_name }}{% endblock %}
+
+{% block sidebar %}
+<div id="sidebar" hx-get="/applications/sidebar?page=companies" hx-trigger="applications-changed from:body" hx-swap="innerHTML">
+  {% include "_sidebar.html" %}
+</div>
+{% endblock %}
+
+{% macro company_rows(items) %}
+  {% for c in items %}
+    <tr class="row company{% if c.blocked %} is-blocked{% endif %}" data-company-id="{{ c.id }}">
+      <td class="primary">
+        <div class="title-line">
+          <a class="row-title" href="{{ '/jobs?view=all&company=' ~ (c.id|urlencode) }}" title="{{ c.name }}">{{ c.label or c.name }}</a>
+          {% if c.local %}<span class="tag" title="fetch_from = local: fetched from the laptop only">Laptop only</span>{% endif %}
+        </div>
+        {% if c.failing_on_github %}<div class="small fetch-problem" title="{{ c.failing_on_github.error }}">Failing on GitHub in {{ c.failing_on_github.failed }} of the last {{ c.failing_on_github.runs }} runs</div>
+        {% elif c.last_error %}<div class="small fetch-problem" title="{{ c.last_error }}">Last fetch failed</div>{% endif %}
+      </td>
+      {# Its list, said once per row (2026-11-18); how often it is checked shows only when unusual. #}
+      {% set every = "every second run" if (c.board or "").startswith("workday") and every_runs.get("workday", 1) == 2 and c.group in ("wishlist", "yours") and not c.daily else ("daily" if c.daily else "every run") %}
+      {% set usual = "daily" if c.group in ("found", "generated") else "every run" %}
+      {# One line, so rows keep one height (2026-11-19): an unusual schedule as a mark with its tip. #}
+      <td class="group-cell small" title="{{ c.group_label }}: checked {{ every }}">
+        <span class="group-name group-{{ c.group }}">{{ c.group_label }}</span>
+        {% if every != usual and c.covered %}<span class="every-mark" data-tip="Checked {{ every }}" tabindex="0"
+              aria-label="checked {{ every }}"><svg width="12" height="12" class="icon" aria-hidden="true"><use href="#{{ 'i-circle-half' if every == 'every second run' else 'i-clock' }}"/></svg></span>{% endif %}
+      </td>
+      {% set cov = c.coverage %}
+      <td class="board-cell">
+        {% if cov.status == "covered" %}<span class="board-name" title="{{ c.board_note }}">{{ c.board_name }}</span>
+        {% else %}
+          {% if c.covered %}<span class="board-name" title="{{ c.board_note }}">{{ c.board_name }}</span>{% endif %}
+          <button type="button" class="coverage-status coverage-{{ cov.status }}" title="{{ cov.detail }}"
+                  hx-get="/companies/coverage?company={{ c.id|urlencode }}" hx-target="#sheet">{{ cov.label }}</button>
+          {% if c.remind %}<span class="secondary small remind-tag" title="On Today's weekly list of companies to check by hand">checked weekly by hand</span>{% endif %}
+        {% endif %}
+      </td>
+      <td class="nowrap small col-fetched">
+        {% if c.last_fetch %}{{ c.last_fetch.at|when }} <span class="secondary">{{ "GitHub" if c.last_fetch.where == "github" else "laptop" }}</span>
+        {% elif c.generated %}<span class="secondary">daily (generated list)</span>
+        {% elif c.covered %}<span class="secondary">not yet</span>
+        {% else %}<span class="secondary">–</span>{% endif %}
+      </td>
+      <td class="roles-cell small">
+        {% if c.open_roles %}<span class="roles-open nowrap">{{ c.open_roles }} open</span><span class="secondary"> · <span class="nowrap">{{ c.scored_roles }} scored</span>{% if c.waiting_roles %} · <span class="nowrap">{{ c.waiting_roles }} waiting</span>{% endif %}</span>
+        {% elif c.no_roles %}{% set why = c.no_roles %}<span class="{{ 'error-text' if why.tone == 'error' else 'secondary' }}" title="{{ why.detail }}">{{ why.label }}</span>
+        {% else %}<span class="secondary">–</span>{% endif %}
+      </td>
+      <td class="notes-cell small col-notes">
+        {% if c.applications %}<div class="nowrap">{{ c.applications }} application{{ "" if c.applications == 1 else "s" }} · <span class="stage-word stage-{{ c.latest_stage }}"><span class="dot" aria-hidden="true"></span>{{ stage_labels[c.latest_stage] }}</span></div>{% endif %}
+        {% for l in c.limits %}<div class="{{ 'limit-warn' if l.full or l.cooling else 'secondary' }}" title="{{ l.note }}">{{ l.explain }}</div>{% endfor %}
+      </td>
+      <td class="nowrap actions-cell">
+        {% if c.wishlisted %}
+          <button type="button" class="star-btn on" title="Remove {{ c.name }} from the wishlist" aria-pressed="true"
+                  hx-post="/wishlist/set" hx-swap="none" hx-vals='{"name": {{ c.name|tojson }}, "on": "0"}'>
+            <svg width="14" height="14" class="icon mini" aria-hidden="true"><use href="#i-star"/></svg><span class="visually-hidden">Remove from the wishlist</span></button>
+        {% elif c.generated %}
+          <button type="button" class="star-btn" title="Add {{ c.label or c.name }} to the wishlist: checked every 2 hours" aria-pressed="false"
+                  hx-post="/wishlist/set" hx-swap="none"
+                  hx-vals='{{ {"on": "1", "choice": ({"name": c.name, "config": {"board": c.generated.get("board"), "slug": c.generated.get("slug"), "url": c.generated.get("url"), "region": c.generated.get("region")}, "source": "generated list"}|tojson)}|tojson }}'>
+            <svg width="14" height="14" class="icon mini" aria-hidden="true"><use href="#i-star"/></svg><span class="visually-hidden">Add to the wishlist</span></button>
+        {% else %}
+          <button type="button" class="star-btn" title="Add {{ c.name }} to the wishlist" aria-pressed="false"
+                  hx-post="/wishlist/set" hx-swap="none" hx-vals='{"name": {{ c.name|tojson }}, "on": "1"}'>
+            <svg width="14" height="14" class="icon mini" aria-hidden="true"><use href="#i-star"/></svg><span class="visually-hidden">Add to the wishlist</span></button>
+        {% endif %}
+        <button type="button" class="icon-btn small{% if c.blocked %} is-on{% endif %}" title="{{ ('Unblock ' if c.blocked else 'Block ') ~ (c.label or c.name) }}"
+                hx-post="/blocked/set" hx-swap="none" hx-vals='{"name": {{ c.name|tojson }}, "on": "{{ 0 if c.blocked else 1 }}"}'
+                {% if c.wishlisted and not c.blocked %}hx-confirm="{{ c.name }} is on your wishlist. Block it anyway? It leaves the wishlist (Undo puts it back)."{% endif %}>
+          <svg width="14" height="14" class="icon" aria-hidden="true"><use href="#i-block"/></svg><span class="visually-hidden">{{ "Unblock" if c.blocked else "Block" }}</span></button>
+      </td>
+    </tr>
+  {% endfor %}
+{% endmacro %}
+
+{% block content %}
+<header class="page-head">
+  <h1>Companies</h1>
+  <p class="subtitle">{{ yours|length }} on your lists · {{ generated_total|num }} on the generated list</p>
+</header>
+{# One search for every company (2026-11-18): your lists and the generated list, as you type. #}
+<form class="page-toolbar" method="get" action="/companies">
+    <label class="search">
+      <svg width="18" height="18" class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+      <input id="search" name="q" type="search" value="{{ q }}" placeholder="Search all companies" aria-label="Search all companies" autocomplete="off"
+             hx-get="/companies" hx-include="closest form" hx-trigger="input changed delay:250ms, search"
+             hx-target="#companies-body" hx-select="#companies-body" hx-swap="outerHTML" hx-select-oob="#companies-tabs" hx-push-url="true">
+    </label>
+    <input type="hidden" name="group" value="{{ group if not q else 'all' }}">
+    {# The list filter beside the search, as on Applications (2026-11-19); hidden while searching every list. #}
+    <nav class="stage-tabs group-tabs" id="companies-tabs" aria-label="Filter by list"{% if q %} hidden{% endif %}>
+      <a class="stage-tab{% if group == 'all' %} on{% endif %}" href="/companies">All <span class="count">{{ yours|length }}</span></a>
+      {% for key in ("wishlist", "yours", "found", "blocked") %}{% if group_counts[key] or group == key %}
+        <a class="stage-tab{% if group == key %} on{% endif %}" href="/companies?group={{ key }}">{{ groups[key] }} <span class="count">{{ group_counts[key] }}</span></a>
+      {% endif %}{% endfor %}
+    </nav>
+    <span class="toolbar-end">
+      <button class="btn" type="button" hx-get="/companies/find" hx-target="#sheet" aria-haspopup="dialog"
+              {% if open_find %}hx-trigger="click, load"{% endif %}>
+        <svg width="18" height="18" class="icon" aria-hidden="true"><use href="#i-search"/></svg> Find more companies
+      </button>
+    </span>
+</form>
+
+{% if open_setup %}<div hidden hx-get="/companies/setup?{{ {'id': open_setup}|urlencode }}" hx-trigger="load" hx-target="#sheet"></div>{% endif %}
+<div id="companies-body" hx-get="/companies?{{ {'q': q, 'group': group}|urlencode }}" hx-trigger="companies-changed from:body"
+     hx-select="#companies-body" hx-swap="outerHTML" hx-disinherit="hx-select hx-swap hx-target hx-push-url hx-trigger">
+{% set show_notes = shown|selectattr("applications")|list|length > 0 or shown|selectattr("limits")|list|length > 0 %}
+{% set head %}
+  <colgroup>
+    <col><col class="w-group"><col class="w-board"><col class="w-fetched col-fetched"><col class="w-roles">
+    <col class="w-notes col-notes"><col class="w-actions">
+  </colgroup>
+  <thead><tr>
+    <th scope="col">Company</th><th scope="col">List</th><th scope="col">Coverage</th><th scope="col" class="col-fetched">Last fetched</th>
+    <th scope="col">Roles</th><th scope="col" class="col-notes">Applications and limits</th>
+    <th scope="col"><span class="visually-hidden">Actions</span></th>
+  </tr></thead>
+{% endset %}
+<section class="group">
+  {% if q %}<h2 class="group-title">Matching “{{ q }}” <span class="group-count">{{ shown|length }}</span></h2>{% endif %}
+  {% if shown %}
+    <div class="card"><table class="list companies{% if not show_notes %} no-notes{% endif %}">{{ head }}<tbody>{{ company_rows(shown) }}</tbody></table></div>
+    {% if q %}<p class="more-link secondary small">Not the one? <button type="button" class="link-btn" hx-get="/companies/setup?{{ {'name': q}|urlencode }}" hx-target="#sheet">Set up “{{ q }}”</button></p>{% endif %}
+  {% elif q %}
+    <div class="card empty setup-empty">
+      <p><strong>No company called “{{ q }}” is tracked.</strong></p>
+      <p class="secondary">Setting it up looks for its job board or careers site and shows what it finds before anything is saved.</p>
+      <button class="btn btn-primary" type="button" hx-get="/companies/setup?{{ {'name': q}|urlencode }}" hx-target="#sheet" aria-haspopup="dialog">Set it up</button>
+    </div>
+  {% else %}
+    <div class="card empty"><p>No company on this list.</p></div>
+  {% endif %}
+</section>
+</div>
+{% endblock %}

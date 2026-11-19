@@ -1,0 +1,40 @@
+{# "Fetch and score now": the state of the company's fetch and scoring, polled while a step runs. #}
+{% set busy = task.stage in ("fetching", "scoring") %}
+<section id="fetch-panel" class="card pad fetch-panel" role="status" aria-live="polite"
+         {% if busy %}hx-get="/wishlist/progress?company={{ task.company_id|urlencode }}" hx-trigger="every 1s" hx-swap="outerHTML"{% endif %}>
+  {% if task.stage == "fetching" %}
+    <div class="fetch-line"><span class="spinner" aria-hidden="true"></span>
+      <strong>Fetching {{ task.company|company }}’s roles on this laptop…</strong></div>
+    <p class="secondary small">{% if task.line %}{{ task.line }}{% elif holder %}Waiting for the data: {{ holder }}.{% else %}Starting ({{ task.seconds }} s).{% endif %}</p>
+  {% elif task.stage == "fetched" %}
+    {% set c = task.counts %}
+    {% if c.waiting %}
+      <p><strong>{{ c.found|num }} roles found; {{ c.waiting|num }} pass the filters and wait for a score.</strong></p>
+      <p class="secondary small">Scoring them would use about {{ "%.0f"|format(100 * c.windows) }}% of a five-hour window
+        (about {{ "%.1f"|format(100 * c.week_share) }}% of the week){% if c.cascade %}, with the title check and Haiku first (a large company){% else %}, Sonnet directly{% endif %}.
+        {% if c.without_text %}{{ c.without_text|num }} more pass but have no posting text yet; a later run reads them.{% endif %}
+        {% if week %}Claude reports {{ "%.0f"|format(100 * week.utilization) }}% of the week used.{% endif %}</p>
+      {% if week and week.utilization >= guard_at %}
+        <p class="banner warn small">The week is past {{ "%.0f"|format(100 * guard_at) }}%: scoring now eats into what is left for everything else.</p>
+      {% endif %}
+      <div class="fetch-actions">
+        <button class="btn btn-primary" hx-post="/wishlist/score" hx-vals='{"company": {{ task.company_id|tojson }}}'
+                hx-target="#fetch-panel" hx-swap="outerHTML" hx-disabled-elt="this">Score {{ c.waiting|num }} roles</button>
+        <a class="btn" href="/jobs?view=all&amp;company={{ task.company_id|urlencode }}">Not now</a>
+      </div>
+    {% else %}
+      <p><strong>{{ c.found|num }} roles found; none waits for a score</strong>
+        {% if c.passing %}({{ c.passing|num }} pass the filters{% if c.without_text %}, {{ c.without_text|num }} still without posting text{% endif %}){% else %}(none passes the filters){% endif %}.</p>
+    {% endif %}
+  {% elif task.stage == "scoring" %}
+    <div class="fetch-line"><span class="spinner" aria-hidden="true"></span>
+      <strong>Scoring {{ task.counts.waiting|num }} roles…</strong></div>
+    <p class="secondary small">{{ task.line or ("Starting (" ~ task.seconds ~ " s).") }} Results appear here as soon as they are in.</p>
+  {% elif task.stage == "done" %}
+    {% set r = task.results %}
+    <p><strong>Scored: {{ r.scored|num }} roles{% set t = r.threshold or 7 %}{% if r.seven_plus %}, {{ r.seven_plus }} at fit {{ t }}+{% endif %}{% if r.six %}, {{ r.six }} at {{ t - 1 }}{% endif %}.</strong></p>
+    <div class="fetch-actions"><a class="btn btn-primary" href="/jobs?view=all&amp;company={{ task.company_id|urlencode }}">Show them</a></div>
+  {% else %}
+    <p class="banner" role="alert">{{ task.company|company }}: the {{ "scoring" if task.counts else "fetch" }} did not finish. {{ task.error }}</p>
+  {% endif %}
+</section>

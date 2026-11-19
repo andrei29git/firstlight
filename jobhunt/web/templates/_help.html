@@ -1,0 +1,299 @@
+{# Application help: the panel on Job detail. Polls itself while a draft is being written. #}
+<section id="help" class="card pad help"
+         {% if running %}hx-get="/job/help?key={{ key|urlencode }}&amp;tab={{ tab }}" hx-trigger="every 2s" hx-swap="outerHTML"{% endif %}>
+  <div class="help-head">
+    <h2 class="card-title">Application help</h2>
+    <div class="segmented" role="tablist" aria-label="Application help">
+      {% for name, label in (("questions", "Questions"), ("letter", "Cover letter"), ("chat", "Chat")) %}
+        <button type="button" role="tab" class="seg{% if tab == name %} on{% endif %}" aria-selected="{{ 'true' if tab == name else 'false' }}"
+                hx-get="/job/help?key={{ key|urlencode }}&amp;tab={{ name }}" hx-target="#help" hx-swap="outerHTML">{{ label }}</button>
+      {% endfor %}
+    </div>
+  </div>
+  <details class="help-note secondary small"><summary>Drafted by {{ model|capitalize }} from your profile. What is sent?</summary>
+    <p>Your profile and writing preferences, and the posting. Anything it does not know is left as a [placeholder] and asked under “Needed from you”. Your contact details are never sent.
+    {% if usage.calls %}This week: {{ usage.calls }} call{{ "" if usage.calls == 1 else "s" }}, about {{ "%.1f"|format(100 * usage.windows / 12.5) }}% of the week.{% endif %}</p>
+  </details>
+  {% if not has_posting %}<p class="banner" role="note">The posting text has not been fetched yet, so drafts know only the title and the assessment.</p>{% endif %}
+  {% if error %}<p class="banner" role="alert">{{ error }}</p>{% endif %}
+  {% if notice %}<p class="banner ok" role="status">{{ notice }}</p>{% endif %}
+  {% if note %}<p class="banner" role="note">{{ note }}</p>{% endif %}
+  {% if profile_offer %}
+    <form class="profile-offer" hx-post="/job/help/profile" hx-target="#help" hx-swap="outerHTML">
+      <input type="hidden" name="key" value="{{ key }}"><input type="hidden" name="tab" value="{{ tab }}">
+      <p><strong>Save {{ "this" if profile_offer|length == 1 else "these" }} to profile.md, so {{ "it is" if profile_offer|length == 1 else "they are" }} not asked again?</strong></p>
+      <ul>{% for line in profile_offer %}<li>{{ line[2:] }}</li>{% endfor %}</ul>
+      <p class="secondary small">Every draft and score reads profile.md. Existing scores are kept (their prompt version becomes older; nothing is rescored).</p>
+      <div class="help-actions">
+        <button class="btn btn-primary small-btn" type="submit" name="add" value="1">Add to profile.md</button>
+        <button class="btn small-btn" type="submit">Not now</button>
+      </div>
+    </form>
+  {% endif %}
+
+  {% macro busy(kind, label) %}
+    <p class="drafting" role="status"><span class="spinner" aria-hidden="true"></span>{{ label }}… usually about {{ estimates[kind] }} seconds{% if elapsed.get(kind) %} · {{ elapsed[kind] }} s so far{% endif %}.</p>
+  {% endmacro %}
+
+  {# A failed call (2026-11-19): one plain sentence, Try again for the same call, Claude's words under Details. #}
+  {% macro failed(kind) %}
+    {% set e = errors.get(kind) %}
+    {% if e and kind not in running %}
+      <div class="banner help-failed" role="alert">
+        <p>{{ e.message }}</p>
+        <div class="help-failed-actions">
+          {% if e.retry %}<form hx-post="/job/help/retry" hx-target="#help" hx-swap="outerHTML" hx-disabled-elt="find button">
+            <input type="hidden" name="key" value="{{ key }}"><input type="hidden" name="kind" value="{{ kind }}">
+            <button class="btn small-btn" type="submit">Try again</button></form>{% endif %}
+          {% if e.detail %}<details class="help-failed-detail"><summary>Details</summary><p>{{ e.detail }}</p></details>{% endif %}
+        </div>
+      </div>
+    {% endif %}
+  {% endmacro %}
+
+  {% macro needed(kind, qid, d) %}
+    {% if d and d.missing %}
+      <form class="needed" hx-post="/job/help/facts" hx-target="#help" hx-swap="outerHTML" hx-disabled-elt="find button">
+        <input type="hidden" name="key" value="{{ key }}"><input type="hidden" name="kind" value="{{ kind }}"><input type="hidden" name="qid" value="{{ qid }}">
+        <span class="needed-title">Needed from you</span>
+        {% for m in d.missing[:20] %}
+          <label class="fact"><span>{{ m }}</span>
+            <input type="hidden" name="fact_{{ loop.index0 }}_name" value="{{ m }}">
+            <input name="fact_{{ loop.index0 }}" value="{{ (d.facts or {}).get(m, '') }}" autocomplete="off"></label>
+        {% endfor %}
+        <button class="btn small-btn" type="submit" {% if kind == "letter" and "letter" in running or kind != "letter" and "questions" in running %}disabled{% endif %}>Redraft with these</button>
+      </form>
+    {% endif %}
+  {% endmacro %}
+
+  {% if tab == "questions" %}
+    {% if not questions %}
+      <div class="help-empty">
+        {% if greenhouse %}
+          <p>This Greenhouse role publishes its application questions.</p>
+          {% if demo %}<p class="secondary small">{{ demo_off.questions }}</p>
+          {% else %}<form hx-post="/job/help/questions/load" hx-target="#help" hx-swap="outerHTML" hx-disabled-elt="find button">
+            <input type="hidden" name="key" value="{{ key }}">
+            <button class="btn btn-primary" type="submit">Load the questions</button>
+          </form>{% endif %}
+          <p class="secondary small">Or paste them:</p>
+        {% else %}
+          <p>Paste the application's questions, one per line or numbered. You check how they were split before anything is drafted.</p>
+        {% endif %}
+        <form class="paste-form" hx-post="/job/help/questions/paste" hx-target="#help" hx-swap="outerHTML" hx-disabled-elt="find button">
+          <input type="hidden" name="key" value="{{ key }}">
+          <textarea name="text" rows="5" placeholder="1. Why do you want to work here?&#10;2. Tell us about a project you are proud of."></textarea>
+          <button class="btn" type="submit">Use these questions</button>
+        </form>
+      </div>
+
+    {% elif not reviewed %}
+      {# After a paste: the split, for review before anything is drafted. #}
+      <div class="review-head">
+        <p><strong>Check the questions: {{ questions|length }} found.</strong></p>
+        <p class="secondary small">Edit a question in place, merge one the paste split in two, delete one that is not a question, or add one it missed.</p>
+      </div>
+      <ol class="review-list">
+        {% for q in questions %}
+          <li class="review-item">
+            <textarea class="review-text" rows="1" data-autogrow name="label" aria-label="Question {{ loop.index }}"
+                      hx-post="/job/help/questions/change" hx-trigger="change" hx-target="#help" hx-swap="outerHTML"
+                      hx-vals='{"key": {{ key|tojson }}, "qid": {{ q.id|tojson }}, "action": "edit"}'>{{ q.label }}</textarea>
+            {# Quiet actions (2026-11-19): grey, red only on hover; the limit as a tag, not in the text. #}
+            <div class="review-actions">
+              {% if q.max_words %}<span class="tag">{{ q.max_words }} words</span>{% endif %}
+              {% if not loop.last %}<button class="link-btn quiet" type="button" hx-post="/job/help/questions/change" hx-target="#help" hx-swap="outerHTML"
+                      hx-vals='{"key": {{ key|tojson }}, "qid": {{ q.id|tojson }}, "action": "merge"}'>Merge with next</button>{% endif %}
+              <button class="link-btn quiet quiet-danger" type="button" hx-post="/job/help/questions/change" hx-target="#help" hx-swap="outerHTML"
+                      hx-vals='{"key": {{ key|tojson }}, "qid": {{ q.id|tojson }}, "action": "delete"}'>Delete</button>
+            </div>
+          </li>
+        {% endfor %}
+      </ol>
+      <form class="add-question" hx-post="/job/help/questions/change" hx-target="#help" hx-swap="outerHTML">
+        <input type="hidden" name="key" value="{{ key }}"><input type="hidden" name="action" value="add">
+        <input name="label" placeholder="Add a question" autocomplete="off" aria-label="A question to add">
+        <button class="btn small-btn" type="submit">Add</button>
+      </form>
+      <div class="help-actions end">
+        <button class="btn btn-primary" type="button" hx-post="/job/help/questions/change" hx-target="#help" hx-swap="outerHTML"
+                hx-vals='{"key": {{ key|tojson }}, "action": "reviewed"}'>Looks right</button>
+      </div>
+
+    {% else %}
+      {% set to_draft = questions|selectattr("kind", "in", drafted_kinds)|list %}
+      {% set ns = namespace(drafted=false) %}
+      {% for q in questions %}{% if (drafts.get(("question", q.id)) or {}).get("answer") %}{% set ns.drafted = true %}{% endif %}{% endfor %}
+      <div class="help-actions">
+        <span class="secondary small">{{ questions|length }} question{{ "" if questions|length == 1 else "s" }}, {{ "from Greenhouse" if source == "greenhouse" else "pasted" }}</span>
+        <span class="spacer"></span>
+        <button type="button" class="btn small-btn" data-copy="{{ copy_all }}" data-copy-note="Copied every question and answer"
+                {% if not ns.drafted %}disabled title="Nothing is drafted yet"{% endif %}>Copy all</button>
+        {% if to_draft %}
+          <form hx-post="/job/help/questions/draft" hx-target="#help" hx-swap="outerHTML" hx-disabled-elt="find button">
+            <input type="hidden" name="key" value="{{ key }}">
+            <button class="btn btn-primary small-btn" type="submit" {% if "questions" in running %}disabled{% endif %}
+                    title="One call for every question still to draft; answers you edited are kept">
+              {{ "Drafting…" if "questions" in running else "Draft all" }}</button>
+          </form>
+        {% endif %}
+      </div>
+      {% if "questions" in running %}{{ busy("questions", "Drafting the answers") }}{% endif %}
+      {{ failed("questions") }}
+      <ol class="questions">
+        {% for q in questions %}
+          {% set d = drafts.get(("question", q.id)) %}
+          {% set stale = d and d.answer and d.question and d.question != q.label %}
+          <li class="question-card kind-{{ q.kind }}{% if stale %} stale{% endif %}">
+            <div class="q-head">
+              <div class="q-label">{{ q.label }}</div>
+              <div class="q-tags">
+                {% if q.required %}<span class="tag">Required</span>{% endif %}
+                {% if q.max_words %}<span class="tag">{{ q.max_words }} words</span>{% endif %}
+              </div>
+            </div>
+            <details class="q-edit">
+              <summary class="link-btn">Edit question</summary>
+              <form hx-post="/job/help/questions/change" hx-target="#help" hx-swap="outerHTML">
+                <input type="hidden" name="key" value="{{ key }}"><input type="hidden" name="qid" value="{{ q.id }}"><input type="hidden" name="action" value="edit">
+                <textarea name="label" rows="2" aria-label="Question text">{{ q.label }}</textarea>
+                <div class="help-actions">
+                  <button class="btn small-btn" type="submit">Save</button>
+                  <button class="link-btn danger" type="button" hx-post="/job/help/questions/change" hx-target="#help" hx-swap="outerHTML"
+                          hx-confirm="Delete this question and its draft?"
+                          hx-vals='{"key": {{ key|tojson }}, "qid": {{ q.id|tojson }}, "action": "delete"}'>Delete question</button>
+                </div>
+              </form>
+            </details>
+            {% if q.kind == "standard" %}
+              {% if q.value %}<div class="answer-line"><code>{{ q.value }}</code>
+                <button type="button" class="btn small-btn" data-copy="{{ q.value }}" data-copy-note="Copied">Copy</button></div>
+              {% else %}<p class="secondary small">{{ q.note }}</p>{% endif %}
+            {% elif q.kind in ("personal", "file") %}
+              <p class="secondary small">{{ q.note }}</p>
+            {% else %}
+              {% if q.options %}
+                {% if d and d.choices %}<div class="chosen-list">{% for c in d.choices %}<span class="pill chosen-pill">✓ {{ c }}</span>{% endfor %}</div>{% endif %}
+                {% if q.options|length > 6 %}
+                  <details class="options-more"><summary class="secondary small">Show all {{ q.options|length }} options</summary>
+                    <ul class="options">{% for o in q.options %}<li class="{{ 'chosen' if d and o in d.choices else '' }}">{{ o }}</li>{% endfor %}</ul>
+                  </details>
+                {% else %}
+                  <ul class="options">{% for o in q.options %}<li class="{{ 'chosen' if d and o in d.choices else '' }}">{{ o }}</li>{% endfor %}</ul>
+                {% endif %}
+              {% endif %}
+              {% if d and d.answer %}
+                {% if stale %}<p class="stale-note" role="note">The question changed after this draft: it may no longer fit.</p>{% endif %}
+                {% set tid = "a-" ~ loop.index %}
+                <textarea id="{{ tid }}" class="answer" rows="{{ 1 if q.options else 3 }}" data-autogrow name="answer" aria-label="Answer to question {{ loop.index }}"
+                          hx-post="/job/help/save" hx-trigger="change" hx-swap="none"
+                          hx-vals='{"key": {{ key|tojson }}, "kind": "question", "qid": {{ q.id|tojson }}}'>{{ d.answer }}</textarea>
+                <div class="answer-tools">
+                  {% set n = words(d.answer) %}
+                  <span class="secondary small{% if q.max_words and n > q.max_words %} over{% endif %}">{{ n }} word{{ "" if n == 1 else "s" }}{% if q.max_words %} of {{ q.max_words }}{% endif %}{% if d.edited %} · edited by you{% endif %}</span>
+                  <span class="spacer"></span>
+                  <button type="button" class="btn small-btn" data-copy-from="#{{ tid }}" data-copy-note="Copied the answer"
+                          {% if d.missing %}title="It still has placeholders: fill them in first"{% endif %}>Copy</button>
+                  <form hx-post="/job/help/questions/draft" hx-target="#help" hx-swap="outerHTML" hx-disabled-elt="find button">
+                    <input type="hidden" name="key" value="{{ key }}"><input type="hidden" name="qid" value="{{ q.id }}">
+                    <button class="btn small-btn{% if stale %} btn-primary{% endif %}" type="submit" {% if "questions" in running %}disabled{% endif %}>Redraft</button>
+                  </form>
+                </div>
+                {{ needed("question", q.id, d) }}
+              {% elif "questions" in running %}
+                <p class="drafting small" role="status"><span class="spinner" aria-hidden="true"></span>Drafting…</p>
+              {% else %}
+                <p class="secondary small">Not drafted yet.</p>
+              {% endif %}
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ol>
+      <form class="add-question" hx-post="/job/help/questions/change" hx-target="#help" hx-swap="outerHTML">
+        <input type="hidden" name="key" value="{{ key }}"><input type="hidden" name="action" value="add">
+        <input name="label" placeholder="Add a question" autocomplete="off" aria-label="A question to add">
+        <button class="btn small-btn" type="submit">Add</button>
+      </form>
+      {% if source == "greenhouse" and demo %}
+        <p class="secondary small reload">Reload from Greenhouse is switched off in the demo: it would load the questions again over the internet.</p>
+      {% elif source == "greenhouse" %}
+        <form class="reload" hx-post="/job/help/questions/load" hx-target="#help" hx-swap="outerHTML" hx-confirm="Load the questions again from Greenhouse? Drafts stay.">
+          <input type="hidden" name="key" value="{{ key }}"><button class="link-btn" type="submit">Reload from Greenhouse</button>
+        </form>
+      {% endif %}
+    {% endif %}
+
+  {% elif tab == "letter" %}
+    {% set d = drafts.get(("letter", "letter")) %}
+    <form class="letter-form" hx-post="/job/help/letter" hx-target="#help" hx-swap="outerHTML" hx-disabled-elt="find button">
+      <input type="hidden" name="key" value="{{ key }}">
+      <div class="letter-length" role="group" aria-label="Length">
+        <span class="letter-length-label">Length</span>
+        <input class="field-input num" type="number" name="low" value="{{ letter_low }}" min="50" max="1000" step="10" aria-label="At least this many words">
+        <span class="secondary">to</span>
+        <input class="field-input num" type="number" name="high" value="{{ letter_high }}" min="50" max="1000" step="10" aria-label="At most this many words">
+        <span class="secondary">words, in English</span>
+      </div>
+      <button class="btn btn-primary" type="submit" {% if "letter" in running %}disabled{% endif %}
+              {% if d and d.edited %}hx-confirm="Replace the letter you edited?"{% endif %}>
+        {{ "Drafting…" if "letter" in running else ("Redraft" if d and d.answer else "Draft a cover letter") }}</button>
+    </form>
+    {% if "letter" in running %}{{ busy("letter", "Drafting the letter") }}{% endif %}
+    {{ failed("letter") }}
+    {% if d and d.answer %}
+      <form id="letter-export" class="letter-export" action="/job/help/letter/pdf" method="post" data-download>
+        <input type="hidden" name="key" value="{{ key }}">
+        <textarea id="letter" class="answer letter" rows="8" data-autogrow name="answer" aria-label="The cover letter"
+                  hx-post="/job/help/save" hx-trigger="change" hx-swap="none"
+                  hx-vals='{"key": {{ key|tojson }}, "kind": "letter", "qid": "letter"}'>{{ d.answer }}</textarea>
+        <div class="answer-tools">
+          {% set n = words(d.answer) %}<span class="secondary small">{{ n }} word{{ "" if n == 1 else "s" }}{% if d.edited %} · edited by you{% endif %}</span>
+          <span class="spacer"></span>
+          <button type="button" class="btn small-btn" data-copy-from="#letter" data-copy-note="Copied the letter">Copy text</button>
+          <button type="submit" class="btn btn-primary small-btn" title="One A4 page, with your name and contact details from your personal file">Export PDF</button>
+        </div>
+      </form>
+      <p class="secondary small">The PDF adds a header with your name and contact details from your personal file (read when you export, never sent to Claude), today's date and the company, and must fit on one page.</p>
+      {{ needed("letter", "letter", d) }}
+    {% endif %}
+
+  {% else %}
+    {{ failed("chat") }}
+    <div class="chat" aria-live="polite">
+      {% for m in messages %}
+        <div class="bubble {{ 'mine' if m.role == 'user' else 'theirs' }}">
+          {# Replies with their paragraphs, lists and bold (2026-11-19); your own messages as typed. #}
+          <div class="bubble-text{% if m.role != 'user' %} rich{% endif %}" id="m-{{ m.id }}">{% if m.role == "user" %}{{ m.content }}{% else %}{{ m.content|rich }}{% endif %}</div>
+          {% if m.role != "user" %}
+            <div class="answer-tools"><button type="button" class="btn small-btn" data-copy-from="#m-{{ m.id }}" data-copy-note="Copied">Copy</button></div>
+            {% if m.missing %}<div class="needed"><span class="needed-title">Needed from you</span><ul>{% for x in m.missing %}<li>{{ x }}</li>{% endfor %}</ul></div>{% endif %}
+          {% endif %}
+        </div>
+      {% else %}
+        <p class="secondary small">Ask for a draft, an answer to a question, or feedback on something you wrote. The conversation is kept for this role.</p>
+        <div class="starters">
+          {% for s in ("Why do I want to work at this company? Draft two or three sentences.",
+                       "Tailor my most relevant experience to this role in a short paragraph.",
+                       "Which of my projects should I mention for this role, and why?") %}
+            <form hx-post="/job/help/chat" hx-target="#help" hx-swap="outerHTML" hx-disabled-elt="find button">
+              <input type="hidden" name="key" value="{{ key }}"><input type="hidden" name="message" value="{{ s }}">
+              <button class="btn small-btn" type="submit" {% if "chat" in running %}disabled{% endif %}>{{ s }}</button>
+            </form>
+          {% endfor %}
+        </div>
+      {% endfor %}
+      {% if "chat" in running %}<div class="bubble theirs drafting" role="status"><span class="spinner" aria-hidden="true"></span>Writing… usually about {{ estimates.chat }} seconds{% if elapsed.get("chat") %} · {{ elapsed.chat }} s so far{% endif %}.</div>{% endif %}
+    </div>
+    <form class="chat-form" hx-post="/job/help/chat" hx-target="#help" hx-swap="outerHTML" hx-disabled-elt="find button, find textarea">
+      <input type="hidden" name="key" value="{{ key }}">
+      <textarea name="message" rows="3" placeholder="Ask about this application…" data-enter-sends {% if "chat" in running %}disabled{% endif %} required></textarea>
+      <div class="chat-actions">
+        <span class="secondary small">Enter sends · Shift+Enter for a new line</span>
+        <span class="spacer"></span>
+        {% if messages %}<button class="link-btn" type="button" hx-post="/job/help/chat/clear" hx-vals='{"key": {{ key|tojson }}}'
+                hx-target="#help" hx-swap="outerHTML" hx-confirm="Clear this role's conversation?">Clear conversation</button>{% endif %}
+        <button class="btn btn-primary" type="submit" {% if "chat" in running %}disabled{% endif %}>Send</button>
+      </div>
+    </form>
+  {% endif %}
+</section>

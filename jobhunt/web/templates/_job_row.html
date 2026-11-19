@@ -1,0 +1,86 @@
+{% set r = row.result %}
+{% set lv = list_view if list_view is defined else f.view %}
+{# The row's layout: a Waiting list shows Found and Board instead of the score's columns, and a
+   one-company list shows the role alone. Rows rendered on their own (after a hide, a star or an
+   Undo) get both from the request. #}
+{% set layout = row_layout if row_layout is defined else ("company" if (f is defined and f.company) else "") %}
+{% set waiting = lv == "waiting" %}
+{% set vals_extra = ', "layout": ' ~ (layout|tojson) %}
+{% set link = job_url(row.key, back_url if back_url is defined else none) %}
+<tr class="row job" data-href="{{ link }}" data-company-id="{{ row.company_id }}" data-key="{{ row.key }}"
+    data-company="{{ row.record.company }}" data-wishlist="{{ 1 if row.wishlist else 0 }}">
+  <td class="col-select"><input type="checkbox" class="row-select" aria-label="Select {{ row.company_name }}, {{ row.record.title }}"></td>
+  {% if not waiting %}
+  <td class="col-fit">
+    {% from "_fit.html" import fit_ring %}{{ fit_ring(r.fit if r else none, title=("Fit " ~ r.fit ~ " of 10 (" ~ row.score.model ~ ")") if r else "") }}
+  </td>
+  {% endif %}
+  <td class="primary">
+    <div class="title-line">
+      {% if layout == "company" %}
+        <a class="row-title role-title" href="{{ link }}" title="{{ row.record.title }}">{{ row.record.title }}</a>
+      {% else %}
+        <a class="row-title" href="{{ link }}" title="{{ row.company_name }}">{{ row.company_name }}</a>
+        {# A filled star by the name says the company is on the wishlist; adding it is in the ⋯ menu
+           (2026-11-18). The star is drawn on every row so a change shows on all the company's rows. #}
+        {% include "_star.html" %}
+      {% endif %}
+      {% if row.new and not waiting %}<span class="tag new">New</span>{% endif %}
+      {% if row.record.source == "email" %}<span class="tag provisional" title="From a job alert email: scored from its title and the email's text; the posting was not read">Provisional</span>{% endif %}
+      {% if row.deadline %}{% if is_past(row.deadline) %}<span class="tag due past" title="The application deadline was {{ row.deadline|nice_date }}">Deadline passed</span>
+      {% else %}<span class="tag due{% if due_soon(row.deadline) %} soon{% endif %}" title="Application deadline {{ row.deadline|nice_date }}">{{ row.deadline|due }}</span>{% endif %}{% endif %}
+      {% if row.limit_warning %}<svg width="18" height="18" class="icon mini warn" role="img" aria-label="Application limit"><title>{{ ((["On hold application: contact recruiter"] if row.on_hold else []) + row.limit_notes)|join("\n") }}</title><use href="#i-alert"/></svg>{% endif %}
+    </div>
+    {% if layout != "company" %}<div class="secondary role-name" title="{{ row.record.title }}">{{ row.record.title }}</div>{% endif %}
+    <div class="secondary small role-extra"><span class="role-location" title="{{ row.places|join('; ') }}">{{ row.place_text }}</span></div>
+  </td>
+  <td class="secondary col-location" title="{{ row.places|join('; ') }}"><span class="one-line">{{ row.place_text }}</span></td>
+  {% if waiting %}
+  <td class="secondary col-board"><span class="one-line">{{ board_name(row.record.source) }}</span></td>
+  {% else %}
+  <td class="verdict">
+    {% if row.status %}
+      <span class="status status-{{ row.status }}"{% if row.blocker_text %} title="{{ row.blocker_text }}"{% endif %}><span class="status-dot" aria-hidden="true"></span>{{ row.status|capitalize }}</span>
+      {% if row.action and row.action != "apply_now" %}<div class="secondary small action-line" title="The score's suggested action, beside the status of its blockers">Suggests: {{ action_labels[row.action]|lower }}</div>{% endif %}
+    {% else %}<span class="secondary small">{{ {"waiting": "Waiting", "skipped": "Not scored"}[row.view] }}</span>{% endif %}
+  </td>
+  <td class="odds-cell">
+    {% if r and r.odds %}<span class="odds odds-{{ r.odds }}" title="Odds of getting the role: {{ r.odds }}">{{ r.odds|capitalize }}</span>{% endif %}
+  </td>
+  {% endif %}
+  <td class="nowrap col-posted secondary{% if is_old(row.record.posted) %} old-date{% endif %}"
+      {% if row.record.posted %}title="Posted {{ row.record.posted|nice_date }}{% if is_old(row.record.posted) %}: over six months ago{% endif %}"{% endif %}>{{ row.record.posted|recent_date }}</td>
+  <td class="nowrap col-found secondary" title="First seen {{ row.record.first_seen|nice_date }}">{{ row.record.first_seen|recent_date }}</td>
+  <td class="nowrap row-actions col-tools">
+    {% set left = hidden_days_left(row.mark) %}
+    {% if left is not none %}<span class="days-left" title="Removed from the tool after this; Show again keeps it">{{ "removed today" if left == 0 else (left ~ (" day" if left == 1 else " days") ~ " left") }}</span>{% endif %}
+    <button type="button" class="icon-btn" data-tip="Mark as applied" aria-label="Mark as applied"
+            hx-post="/job/stage" hx-vals='{"key": {{ row.key|tojson }}, "stage": "applied", "list_view": {{ lv|tojson }}{{ vals_extra }}}'
+            hx-target="closest tr" hx-swap="outerHTML">
+      <svg width="18" height="18" class="icon" aria-hidden="true"><use href="#i-check-circle"/></svg>
+    </button>
+    <button type="button" class="icon-btn" data-tip="{{ 'Show again' if row.mark.hidden else 'Hide' }}" aria-label="{{ 'Show again' if row.mark.hidden else 'Hide' }}"
+            hx-post="/job/mark" hx-vals='{"key": {{ row.key|tojson }}, "hidden": "{{ 0 if row.mark.hidden else 1 }}", "list_view": {{ lv|tojson }}{{ vals_extra }}}'
+            hx-target="closest tr" hx-swap="outerHTML">
+      <svg width="18" height="18" class="icon" aria-hidden="true"><use href="#{{ 'i-eye' if row.mark.hidden else 'i-eye-off' }}"/></svg>
+    </button>
+    <details class="row-menu">
+      <summary class="icon-btn" data-tip="More" aria-label="More">
+        <svg width="18" height="18" class="icon" aria-hidden="true"><use href="#i-ellipsis"/></svg>
+      </summary>
+      <div class="menu" role="menu">
+        <button type="button" role="menuitem" class="menu-star{% if row.wishlist %} on{% endif %}"
+                data-wishlist-company="{{ row.company_id }}" data-company-name="{{ row.company_name }}"
+                hx-post="/wishlist/star" hx-vals='{"key": {{ row.key|tojson }}, "on": "{{ 0 if row.wishlist else 1 }}", "list_view": {{ (lv or "")|tojson }}{{ vals_extra }}}'
+                hx-target="closest tr" hx-swap="outerHTML">
+          <span class="menu-label">{{ ("Remove " ~ row.company_name ~ " from the wishlist") if row.wishlist else ("Add " ~ row.company_name ~ " to the wishlist") }}</span>
+        </button>
+        <button type="button" role="menuitem" hx-post="/blocked/set" hx-swap="none"
+                hx-vals='{"name": {{ row.record.company|tojson }}, "on": "1"}'
+                {% if row.wishlist %}hx-confirm="{{ row.company_name }} is on your wishlist. Block it anyway? It leaves the wishlist (Undo puts it back)."{% endif %}>
+          Block {{ row.company_name }}
+        </button>
+      </div>
+    </details>
+  </td>
+</tr>

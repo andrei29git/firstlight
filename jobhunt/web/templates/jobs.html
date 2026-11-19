@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} · {{ app_name }}{% endblock %}
+
+{% block sidebar %}
+<div id="sidebar" hx-get="/applications/sidebar?job_view={{ selected_job_view or '' }}&amp;company={{ (selected_company or '')|urlencode }}"
+     hx-trigger="applications-changed from:body" hx-swap="innerHTML">
+  {% include "_sidebar.html" %}
+</div>
+{% endblock %}
+
+{% block content %}
+<form class="jobs-form" method="get" action="/jobs" data-autosubmit>
+  <input type="hidden" name="view" value="{{ f.view }}">
+  {% if f.sort != "default" %}<input type="hidden" name="dir" value="{{ f.dir }}">{% endif %}
+  <header class="page-head{% if f.company and company_entry and company_entry.on %} with-action{% endif %}">
+    {# A wishlisted company's view: its star sits by its name, not among the filters (2026-11-18). #}
+    {% if f.company and company_entry and company_entry.on %}
+      <button type="button" class="btn star-toggle on head-action" title="Remove {{ company_entry.name }} from the wishlist"
+              hx-post="/wishlist/set" hx-vals='{"name": {{ company_entry.name|tojson }}, "on": "0"}' hx-swap="none">
+        <svg width="15" height="15" class="icon" aria-hidden="true"><use href="#i-star"/></svg> On wishlist
+      </button>
+    {% endif %}
+    <h1>{{ title }}</h1>
+    <p class="subtitle" id="jobs-subtitle">{% if f.view == "apply" and not f.company %}Fit {{ apply_min_fit() }}+, apply now, not blocked · {% endif %}{{ page.total|num }} role{{ "" if page.total == 1 else "s" }}{% if f.sort != "default" %} · sorted by {{ f.sort }}, {{ "oldest or lowest first" if f.dir == "asc" else "newest or highest first" }} (<a href="{{ sort_url('default') }}">best first</a>){% endif %}{% if page.pages > 1 %} · page {{ page.page }} of {{ page.pages }}{% endif %}</p>
+  </header>
+
+  {% set preset = presets[f.view] %}
+  {% macro select_filter(name, label, options, current, any_label="Any") %}
+    <label class="filter"><span>{{ label }}</span>
+      <select name="{{ name }}">
+        <option value="">{{ any_label }}</option>
+        {% for value, text in options %}<option value="{{ value }}" {% if current == value %}selected{% endif %}>{{ text }}</option>{% endfor %}
+      </select>
+    </label>
+  {% endmacro %}
+  <div class="page-toolbar filters" role="group" aria-label="Search and filters">
+    <label class="search">
+        <svg width="18" height="18" class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+        <input id="search" name="q" type="search" value="{{ f.q }}" placeholder="Company, role or place"
+               aria-label="Search roles" autocomplete="off"
+               hx-get="/jobs" hx-include="closest form" hx-trigger="input changed delay:250ms, search"
+               hx-target="#jobs-body" hx-select="#jobs-body" hx-swap="outerHTML" hx-select-oob="#jobs-subtitle,#jobs-chips,#more-foot"
+               hx-push-url="true">
+      </label>
+    {# Apply now's threshold is set on the Settings page, so it has no Fit filter of its own. #}
+    {% if f.scope in ("scored", "any") %}
+      {% if f.view != "apply" %}{{ select_filter("min_fit", "Fit at least", (range(10, 0, -1)|map("string")|zip_pairs), (f.min_fit|string if f.min_fit else "")) }}{% endif %}
+      {{ select_filter("odds", "Odds", (("high", "High"), ("medium", "Medium"), ("low", "Low")), f.odds) }}
+    {% endif %}
+    {{ select_filter("group", "Where", (("not_us", "Outside the US"), ("EU/EEA/CH", "EU/EEA/CH"), ("UK", "UK"), ("US", "US"), ("unknown", "Not stated")), f.group, "Anywhere") }}
+    <details class="more-filters"{% if more_open %} open{% endif %}>
+      <summary class="btn small-btn">More filters{% if more_count %} · {{ more_count }}{% endif %}</summary>
+      {# One label column and controls of one width (2026-11-19); a footer to reset and count. #}
+      <div class="more-panel" role="group" aria-label="More filters">
+        <div class="more-fields">
+        {% if "scope" not in preset %}
+          <label class="filter"><span>Scope</span>
+            <select name="scope">{% for key, label in scopes.items() %}<option value="{{ key }}" {% if f.scope == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+          </label>
+        {% endif %}
+        {% if f.scope in ("scored", "any") %}
+          {{ select_filter("status", "Status", (("clear", "Clear"), ("check", "Check"), ("blocked", "Blocked")), f.status) }}
+          {% if "action" not in preset %}{{ select_filter("action", "Action", action_labels.items(), f.action) }}{% endif %}
+        {% endif %}
+        {# A company filter (2026-11-18): any company with open roles, suggested as you type. #}
+        <label class="filter company-filter"><span>Company</span>
+          <input name="company" list="company-names" value="{{ title if f.company else '' }}" placeholder="Any company" autocomplete="off"
+                 aria-label="Company" data-picker>
+        </label>
+        <datalist id="company-names">{% for name in company_names %}<option value="{{ name }}">{% endfor %}</datalist>
+        {{ select_filter("origin", "From", (("config", "My companies"), ("generated", "Generated list")), f.origin, "All companies") }}
+        {% if "hidden" not in preset %}
+          <label class="filter"><span>Hidden</span>
+            <select name="hidden">
+              {% for value, text in (("exclude", "Leave out"), ("include", "Include"), ("only", "Only hidden")) %}<option value="{{ value }}" {% if f.hidden == value %}selected{% endif %}>{{ text }}</option>{% endfor %}
+            </select>
+          </label>
+        {% endif %}
+        <label class="filter"><span>Sort</span>
+          <select name="sort">{% for key, label in sorts.items() %}<option value="{{ key }}" {% if f.sort == key %}selected{% endif %}>{{ label }}</option>{% endfor %}</select>
+        </label>
+        </div>
+        <div class="more-divider" role="separator"></div>
+        <div class="more-checks">
+          <label class="check"><input type="checkbox" name="wishlist" value="1" {% if f.wishlist %}checked{% endif %}> Wishlist only</label>
+          <label class="check"><input type="checkbox" name="new" value="1" {% if f.new %}checked{% endif %}> New since last run</label>
+          <label class="check"><input type="checkbox" name="show_closed" value="1" {% if f.show_closed %}checked{% endif %}> Closed roles</label>
+        </div>
+        <div class="more-foot" id="more-foot">
+          <span class="secondary small more-count">{{ page.total|num }} matching role{{ "" if page.total == 1 else "s" }}</span>
+          {% if reset_url %}<a class="btn small-btn" href="{{ reset_url }}" title="Back to this view's own filters{% if f.q %}, keeping the search{% endif %}">Reset filters</a>
+          {% else %}<button type="button" class="btn small-btn" disabled title="No filters are set">Reset filters</button>{% endif %}
+        </div>
+      </div>
+    </details>
+  </div>
+  <div class="chips" id="jobs-chips" aria-label="Active filters"{% if not chips %} hidden{% endif %}>
+    {% for label, url in chips %}<a class="chip" href="{{ url }}" title="Remove this filter">{{ label }} <span aria-hidden="true">×</span><span class="visually-hidden">(remove)</span></a>{% endfor %}
+  </div>
+</form>
+
+{% if notice %}<p class="banner ok" role="status">{{ notice }}</p>{% endif %}
+{% if fetch_task %}{% with task = fetch_task %}{% include "_fetch_panel.html" %}{% endwith %}{% endif %}
+{% if f.since %}<p class="banner" role="note">Only roles found since {{ f.since|when }} (from Today). <a href="/jobs?view={{ f.view }}">Show all</a></p>{% endif %}
+{% if f.due_within is not none %}<p class="banner" role="note">Only deadlines in the next {{ f.due_within }} days (from Today). <a href="/jobs?view={{ f.view }}">Show all</a></p>{% endif %}
+{# Coverage from the one source Companies and the sidebar use (2026-11-19); amber, as it is a note, not an error. #}
+{% if f.company and company_cov and not company_cov.covered %}
+  <p class="banner warn" role="note">{{ company_entry.name }} is not checked every run: {{ company_cov.coverage.label|lower }}{% if company_cov.manual and not company_cov.manual.startswith("no board") %} ({{ company_cov.manual }}){% endif %}. Its roles found elsewhere still get the star.</p>
+{% endif %}
+<div class="bulk-bar" role="region" aria-label="Selected roles" hidden>
+    <span class="bulk-count"></span>
+    <button type="button" class="btn small-btn" data-bulk="hide">Hide</button>
+    <button type="button" class="btn small-btn" data-bulk="applied">Mark as applied</button>
+    <button type="button" class="btn small-btn" data-bulk="block">Block their companies</button>
+    <button type="button" class="link-btn" data-bulk="clear">Clear</button>
+    <span class="secondary small kb-hint">j/k move · x select · Enter open</span>
+  </div>
+{# Search as you type (2026-11-19): the list below is replaced, the search field keeps focus. #}
+<div id="jobs-body">
+{% if page.rows %}
+  <div class="card jobs-card">
+    {% macro sortable(field, label, cls="") %}
+      <th scope="col" class="{{ cls }}" {% if f.sort == field %}aria-sort="{{ 'ascending' if f.dir == 'asc' else 'descending' }}"{% endif %}>
+        <a class="sort-link{% if f.sort == field %} active{% endif %}" href="{{ sort_url(field) }}"
+           title="Sort by {{ label|lower }}{% if f.sort == field %} ({{ 'oldest or lowest first' if f.dir == 'asc' else 'newest or highest first' }}; click to flip){% endif %}">{{ label }}{% if f.sort == field %}<span aria-hidden="true">{{ " ↑" if f.dir == "asc" else " ↓" }}</span>{% endif %}</a>
+      </th>
+    {% endmacro %}
+    {% set waiting = f.view == "waiting" %}
+    <table class="list jobs{% if waiting %} waiting{% endif %}{% if f.company %} one-company{% endif %}{% if f.hidden == 'only' %} hidden-list{% endif %}">
+      <colgroup>
+        <col class="w-select">{% if not waiting %}<col class="w-fit">{% endif %}<col class="w-role"><col class="w-location col-location">
+        {% if waiting %}<col class="w-board">{% else %}<col class="w-status"><col class="w-odds">{% endif %}
+        <col class="w-date col-posted"><col class="w-date col-found"><col class="w-tools">
+      </colgroup>
+      <thead>
+        <tr>
+          <th scope="col" class="col-select"><input type="checkbox" class="select-page" aria-label="Select every role on this page"></th>
+          {% if not waiting %}{{ sortable("fit", "Fit", "col-fit") }}{% endif %}
+          <th scope="col">Role</th>
+          <th scope="col" class="col-location">Location</th>
+          {% if waiting %}<th scope="col">Board</th>{% else %}<th scope="col">Status</th>
+          <th scope="col">Odds</th>{% endif %}
+          {{ sortable("posted", "Posted", "col-posted") }}
+          {{ sortable("found", "Found", "col-found") }}
+          <th scope="col" class="col-tools"><span class="visually-hidden">Actions</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in page.rows %}{% include "_job_row.html" %}{% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if page.pages > 1 %}
+    <nav class="pager" aria-label="Pages">
+      {% if page.page > 1 %}<a class="btn" href="{{ page_url(page.page - 1) }}">Previous</a>{% endif %}
+      <span class="secondary">Page {{ page.page }} of {{ page.pages }}</span>
+      {% if page.page < page.pages %}<a class="btn" href="{{ page_url(page.page + 1) }}">Next</a>{% endif %}
+    </nav>
+  {% endif %}
+{% else %}
+  <div class="card empty">
+    <svg width="18" height="18" class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+    <p>No roles here{% if f.q or f.status or f.action or f.odds or f.min_fit or f.group or f.origin or f.wishlist or f.new %} with these filters{% endif %}.</p>
+  </div>
+{% endif %}
+</div>
+{% endblock %}

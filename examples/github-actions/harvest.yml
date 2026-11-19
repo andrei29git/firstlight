@@ -1,0 +1,43 @@
+# An example: copy it to .github/workflows/ to run it on your own repository.
+# Monthly harvest of the newest Common Crawl index into the generated company list (section 5.2).
+name: harvest
+
+on:
+  schedule:
+    - cron: "23 3 2 * *"  # 03:23 UTC on the 2nd of each month
+  workflow_dispatch:
+
+concurrency:
+  group: jobhunt-harvest
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  harvest:
+    runs-on: ubuntu-24.04  # pinned: ubuntu-latest becomes 26.04 in November 2026
+    timeout-minutes: 150  # about 45 minutes of index pages and 30 of account checks
+    env:
+      NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}  # a harvest that is not written sends a phone alert
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check out the data branch into .data
+        uses: actions/checkout@v7
+        with:
+          ref: data
+          path: .data
+          fetch-depth: 1
+      - uses: astral-sh/setup-uv@v10.3.2  # astral-sh publishes no floating v10 tag
+        with:
+          enable-cache: true
+      - name: Install
+        run: uv sync --locked
+      - name: Identity for data commits
+        run: |
+          git -C .data config user.name "jobhunt (GitHub Actions)"
+          git -C .data config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Harvest the newest crawl
+        run: uv run jobhunt harvest --crawls 1 --skip-excluded --state .data
+      - name: Push the generated list
+        run: uv run jobhunt sync --push --message "Monthly harvest" --state .data

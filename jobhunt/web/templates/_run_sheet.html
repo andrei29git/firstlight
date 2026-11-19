@@ -1,0 +1,37 @@
+<div class="sheet-form run-sheet">
+  <h2 id="sheet-title" class="sheet-title">{{ r.kind|capitalize }} · {{ r.started_at|when }}</h2>
+  <p class="sheet-subtitle">{{ "On GitHub" if r.ran_on == "github" else "On the laptop" }}{% if r.launchd %} (launchd){% endif %}
+    · Claude account {{ account }}{% if r.record.account and r.record.account.plan %} ({{ r.record.account.plan }}){% endif %}
+    {%- if r.record.actions_minutes %} · Actions minutes {{ r.record.actions_minutes.used|num }}, about {{ r.record.actions_minutes.projected|num }} projected{% if r.record.actions_minutes.slow %} (runs every 4 hours){% endif %}{% endif %}
+    · took {{ r.seconds|duration }}{% if r.record.fetch_seconds %} (fetching {{ r.record.fetch_seconds|duration }}){% endif %}
+    · {{ r.calls }} scoring calls · {{ "%.1f"|format(100 * r.usage) }}% of a five-hour window</p>
+
+  {% if r.boards %}
+    <h3 class="section-title">Fetched, per board</h3>
+    <table class="mini-table">
+      <thead><tr><th>Board</th><th>Companies</th><th>Roles</th><th>Passed</th><th>New</th><th>Closed</th><th>Errors</th></tr></thead>
+      <tbody>{% for board, c in r.boards.items() %}
+        <tr><th scope="row">{{ board_name(board) }}</th><td>{{ "{:,}".format(c.companies) }}</td><td>{{ "{:,}".format(c.fetched) }}</td>
+          <td>{{ "{:,}".format(c.passed) }}</td><td>{{ "{:,}".format(c.new) }}</td><td>{{ "{:,}".format(c.closed) }}</td><td>{{ c.errors or "" }}</td></tr>
+      {% endfor %}</tbody>
+    </table>
+  {% endif %}
+
+  {% if r.phases %}
+    <h3 class="section-title">Scoring</h3>
+    <table class="mini-table">
+      <thead><tr><th>Phase</th><th>Model</th><th>Calls</th><th>Deferred</th><th>Usage</th><th>Stopped</th></tr></thead>
+      <tbody>{% for name, p in r.phases.items() %}
+        <tr><th scope="row">{{ phase_name(name) }}</th><td>{{ (p.model or ("Haiku" if p.titlecheck else ""))|capitalize }}</td><td>{{ p.calls or 0 }}</td>
+          <td>{{ "" if p.titlecheck else (p.deferred or 0) }}</td>
+          <td>{{ "%.1f"|format(100 * (p.usage or 0)) }}%</td><td class="small">{{ p.stopped or "" }}</td></tr>
+      {% endfor %}</tbody>
+    </table>
+  {% endif %}
+
+  {% if r.notes %}<h3 class="section-title">Notes</h3><ul class="plain-list small">{% for n in r.notes %}<li>{{ n }}</li>{% endfor %}</ul>{% endif %}
+  {% if r.errors %}<h3 class="section-title">Errors</h3><ul class="plain-list small">{% for e in r.errors[:20] %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+  {% set al = r.record.alerts %}
+  {% if al %}<p class="secondary small">Alerts: {{ al.sent or 0 }} sent{% if al.note %} · {{ al.note }}{% endif %}</p>{% endif %}
+  <footer class="sheet-actions"><button type="button" class="btn btn-primary" data-close>Done</button></footer>
+</div>

@@ -1,0 +1,8 @@
+# Example application limits for the demo's companies.
+
+[[limit]]
+company = "Polderbyte"
+scope = "company"
+max = 2
+window_days = 180
+note = "At most two applications in six months."

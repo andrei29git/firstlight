@@ -1,0 +1,23 @@
+<section class="card pad tile" id="minutes-tile"
+         {% if counting or (not minutes and not minutes_error) %}hx-get="/runs/minutes" hx-trigger="every 4s" hx-swap="outerHTML"{% endif %}>
+  <h2 class="tile-title">Actions minutes</h2>
+  {% if minutes %}
+    <p class="tile-figure" title="{% for name, m in minutes.by_workflow.items() %}{{ name }} {{ m }}{% if not loop.last %} · {% endif %}{% endfor %} · counted {{ minutes.updated_at|when }}">{{ minutes.minutes|num }}</p>
+    <div class="meter" role="meter" aria-valuemin="0" aria-valuemax="{{ minutes.included }}" aria-valuenow="{{ minutes.minutes }}"
+         aria-label="Actions minutes used"><span style="width: {{ [100 * minutes.minutes / minutes.included, 100]|min }}%"></span></div>
+    <p class="tile-line">of {{ minutes.included|num }} this month{% if counting %}, updating{% endif %}</p>
+    {# The projection and the guard (2026-11-18): above slow_above, scheduled runs every 4 hours. #}
+    {% if minutes.projected is defined %}
+      {% set over = minutes.projected > minutes_guard.slow_above %}
+      <p class="tile-line{{ ' warn-text' if over or actions_slow }}" title="At the pace of the last 3 days. Above {{ minutes_guard.slow_above|num }}, scheduled runs wait {{ minutes_guard.slow_gap_minutes }} minutes between runs instead of 100 (run.yml).">
+        about {{ minutes.projected|num }} by month end{% if actions_slow %} · runs every 4 hours{% elif over %} · runs slow to every 4 hours{% endif %}</p>
+    {% endif %}
+  {% elif counting and counting.runs_counted %}
+    <p class="tile-figure">{{ counting.minutes|num }}</p>
+    <p class="tile-line">counting: {{ counting.runs_counted }} of {{ counting.runs_total }} runs</p>
+  {% else %}
+    <p class="tile-figure">–</p>
+    <p class="tile-line">{{ "Not available" if minutes_error else "Counting this month's runs" }}</p>
+  {% endif %}
+  {% if minutes_error and not minutes %}<p class="tile-line" title="{{ minutes_error }}">The gh CLI could not be read</p>{% endif %}
+</section>

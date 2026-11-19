@@ -1,0 +1,21 @@
+# Example target companies. Real public job boards are fine here: they are public anyway.
+
+[[company]]
+name = "Mistral"
+board = "ashby"
+slug = "mistral.ai"
+
+[[company]]
+name = "Winton"
+board = "greenhouse"
+slug = "winton"
+
+[[company]]
+name = "LSEG"
+board = "workday"
+url = "https://lseg.wd3.myworkdayjobs.com/Careers"
+
+[[company]]
+name = "Stripe"
+todo = "detect"
+wishlist = true

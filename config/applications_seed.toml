@@ -1,0 +1,39 @@
+# Example applications for the made-up candidate. Same format as the real file.
+
+[[application]]
+company = "Example Bank"
+role = "Backend Graduate Programme"
+location = "Madrid"
+applied_on = 2027-10-02
+stage = "oa_done"
+
+[[application]]
+company = "Hooli"
+role = "Software Engineer, New Grad"
+location = "Zurich"
+applied_on = 2027-10-02
+stage = "applied"
+
+[[application]]
+company = "Hooli"
+role = "Software Engineer, New Grad"
+location = "London"
+applied_on = 2027-10-02
+stage = "applied"
+
+[[application]]
+company = "Initech"
+role = "Platform Engineer Intern"
+location = "Lisbon"
+applied_on = 2027-09-15
+stage = "rejected"
+cooldown_until = 2028-03-15
+
+[[application]]
+company = "Pied Piper"
+role = "Junior Backend Engineer"
+location = "Remote"
+applied_on = 2027-09-20
+stage = "on_hold"
+contact = "recruiter@example.com"
+notes = "Timing did not work; recruiter asked to be contacted about a later role."

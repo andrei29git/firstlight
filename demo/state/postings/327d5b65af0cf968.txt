@@ -1,0 +1,15 @@
+Polderbyte runs the payment rails behind a few thousand Dutch web shops: iDEAL, cards and payouts.
+Our graduate programme puts you in a product team from week one, with a mentor and a written plan for your first six months.
+
+What you will do
+- Build and run Go services for payment routing, refunds and settlement.
+- Design PostgreSQL schemas and the migrations that change them safely.
+- Take part in code review and, after onboarding, a gentle on-call rota.
+
+What we look for
+- A degree in computer science or similar, finished or finishing this academic year.
+- Experience with Go or another backend language through internships or projects.
+- Comfort with SQL, Docker and CI.
+- English; Dutch is not required.
+
+We sponsor relocation to Amsterdam and offer a 30% ruling application where eligible.

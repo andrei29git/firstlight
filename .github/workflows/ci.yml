@@ -1,0 +1,22 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04  # pinned: ubuntu-latest becomes 26.04 in November 2026
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.2  # astral-sh publishes no floating v10 tag
+        with:
+          enable-cache: true
+      - name: Install
+        run: uv sync --locked
+      - name: Tests
+        run: uv run pytest -q
+      - name: Leak check
+        run: uv run jobhunt leakcheck
+

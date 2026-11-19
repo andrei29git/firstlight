@@ -1,0 +1,6 @@
+Lumen Fret plans the routes of 900 trucks a day across France and Spain.
+Join the optimisation team for a six-month internship.
+
+- Python services that turn our solver's output into driver plans.
+- Measure and speed up the planning API.
+- You must be enrolled at a university for the whole internship (internship agreement required).

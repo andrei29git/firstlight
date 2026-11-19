@@ -1,0 +1,147 @@
+{# Set up a company that is not tracked yet (2026-11-18): the Companies search's "Set it up" and the
+   wishlist's +. The detection runs in the background; nothing is added before the user chooses. #}
+{% set covered_first = want != "wishlist" %}
+{% if step == "ask" %}
+<form class="sheet-form" hx-post="/companies/setup/start" hx-target="#sheet" hx-swap="innerHTML" hx-disabled-elt="find button[type=submit]">
+  <h2 id="sheet-title" class="sheet-title">{{ "Add to the wishlist" if want == "wishlist" else "Set up a company" }}</h2>
+  <p class="sheet-subtitle">The tool looks for its job board or careers site and shows what it finds. Nothing is added before you choose.</p>
+  {% if error %}<p class="banner" role="alert">{{ error }}</p>{% endif %}
+  <input type="hidden" name="want" value="{{ want }}">
+  <div class="form-group">
+    <label class="field"><span>Company</span><input name="name" value="{{ name or '' }}" required autocomplete="off"></label>
+    <label class="field"><span>Careers page</span><input name="url" type="url" value="{{ url or '' }}" placeholder="Optional"></label>
+  </div>
+  {% if demo %}
+  <p class="banner" role="note">{{ demo_off.boards }} {{ demo_off.search }}</p>
+  {% else %}
+  <p class="secondary small">If no job board answers to its name, a web search looks for its careers site (one Sonnet call, a few cents, up to a minute). You can close the sheet meanwhile: the app tells you when it is done.</p>
+  {% endif %}
+  <footer class="sheet-actions">
+    <button class="btn" type="button" data-close>Cancel</button>
+    <button class="btn btn-primary" type="submit"><span class="when-idle">Look for it</span><span class="when-busy">Starting…</span></button>
+  </footer>
+</form>
+
+{% elif step == "tracked" %}
+<div class="sheet-form">
+  <h2 id="sheet-title" class="sheet-title">{{ name }}</h2>
+  <p class="sheet-subtitle">Already on your lists.</p>
+  <footer class="sheet-actions">
+    <a class="btn" href="/companies?{{ {'q': name}|urlencode }}">Show it</a>
+    <button class="btn btn-primary" type="button" data-close>Done</button>
+  </footer>
+</div>
+
+{% elif step == "running" %}
+<div class="sheet-form" role="status" aria-live="polite"
+     hx-get="/companies/setup/progress?id={{ id|urlencode }}" hx-trigger="every 1s [document.getElementById('sheet').open]"
+     hx-target="#sheet" hx-swap="innerHTML">
+  <h2 id="sheet-title" class="sheet-title">Setting up {{ name }}</h2>
+  <ol class="setup-steps">
+    {% for s in (task.steps if task else []) %}
+      <li class="{{ 'now' if loop.last else 'done' }}">{% if loop.last %}<span class="spinner" aria-hidden="true"></span>{% else %}<svg width="14" height="14" class="icon" aria-hidden="true"><use href="#i-check-circle"/></svg>{% endif %}{{ s }}</li>
+    {% else %}
+      <li class="now"><span class="spinner" aria-hidden="true"></span>Starting</li>
+    {% endfor %}
+  </ol>
+  <p class="secondary small">You can close this: the app tells you when it is done, and Today lists it until you choose.</p>
+  <footer class="sheet-actions">
+    <button class="btn" type="button" data-close>Close</button>
+  </footer>
+</div>
+
+{% elif step == "found" %}
+<form class="sheet-form" hx-post="/companies/setup/decide" hx-target="#sheet" hx-swap="innerHTML">
+  <h2 id="sheet-title" class="sheet-title">{{ name }}</h2>
+  <p class="sheet-subtitle">{% if record.searched %}Found with a web search{% else %}What the tool found{% endif %}. Check a sample job is the right company, then choose.</p>
+  <input type="hidden" name="id" value="{{ id }}">
+  <fieldset class="choices">
+    <legend class="visually-hidden">Board</legend>
+    {% for o in record.options %}
+      <label class="choice">
+        <input type="radio" name="choice" value='{{ {"name": o.name, "config": o.config, "source": o.source}|tojson }}' {% if loop.first %}checked{% endif %}>
+        <span class="choice-text">
+          <span class="choice-title">{{ o.label }}</span>
+          {% if o.sample %}<a class="small" href="{{ o.sample }}" target="_blank" rel="noopener noreferrer">Sample job: check it is the right company</a>{% endif %}
+          {% if o.samples %}
+            <span class="secondary small">Jobs found, for example:</span>
+            <ul class="sample-jobs">
+              {% for title, link in o.samples %}<li><a href="{{ link }}" target="_blank" rel="noopener noreferrer">{{ title }}</a></li>{% endfor %}
+            </ul>
+          {% endif %}
+          {% for n in o.notes or [] %}<span class="secondary small">{{ n }}</span>{% endfor %}
+        </span>
+      </label>
+    {% endfor %}
+  </fieldset>
+  {% if demo %}<p class="secondary small fetch-now">{{ demo_off.fetch }}</p>
+  {% else %}<label class="check fetch-now"><input type="checkbox" name="fetch_now" value="1">
+    Fetch and score now if you add it to the wishlist <span class="secondary small">(on this laptop; you see the roles and the usage before anything is scored)</span></label>{% endif %}
+  <footer class="sheet-actions setup-actions">
+    <button class="link-btn small" type="submit" name="decision" value="name_only" formnovalidate>None of these: save the name only</button>
+    <span class="spacer"></span>
+    <button class="btn{{ ' btn-primary' if not covered_first }}" type="submit" name="decision" value="wishlist"
+            title="Checked every run and scored by Sonnet directly">Add to wishlist</button>
+    <button class="btn{{ ' btn-primary' if covered_first }}" type="submit" name="decision" value="covered"
+            title="Checked once a day with the generated list's rules">Cover it</button>
+  </footer>
+</form>
+
+{% elif step == "failed" %}
+<form class="sheet-form" hx-post="/companies/setup/decide" hx-target="#sheet" hx-swap="innerHTML">
+  <h2 id="sheet-title" class="sheet-title">{{ name }} could not be set up</h2>
+  <p class="sheet-subtitle">{{ record.reason_text }}.{% if record.reason in ("robots", "blocked") %} The tool does not work around that.{% endif %}</p>
+  <input type="hidden" name="id" value="{{ id }}">
+  {% if record.notes %}
+    <details class="setup-notes disclosure-row"><summary class="small"><svg width="12" height="12" class="icon disclosure" aria-hidden="true"><use href="#i-chevron"/></svg>What was tried</summary>
+      <ul class="plain-list small secondary">{% for n in record.notes %}<li>{{ n }}</li>{% endfor %}</ul>
+    </details>
+  {% endif %}
+  <div class="setup-options">
+    <button class="choice-button" type="submit" name="decision" value="alerts">
+      <span class="choice-title">Get job alerts by email</span>
+      <span class="secondary small">Sign up on its site; the alert emails become roles, scored as provisional.</span>
+    </button>
+    <button class="choice-button" type="submit" name="decision" value="manual">
+      <span class="choice-title">Check by hand weekly</span>
+      <span class="secondary small">On Today's weekly list{% if record.careers_url %}, with a link to its careers page{% endif %}.</span>
+    </button>
+    <button class="choice-button" type="submit" name="decision" value="name_only">
+      <span class="choice-title">Save the name only</span>
+      <span class="secondary small">On the wishlist by name: its roles found on other boards get the star.</span>
+    </button>
+  </div>
+  <footer class="sheet-actions setup-actions">
+    <button class="link-btn small" type="submit" name="decision" value="dismiss">Forget it</button>
+    <span class="spacer"></span>
+    <button class="btn" type="button" hx-get="/companies/setup?{{ {'name': name, 'want': want}|urlencode }}&amp;step=ask" hx-target="#sheet"
+            title="Try again with its careers page">Try with its careers page</button>
+    <button class="btn" type="button" data-close>Decide later</button>
+  </footer>
+</form>
+
+{% elif step == "alert" %}
+<form class="sheet-form" hx-post="/companies/setup/decide" hx-target="#sheet" hx-swap="innerHTML">
+  <h2 id="sheet-title" class="sheet-title">A job alert for {{ name }}</h2>
+  <p class="sheet-subtitle">Today reminds you until you mark it done.</p>
+  <input type="hidden" name="id" value="{{ id }}">
+  <ol class="setup-howto">
+    <li>{% if record.careers_url %}Open <a href="{{ record.careers_url }}" target="_blank" rel="noopener noreferrer">its careers page</a>{% else %}Open its careers page{% endif %} and sign up for job alerts with your Gmail address.</li>
+    <li>In Gmail, make a filter for its alert emails that applies your job-alert label.</li>
+    <li>The laptop reads that label (<code>uv run jobhunt mail fetch</code>): each alert's roles are scored from the email, never by following its links.</li>
+  </ol>
+  <footer class="sheet-actions">
+    <button class="btn" type="button" data-close>Later</button>
+    <button class="btn btn-primary" type="submit" name="decision" value="done">Done: alert created</button>
+  </footer>
+</form>
+
+{% else %}
+<div class="sheet-form">
+  <h2 id="sheet-title" class="sheet-title">{{ name }}</h2>
+  <p class="sheet-subtitle">{{ message }}</p>
+  <footer class="sheet-actions">
+    <button class="btn btn-primary" type="button" data-close>Done</button>
+  </footer>
+</div>
+{% endif %}

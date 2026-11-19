@@ -1,0 +1,2 @@
+Elbmark Energy builds the customer portal for 200,000 households on our dynamic electricity tariff.
+Junior frontend engineer: React, TypeScript, design system work.

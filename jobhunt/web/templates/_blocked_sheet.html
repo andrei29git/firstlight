@@ -1,0 +1,20 @@
+<div class="sheet-form">
+  <h2 id="sheet-title" class="sheet-title">Blocked companies</h2>
+  <p class="sheet-subtitle">Not fetched or scored, and their roles show nowhere. Unblock to bring them back.</p>
+  {% if blocked %}
+    <ul class="blocked-list">
+      {% for entry, open_roles in blocked %}
+        <li>
+          <span class="label">{{ entry.name }}</span>
+          <span class="secondary small">{{ open_roles }} open role{{ "" if open_roles == 1 else "s" }}</span>
+          <button type="button" class="btn small-btn" hx-post="/blocked/set"
+                  hx-vals='{"name": {{ entry.name|tojson }}, "on": "0"}' hx-swap="none"
+                  hx-on::after-request="if (event.detail.successful) this.closest('li').remove()">Unblock</button>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="secondary">No blocked companies.</p>
+  {% endif %}
+  <footer class="sheet-actions"><button type="button" class="btn btn-primary" data-close>Done</button></footer>
+</div>

@@ -1,0 +1,198 @@
+# Tool settings. Changing model, consider_start_date or max_description_chars under [scoring]
+# changes the prompt version (as do profile, rules, candidate facts and calibration), so it
+# applies to jobs scored after the change and to existing jobs on the next `rescore`.
+
+[scoring]
+# Rescores queued with `jobhunt rescore --queue` (2026-10-29): each scheduled run rescores at most
+# this many per model, highest fit first, within its usage budget.
+rescore_per_run = 20
+# Start scoring while the fetch is still running, for work whose turn is certain to come first
+# (my companies, the title check, roles with entry-level wording; see jobhunt/overlap.py).
+score_while_fetching = true
+# Whether start dates and "start now" hiring count. false = timing is ignored.
+consider_start_date = false
+# Model for scheduled scoring (new roles each run). Chosen on 2026-10-24 from `eval`: Sonnet agreed
+# with the hand scores far better than Haiku (fit within 1: 89% against 72%).
+model = "sonnet"
+# Backlogs (`run --backfill`, the generated list's backlog) are scored with backlog_model first; every
+# role it rates backlog_rescore_min_fit or more is then rescored with `model`. The app shows the
+# `model` score where both exist. Each model has its own prompt version.
+backlog_model = "haiku"
+backlog_rescore_min_fit = 6
+# Maximum scoring calls per run; the rest wait for the next run.
+max_calls_per_run = 100
+# My companies (and wishlist ones) with more than this many open roles are scored by the cascade in
+# every run: title check, Haiku, then Sonnet for Haiku 6+ (2026-10-28: Sonnet for ING alone took
+# most of each run's budget). Companies listed in cascade_exempt keep Sonnet directly.
+cascade_above_open = 50
+# ... or more than this many new roles a day on average over the last week (2026-10-29).
+cascade_above_new_per_day = 10
+cascade_exempt = []
+# For the wishlist and these core targets, Haiku 5+ (not 6+) goes on to Sonnet.
+cascade_core = ["Stripe", "Mistral", "Palantir"]
+cascade_core_min_fit = 5
+# Posting text is cut to this many characters before scoring.
+max_description_chars = 12000
+# A blocking visa blocker becomes a check (a candidate policy: visa is always a check). Applies to
+# new scores and, at the start of each run and in the app, to scores already stored.
+visa_never_blocks = false
+# Extended thinking budget per call; 0 turns thinking off. With thinking on, Haiku took ~70 s and
+# thousands of output tokens per posting (measured 2026-10-24); `eval` decides whether it is worth it.
+max_thinking_tokens = 0
+# Run control (does not change the prompt version; nor do backlog_model and backlog_rescore_min_fit):
+# scoring calls at once, the cap for `run --backfill`, and how long one call may take.
+parallel = 4
+backfill_max_calls = 400
+call_timeout_seconds = 180
+
+[generated]
+# The generated company list (harvest), checked once a day: each company has a stable slot among
+# the day's 12 runs.
+# Roles whose every location is in these countries are fetched and stored, but not scored, until
+# score_parked = true. companies.toml always scores every allowed country.
+park_countries = ["GB", "US"]
+score_parked = false
+# Roles parked only because of these countries are scored after all when their title has entry-level
+# wording (decided 2026-10-27: the UK; the US stays parked).
+unpark_entry_level = []
+# Graduate-wording filter (terms in prefilter.ENTRY_TERMS): off by default (decided 2026-10-25);
+# the weekly guard switches it on automatically when the week runs hot.
+entry_level_only = false
+# Workday sites from the harvest are not fetched for now (mostly non-tech employers, heaviest to fetch).
+exclude_boards = ["workday"]
+# While the weekly guard is on, the generated list's companies on these boards are not fetched or scored.
+guard_pause_boards = ["workday", "personio", "teamtailor", "workable", "smartrecruiters", "homerun"]
+# Boards checked every N days instead of daily, at the same time of day (decided 2026-10-27:
+# Workable, at its slower delay).
+every_days = { workable = 3 }
+# Boards whose generated companies are fetched only when they have roles outside the parked
+# countries (UK, US): as the harvest counted, or as the roles runs stored (looked at again monthly).
+outside_park_only = ["workable"]
+# When Workday is not excluded, each generated Workday site is searched for these words instead of
+# being read in full, this many result pages (20 roles each) per word.
+workday_search = ["graduate", "intern", "junior"]
+workday_search_pages = 2
+# The backlog rule (decided 2026-10-25), for every company's first fetch, including companies added
+# by later harvests: a role is scored if it is open and not parked and either has entry-level
+# wording and was posted in the last backfill_days_entry_level days (or has no posting date), or
+# has none and was posted in the last backfill_days_other days. The rest are stored but not scored.
+backfill_days_entry_level = 20
+backfill_days_other = 14
+
+[titlecheck]
+# Batch title check (not yet used by runs): Haiku screens many titles per call and drops only clear
+# mismatches, each backed by a verbatim quote from profile.md.
+model = "haiku"
+batch_size = 100
+
+[usage]
+# Claude subscription limits. Measured 2026-10-24 on Pro: one Haiku scoring call uses about 0.12% of a
+# 5-hour window and one Sonnet call about 0.4%; a full window is about 8% of the weekly limit.
+# A title check call (100 titles on Haiku) is about 0.25%, from its API-equivalent cost.
+share_per_call = { haiku = 0.0012, sonnet = 0.004, titlecheck = 0.0025 }
+# Most of a 5-hour window one run may use, estimated from share_per_call, so a run never locks you
+# out of Claude. Your own use in the same window is not counted: leave headroom.
+backlog_window_share = 0.4
+# A call that fails because of Claude itself is retried twice (after 5 and 15 seconds); the run
+# stops only when this many calls in a row still fail after their retries.
+failures_in_a_row_to_stop = 3
+scheduled_window_share = 0.1
+scheduled_backlog_share = 0.2
+scheduled_backlog_above = 1000
+# Also stop at the first warning that the window is nearly used (Claude reports from about 90%).
+stop_on_warning = true
+# Weekly guard (2026-10-29): Claude's own seven-day figure, reported with every call, which includes
+# your own Claude use (without a figure from Claude: the tool's estimate for its scheduled
+# runs, against about 12.5 windows a week). At weekly_guard_share the guard goes on: the
+# graduate-wording filter for the generated list and a pause of [generated] guard_pause_boards;
+# below weekly_guard_off_share it goes off again. Claude's seven-day warnings ("nearly full week")
+# still pause everything but your companies and the wishlist.
+windows_per_week = 12.5
+weekly_guard_share = 0.6
+weekly_guard_off_share = 0.5
+# Hard stop: a backlog run does not start when the tool's own usage over the last 7 days is at or
+# above this share of the weekly limit (scheduled runs carry on).
+backlog_stop_share = 0.6
+
+[locations]
+# ISO 3166-1 alpha-2 codes. EU + EEA + Switzerland + UK + US.
+# A multi-location role passes if any location is allowed. Unqualified "Remote" passes;
+# "Remote" tied to a country passes only if the country is allowed.
+# Empty or unrecognised locations are passed to the AI rather than dropped.
+allowed_countries = [
+  # EU
+  "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE",
+  "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE",
+  # EEA
+  "IS", "LI", "NO",
+  # Other
+  "CH", "GB", "US",
+]
+
+[fetching]
+user_agent = "jobhunt/0.1 (personal job search tool)"
+# Seconds between requests to the same host.
+per_host_delay = 1.0
+# Shorter delay for public job board APIs built for this (Greenhouse, Lever, Ashby, Recruitee);
+# a 429 still backs off, honouring Retry-After. Workday and custom career sites keep per_host_delay.
+public_api_delay = 0.25
+# Longer delays for hosts that limit harder, by host. Workable asked for a 23-hour wait after about
+# 2,800 requests at 1 s (2026-10-27); 5 s is used for its harvest batches and for runs alike.
+host_delays = { "apply.workable.com" = 5.0 }
+max_retries = 4
+# Cap on job pages followed per custom site per run.
+custom_max_links = 50
+# Hosts fetched at the same time (each host still gets per_host_delay between its requests).
+max_parallel_hosts = 8
+# Scheduled runs (GitHub Actions stops a job at 20 minutes): no company fetch starts after this many
+# seconds, and at most this many posting texts are fetched; the rest wait for a later fetch. Runs
+# with --generated all, --backfill or named companies are not limited.
+scheduled_max_seconds = 600
+scheduled_max_details = 400
+# While the generated backlog is over [usage] scheduled_backlog_above roles, this many instead.
+scheduled_max_details_backlog = 800
+
+[alerts]
+# Which roles alert is the Apply now threshold, set on the Settings page (preferences.jsonl on the
+# data branch): a role alerts when it would show on Apply now.
+# Push new high-fit roles to the candidate's phone after each scheduled run (ntfy app, topic from the NTFY_TOPIC secret).
+ntfy_server = "https://ntfy.sh"
+max_per_run = 5
+
+[sync]
+# The state folder is a worktree of the `data` branch once `jobhunt sync --init` has run.
+# Runs pull before and push after; the web app pulls at start and every interval_minutes.
+enabled = true
+interval_minutes = 15
+
+[tracker]
+# Local database and backups, relative to the project root. Both are gitignored.
+database = "jobhunt.db"
+backups = "backups"
+# The pipeline's state folder (jobs, scores, runs), read by the Jobs pages.
+state = ".data"
+keep_backups = 30
+# Applied or OA done with no change for this many days is highlighted as probably ghosted.
+ghosted_after_days = 21
+# Next step dates this close (or past) are highlighted.
+next_step_warning_days = 3
+# A hidden role is removed from the tool after this many days (never shown again, even when runs
+# fetch it again; `jobhunt hidden` lists removed roles and restores them).
+hidden_days = 7
+
+[schedule]
+# The external trigger that starts scheduled runs (cron-job.org calling the workflow_dispatch API
+# with mode "scheduled", set up 2026-10-27), in UTC. It lives outside the repository, so it is
+# written here for the Runs page's "next run expected"; run.yml's own schedule is the backup.
+external_trigger = "11 */2 * * *"
+external_trigger_timezone = "Europe/Amsterdam"
+
+[helper]
+# Application help. Opus by default (helper.DEFAULT_MODEL).
+# Length of an answer to a free-text question that states no limit (decided 2026-10-29).
+default_words = [100, 150]
+
+[company_search]
+# Find more companies: the countries ticked by default when [generated] main_countries names none
+# (the candidate's own: where they live and where they want to work).
+countries = ["NL", "DE", "FR", "ES", "RO"]

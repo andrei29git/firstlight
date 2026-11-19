@@ -1,0 +1,117 @@
+# An example: copy it to .github/workflows/ to run it on your own repository.
+# Scheduled runs: fetch, pre-filter, score and alert about every 2 hours.
+# GitHub starts scheduled workflows unreliably (about 4 of 12 a day in October 2026), so this is
+# scheduled every hour and a run ends within seconds when a GitHub run pushed results less than
+# 100 minutes ago: one run every 2 hours when GitHub starts them all, fewer gaps when it does not.
+# Since 2026-10-27 an external trigger (cron-job.org) also starts it every 2 hours through the
+# workflow_dispatch API with mode "scheduled", which follows the same rules (the GitHub schedule
+# stays as a backup).
+# Actions minutes guard (2026-11-18): the first step projects this month's minutes from the runs so
+# far (every workflow, each run rounded up to whole minutes, at the pace of the last 3 days); above
+# ACTIONS_SLOW_ABOVE it waits ACTIONS_SLOW_GAP_MINUTES between runs instead of 100: every 4 hours.
+name: run
+
+on:
+  schedule:
+    - cron: "41 * * * *"  # every hour, off the top of the hour, when GitHub's scheduler is busiest
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "run = a normal run; scheduled = as a scheduled run (ends at once if a run pushed under 100 minutes ago); selftest = check the Claude token and the ntfy topic"
+        type: choice
+        options: [run, scheduled, selftest]
+        default: run
+
+concurrency:
+  group: jobhunt-run
+  cancel-in-progress: false  # runs never overlap; a run that is due waits for the one before
+
+permissions:
+  contents: write  # push the data branch (and read its commits to see when the last run was)
+  actions: read  # this month's runs, for the Actions minutes guard
+
+jobs:
+  run:
+    runs-on: ubuntu-24.04  # pinned: ubuntu-latest becomes 26.04 in November 2026
+    timeout-minutes: 20
+    env:
+      CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+      NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+      ACTIONS_INCLUDED: 3000
+      ACTIONS_SLOW_ABOVE: 2800
+      ACTIONS_SLOW_GAP_MINUTES: 220
+    steps:
+      - name: Skip until the Claude token secret exists, or if a run finished less than 100 minutes ago (220 when the month's minutes run short)
+        id: secrets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$CLAUDE_CODE_OAUTH_TOKEN" ]; then
+            echo "::notice::CLAUDE_CODE_OAUTH_TOKEN is not set: skipping (add it under Settings, Secrets and variables, Actions)"
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          # This month's Actions minutes so far and projected to its end (each run rounded up to a minute).
+          now=$(date -u +%s)
+          month_start=$(date -u -d "$(date -u +%Y-%m-01)" +%s)
+          next_month=$(date -u -d "$(date -u +%Y-%m-01) +1 month" +%s)
+          gap=6000
+          if lines=$(gh api "repos/${{ github.repository }}/actions/runs?created=>=$(date -u +%Y-%m-01)&per_page=100" --paginate \
+              --jq '.workflow_runs[] | select(.status == "completed" and .run_started_at != null) | "\(.run_started_at | fromdate) \((.updated_at | fromdate) - (.run_started_at | fromdate))"'); then
+            set -- $(echo "$lines" | awk -v now="$now" 'NF == 2 { m = int(($2 + 59) / 60); if (m < 1) m = 1; used += m; if (now - $1 < 259200) recent += m } END { print used + 0, recent + 0 }')
+            used=$1; recent=$2
+            window=$(( now - month_start < 259200 ? now - month_start : 259200 ))
+            projected=$(awk -v u="$used" -v r="$recent" -v w="$window" -v left="$(( next_month - now ))" 'BEGIN { printf "%d", u + (w > 0 ? r / w : 0) * left }')
+            slow=false
+            if [ "$projected" -gt "$ACTIONS_SLOW_ABOVE" ]; then gap=$(( ACTIONS_SLOW_GAP_MINUTES * 60 )); slow=true; fi
+            echo "::notice::Actions minutes: $used used this month, about $projected projected (slower runs above $ACTIONS_SLOW_ABOVE)"
+            { echo "JOBHUNT_ACTIONS_USED=$used"; echo "JOBHUNT_ACTIONS_PROJECTED=$projected"; echo "JOBHUNT_ACTIONS_SLOW=$slow"; } >> "$GITHUB_ENV"
+          else
+            echo "::warning::Could not read this month's runs for the Actions minutes guard: runs stay every 2 hours"
+          fi
+          if [ "${{ github.event_name }}" = "schedule" ] || [ "${{ inputs.mode }}" = "scheduled" ]; then
+            # Every real run pushes a commit to the data branch as "jobhunt (GitHub Actions)".
+            last=$(gh api "repos/${{ github.repository }}/commits?sha=data&per_page=30" \
+              --jq '[.[] | select(.commit.author.name == "jobhunt (GitHub Actions)")][0].commit.author.date // empty')
+            if [ -n "$last" ]; then
+              age=$(( $(date -u +%s) - $(date -u -d "$last" +%s) ))
+              if [ "$age" -lt "$gap" ]; then
+                echo "::notice::The last run pushed $((age / 60)) minutes ago (under $((gap / 60))): nothing to do this hour"
+                echo "skip=true" >> "$GITHUB_OUTPUT"
+              fi
+            fi
+          fi
+      - uses: actions/checkout@v7
+        if: steps.secrets.outputs.skip != 'true'
+      - name: Check out the data branch into .data
+        if: steps.secrets.outputs.skip != 'true'
+        uses: actions/checkout@v7
+        with:
+          ref: data
+          path: .data
+          fetch-depth: 1
+      - uses: astral-sh/setup-uv@v10.3.2  # astral-sh publishes no floating v10 tag
+        if: steps.secrets.outputs.skip != 'true'
+        with:
+          enable-cache: true
+      - name: Install
+        if: steps.secrets.outputs.skip != 'true'
+        run: uv sync --locked
+      - uses: actions/setup-node@v7
+        if: steps.secrets.outputs.skip != 'true'
+        with:
+          node-version: 22
+      - name: Install the Claude CLI (scoring calls it as `claude -p`)
+        if: steps.secrets.outputs.skip != 'true'
+        run: npm install --global --no-fund --no-audit @anthropic-ai/claude-code@2  # flags verified on 2.x
+      - name: Identity for data commits
+        if: steps.secrets.outputs.skip != 'true'
+        run: |
+          git -C .data config user.name "jobhunt (GitHub Actions)"
+          git -C .data config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Self-test
+        if: steps.secrets.outputs.skip != 'true' && inputs.mode == 'selftest'
+        run: uv run jobhunt selftest --alert
+      - name: Run
+        if: steps.secrets.outputs.skip != 'true' && inputs.mode != 'selftest'
+        run: uv run jobhunt run --state .data

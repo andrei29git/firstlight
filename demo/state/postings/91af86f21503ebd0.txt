@@ -1,0 +1,14 @@
+Rivoli Ledger builds accounting infrastructure for European marketplaces: ledgers, payouts and VAT reports.
+You will join the Payments Platform team (eight engineers) that owns money movement end to end.
+
+Your work
+- Python and Go services behind our payouts API, on PostgreSQL and Kafka.
+- Idempotent, well-tested code: every euro has to add up.
+- Work with product and finance on new payment methods.
+
+You
+- Graduated recently or graduate within the next year, in CS or a related field.
+- Have built a backend service in Python or Go, in an internship or a serious project.
+- Professional French is a plus: the finance team works in French.
+
+Hybrid, three days a week in our Paris office near the Louvre.

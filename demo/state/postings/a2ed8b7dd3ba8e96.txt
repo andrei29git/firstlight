@@ -1,0 +1,1 @@
+Junior backend engineer on fraud and risk rules: Python, PostgreSQL, rules engines.

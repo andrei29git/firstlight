@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Settings · {{ app_name }}{% endblock %}
+
+{% block sidebar %}
+<div id="sidebar" hx-get="/applications/sidebar?page=settings" hx-trigger="applications-changed from:body" hx-swap="innerHTML">
+  {% include "_sidebar.html" %}
+</div>
+{% endblock %}
+
+{% block content %}
+<header class="page-head">
+  <h1>Settings</h1>
+  <p class="subtitle">{% if saved and saved != "none" %}Saved{% if "threshold" in saved %}: Apply now and phone alerts follow the new threshold{% if linked %} from the next run{% endif %}{% endif %}.{% elif saved == "none" %}Nothing changed.{% else %}How roles reach Apply now and your phone, and how long hidden roles are kept.{% endif %}</p>
+</header>
+
+{# Saved as you change it, like Notes (2026-11-19); the status line says what changed. #}
+<form method="post" action="/settings" class="settings-form" hx-post="/settings" hx-trigger="change delay:200ms"
+      hx-target="#settings-status" hx-swap="outerHTML">
+  <section class="group">
+    <h2 class="group-title">Jobs</h2>
+    <div class="card settings-card">
+      <label class="field">
+        <span class="field-text">
+          <span>Apply now threshold</span>
+          <span class="secondary small">Roles at this fit or more, with “apply now” as the suggestion and not blocked, show on Apply now. The same roles go to your phone{% if not demo %}, and GitHub's runs read it from the data branch{% endif %}.</span>
+        </span>
+        <select name="apply_min_fit" aria-label="Apply now threshold">
+          {% for n in range(10, 3, -1) %}<option value="{{ n }}" {% if n == apply_min_fit %}selected{% endif %}>Fit {{ n }}+</option>{% endfor %}
+        </select>
+      </label>
+      <label class="field">
+        <span class="field-text">
+          <span>Remove hidden roles after</span>
+          <span class="secondary small">A hidden role stays on Hidden this long, then leaves the app for good.</span>
+        </span>
+        <span class="inline-input"><input name="hidden_days" type="number" min="1" max="90" value="{{ hidden_days }}" aria-label="Days before hidden roles are removed"> days</span>
+      </label>
+    </div>
+  </section>
+
+  <section class="group">
+    <h2 class="group-title">Appearance</h2>
+    <div class="card settings-card">
+      <div class="field">
+        <span class="field-text"><span>Theme</span><span class="secondary small">Also in the sidebar, and with the T key.</span></span>
+        <div class="theme-switch large" role="group" aria-label="Appearance">
+          {% for value, icon, label in (("system", "i-circle-half", "System"), ("light", "i-sun", "Light"), ("dark", "i-moon", "Dark")) %}
+            <button type="button" data-theme-choice="{{ value }}" aria-pressed="false">
+              <svg width="14" height="14" class="icon" aria-hidden="true"><use href="#{{ icon }}"/></svg>{{ label }}
+            </button>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <p id="settings-status" class="settings-status secondary small" role="status" aria-live="polite">Changes are saved as you make them.</p>
+  <noscript><div class="settings-actions"><button class="btn btn-primary" type="submit">Save</button></div></noscript>
+</form>
+
+<section class="group">
+  <h2 class="group-title">Accounts and data</h2>
+  <div class="card settings-card info-card">
+    <dl class="facts settings-facts">
+      {# Accounts by their names (2026-11-19), and whether the laptop's login is the token's account. #}
+      {% set login_named = login.key and not login.key.startswith("account ") %}
+      {% set login_text %}{% if login_named %}“{{ login.key }}”{% else %}a{% if login.plan %} {{ login.plan|capitalize }}{% endif %} account not named in settings{% endif %}{% if login_named and login.plan %} ({{ login.plan|capitalize }}){% endif %}{% endset %}
+      <dt>GitHub runs</dt>
+      <dd>{% if demo %}Not used in the demo{% else %}Claude account “{{ token_account }}” (the repository's token){% endif %}</dd>
+      <dt>Laptop, scheduled</dt>
+      <dd>{% if demo %}Not used in the demo{% elif laptop_scheduled == "token" %}Claude account “{{ token_account }}” (a token in the Keychain){% elif laptop_scheduled == "login" %}Your <code>claude</code> login, {{ login_text }}: store a token with <code>uv run jobhunt launchd token</code> to use “{{ token_account }}”{% else %}No scheduled laptop runs{% endif %}</dd>
+      <dt>Laptop, by hand</dt>
+      <dd>{% if demo %}Not used in the demo{% else %}Your <code>claude</code> login, {{ login_text }}.
+        {% if login.key == token_account %}It is the “{{ token_account }}” account, the same as GitHub's runs: they share its weekly limit.
+        {% elif login_named %}It is not the “{{ token_account }}” account, so its use is counted separately.
+        {% elif login.how == "login" %}<span class="secondary">Whether it is the “{{ token_account }}” account is not known: name it under <code>[accounts.orgs]</code> in settings.toml (organisation {{ (login.org or "")[:8] }}).</span>{% endif %}{% endif %}</dd>
+      <dt>Data branch</dt>
+      <dd>{% if demo %}Recorded demo data; nothing is synced{% elif not linked %}Not linked yet (<code>uv run jobhunt sync --init</code>){% else %}{{ sync_status.message or "Linked" }}{% if sync_status.at %} · last sync {{ sync_status.at.strftime("%H:%M") }}{% endif %}{% if data_head %}<br><span class="secondary small">Latest change {{ data_head.at|when }}: {{ data_head.subject|truncate(80) }}</span>{% endif %}{% endif %}</dd>
+    </dl>
+  </div>
+</section>
+{% endblock %}

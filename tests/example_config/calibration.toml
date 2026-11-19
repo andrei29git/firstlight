@@ -1,0 +1,42 @@
+# Example calibration rows for the made-up candidate. Same format as the real file.
+# posting: the saved posting text, relative to this folder; `eval` scores only rows that have one.
+
+[[example]]
+role = "Example Bank Backend Graduate Programme, Madrid"
+posting = "calibration/example-bank-backend-graduate.txt"
+fit = 9
+odds = "medium"
+odds_source = "example"
+blockers = []
+gaps = []
+fit_reason = "Python and Go backend graduate programme in his home country."
+blocker_reason = "None."
+action = "apply_now"
+action_without_timing = "apply_now"
+
+[[example]]
+role = "Initech Mobile Engineer Intern, Lisbon"
+posting = "calibration/initech-mobile-intern.txt"
+fit = 3
+odds = "high"
+odds_source = "example"
+blockers = []
+gaps = ["Swift", "Kotlin"]
+fit_reason = "Mobile-centred role, a poor fit."
+blocker_reason = "None."
+action = "skip"
+action_without_timing = "skip"
+
+[[example]]
+role = "Umbrella Data Engineer, Paris"
+fit = 6
+odds = "medium"
+odds_source = "example"
+blockers = [
+  { type = "language", severity = "blocking", detail = "Fluent French required." },
+]
+gaps = []
+fit_reason = "Python data role; required French fluency lowers fit."
+blocker_reason = "Fluent French required."
+action = "skip"
+action_without_timing = "skip"

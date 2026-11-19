@@ -1,0 +1,2 @@
+# Example leak patterns. A real config lists the candidate's private strings here, one regex per line.
+# This example candidate is made up (candidate.example = true), so there is nothing to protect.

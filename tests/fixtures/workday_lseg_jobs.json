@@ -1,0 +1,211 @@
+{
+ "total": 2,
+ "jobPostings": [
+  {
+   "title": "Senior Product Manager, Applied AI — Financial Markets",
+   "externalPath": "/job/New-York-City-United-States/Senior-Product-Manager--Applied-AI---Financial-Markets_R0120678",
+   "locationsText": "New York City, United States",
+   "postedOn": "Posted 30+ Days Ago",
+   "bulletFields": [
+    "R0120678",
+    "Division: Data & Analytics"
+   ]
+  },
+  {
+   "title": "Content Operations Specialist",
+   "externalPath": "/job/GBR-Edinburgh-5th-Floor-Exchange-Tower/Content-Operations-Specialist_R0123958",
+   "locationsText": "GBR-Edinburgh-5th Floor, Exchange Tower",
+   "postedOn": "Posted 8 Days Ago",
+   "bulletFields": [
+    "R0123958",
+    "Division: FTSE Russell"
+   ]
+  }
+ ],
+ "facets": [
+  {
+   "facetParameter": "CF_Lookup_Business_Unit_Level_02__Job_Posting_Anchor__Extended",
+   "descriptor": "Division",
+   "values": [
+    {
+     "descriptor": "Division: Engineering",
+     "id": "9c1f71183c10016d116d72382401ff75",
+     "count": 6
+    },
+    {
+     "descriptor": "Division: Operations",
+     "id": "9c1f71183c1001f6f29e50382401c775",
+     "count": 5
+    },
+    {
+     "descriptor": "Division: Markets",
+     "id": "5ad0f0506ed201a3d1d2fee5b1001c1d",
+     "count": 5
+    },
+    {
+     "descriptor": "Division: People",
+     "id": "9c1f71183c100103ed6064382401e775",
+     "count": 4
+    },
+    {
+     "descriptor": "Division: Sales & Account Management",
+     "id": "2c7ef84de2f11001eeedb90070a40000",
+     "count": 3
+    },
+    {
+     "descriptor": "Division: Data & Analytics",
+     "id": "9c1f71183c100199d5844b382401bf75",
+     "count": 3
+    },
+    {
+     "descriptor": "Division: FTSE Russell",
+     "id": "fc9d12dfa4b01001ec7358180ea60000",
+     "count": 1
+    }
+   ]
+  },
+  {
+   "facetParameter": "locationMainGroup",
+   "values": [
+    {
+     "facetParameter": "locationCountry",
+     "descriptor": "Country/Territory",
+     "values": [
+      {
+       "descriptor": "Germany",
+       "id": "dcc5b7608d8644b3a93716604e78e995",
+       "count": 1
+      },
+      {
+       "descriptor": "India",
+       "id": "c4f78be1a8f14da0ab49ce1162348a5e",
+       "count": 1
+      },
+      {
+       "descriptor": "Japan",
+       "id": "8b705da2becf43cfaccc091da0988ab2",
+       "count": 1
+      },
+      {
+       "descriptor": "Malaysia",
+       "id": "972dc4ba8d454bc0b893ff84b1529077",
+       "count": 3
+      },
+      {
+       "descriptor": "Philippines",
+       "id": "e56f1daf83e04bacae794ba5c5593560",
+       "count": 2
+      },
+      {
+       "descriptor": "Sri Lanka",
+       "id": "db69e062446c11de98360015c5e6daf6",
+       "count": 1
+      },
+      {
+       "descriptor": "United Kingdom",
+       "id": "29247e57dbaf46fb855b224e03170bc7",
+       "count": 10
+      },
+      {
+       "descriptor": "United States of America",
+       "id": "bc33aa3152ec42d4995f4791a106ed09",
+       "count": 8
+      }
+     ]
+    },
+    {
+     "facetParameter": "primaryLocation",
+     "descriptor": "Office Location/City",
+     "values": [
+      {
+       "descriptor": "Boston, Massachusetts",
+       "id": "249093b96afa01e2517ede4ef962b083",
+       "count": 1
+      },
+      {
+       "descriptor": "Charlotte, United States",
+       "id": "dd23a527968201f08c08ce1e12008102",
+       "count": 1
+      },
+      {
+       "descriptor": "Colombo, Sri Lanka",
+       "id": "51df219f279a018651969fff11000502",
+       "count": 1
+      },
+      {
+       "descriptor": "DEU-Frankfurt-Messeturm Friedr",
+       "id": "bd2d6398d64a4496b20061b24cc7805c",
+       "count": 1
+      },
+      {
+       "descriptor": "Edinburgh, United Kingdom",
+       "id": "51df219f279a01ebb00da23712007402",
+       "count": 1
+      },
+      {
+       "descriptor": "GBR-Edinburgh-5th Floor, Exchange Tower",
+       "id": "b9702f57909e010b3fc9e650a501c740",
+       "count": 1
+      },
+      {
+       "descriptor": "GBR-London-5 Canada Square",
+       "id": "6711148db36310e563c5269cfec0102e",
+       "count": 1
+      },
+      {
+       "descriptor": "IND-Bangalore-A, RMZ Infinity",
+       "id": "1136a4bcc77543f6b7e4ef3317bc9622",
+       "count": 1
+      },
+      {
+       "descriptor": "JPN-Tokyo-Akasaka Biz Tower 30",
+       "id": "8342a3246ef2436aa8ff4b2ff5a0983f",
+       "count": 1
+      },
+      {
+       "descriptor": "Kuching, Malaysia",
+       "id": "51df219f279a014b31d4811a12005602",
+       "count": 1
+      },
+      {
+       "descriptor": "London, United Kingdom",
+       "id": "bfb8731495b201f3b3cdbc0312002102",
+       "count": 4
+      },
+      {
+       "descriptor": "London, United Kingdom",
+       "id": "5afc3d6cf1ac0182e4eef09da9012676",
+       "count": 1
+      },
+      {
+       "descriptor": "London, United Kingdom",
+       "id": "51df219f279a01ae1e8a231a12003a02",
+       "count": 1
+      },
+      {
+       "descriptor": "MYS-Kuala Lumpur-Menara Prestige Level 31",
+       "id": "6d2fe10e13cc10013a9ff7a2460d0000",
+       "count": 2
+      },
+      {
+       "descriptor": "New York City, United States",
+       "id": "dd23a5279682012ef986c20412005b02",
+       "count": 5
+      },
+      {
+       "descriptor": "PHL-Taguig City-CitiPlaza",
+       "id": "505855826a5e100b785d8e0ec0c90000",
+       "count": 2
+      },
+      {
+       "descriptor": "USA-New York-28 Liberty Street",
+       "id": "68ebb4d12581013da33e1d80b600cd2f",
+       "count": 1
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "userAuthenticated": false
+}

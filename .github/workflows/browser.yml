@@ -1,0 +1,25 @@
+name: browser
+
+# End-to-end tests in Chromium against the demo: every page, sheet, menu and shortcut, at 1,160 and
+# 1,440 px in light and dark mode (tests/e2e). Only when the app, the demo or these tests change.
+on:
+  push:
+    paths: ["jobhunt/web/**", "jobhunt/demo.py", "demo/**", "tests/e2e/**", "pyproject.toml", "uv.lock"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.2  # astral-sh publishes no floating v10 tag
+        with:
+          enable-cache: true
+      - name: Install
+        run: uv sync --locked
+      - name: Install Chromium
+        run: uv run playwright install --with-deps chromium
+      - name: Browser tests
+        run: uv run pytest -q -m e2e

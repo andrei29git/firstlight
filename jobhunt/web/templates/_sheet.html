@@ -1,0 +1,43 @@
+<form class="sheet-form" hx-post="/applications/{{ a.id }}" hx-target="#app-{{ a.id }}" hx-swap="outerHTML"
+      hx-on::after-request="if (event.detail.successful) this.closest('dialog').close()">
+  <h2 id="sheet-title" class="sheet-title">{{ a.company|company }}</h2>
+  <p class="sheet-subtitle">{{ a.role }}{% if a.location %} · {{ a.location }}{% endif %}</p>
+  {% if a.job_key %}<p class="sheet-link"><a href="{{ job_url(a.job_key, back_url if back_url is defined else '/applications') }}">View the role ›</a></p>{% endif %}
+
+  <div class="form-group">
+    <label class="field"><span>Stage</span>
+      <select name="stage">
+        {% include "_stage_options.html" %}
+      </select>
+    </label>
+    <label class="field"><span>Applied on</span><span class="date-pick"><input type="date" name="applied_on" value="{{ a.applied_on or '' }}" data-date-pick><span class="date-text" aria-hidden="true">{{ (a.applied_on or '')|long_date or "Not set" }}</span></span></label>
+    <label class="field"><span>Next step by</span><span class="date-pick"><input type="date" name="next_step_by" value="{{ a.next_step_by or '' }}" data-date-pick><span class="date-text" aria-hidden="true">{{ (a.next_step_by or '')|long_date or "Not set" }}</span></span></label>
+  </div>
+
+  <div class="form-group">
+    <label class="field stacked"><span>Notes</span><textarea name="notes" rows="4">{{ a.notes }}</textarea></label>
+  </div>
+
+  {% if a.contact %}
+    <div class="form-group">
+      <div class="field"><span>Recruiter</span><a href="mailto:{{ a.contact }}">{{ a.contact }}</a></div>
+    </div>
+  {% endif %}
+
+  <h3 class="section-title">History</h3>
+  <ol class="timeline">
+    {% for h in history %}
+      <li>
+        <span class="dot stage-{{ h.stage }}" aria-hidden="true"></span>
+        <span class="timeline-stage">{{ stage_labels[h.stage] }}</span>
+        <time datetime="{{ h.changed_at[:10] }}">{{ h.changed_at|short_date }}</time>
+        {% if h.approximate %}<span class="secondary">date unknown (imported)</span>{% endif %}
+      </li>
+    {% endfor %}
+  </ol>
+
+  <footer class="sheet-actions">
+    <button type="button" class="btn" data-close>Cancel</button>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </footer>
+</form>

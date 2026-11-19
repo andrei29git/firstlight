@@ -1,0 +1,41 @@
+# The demo's companies: all of them invented. The generated list's companies are in the state.
+
+[[company]]
+name = "Polderbyte"
+board = "greenhouse"
+slug = "polderbyte"
+
+[[company]]
+name = "Tulpwerk Systems"
+board = "lever"
+slug = "tulpwerk"
+
+[[company]]
+name = "Carpatica Software"
+board = "ashby"
+slug = "carpatica"
+
+[[company]]
+name = "Danubit"
+board = "recruitee"
+slug = "danubit"
+
+[[company]]
+name = "Spreewerk Analytics"
+board = "personio"
+slug = "spreewerk"
+
+[[company]]
+name = "Isarflow Robotics"
+board = "smartrecruiters"
+slug = "isarflow"
+
+[[company]]
+name = "Rivoli Ledger"
+board = "ashby"
+slug = "rivoli-ledger"
+
+[[company]]
+name = "Lumen Fret"
+board = "workable"
+slug = "lumen-fret"

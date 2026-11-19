@@ -1,0 +1,2 @@
+Banat Cloud runs managed Kubernetes for Romanian public institutions.
+Junior DevOps engineer: Terraform, Kubernetes, on-call. Fluent Romanian is required for customer work.

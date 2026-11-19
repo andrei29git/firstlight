@@ -1,0 +1,80 @@
+{% if step == "ask" %}
+<form class="sheet-form" hx-post="/wishlist/find" hx-target="#sheet" hx-swap="innerHTML" hx-disabled-elt="find button[type=submit]">
+  <h2 id="sheet-title" class="sheet-title">Add to wishlist</h2>
+  <p class="sheet-subtitle">Wishlist companies are checked every 2 hours and marked with a star.</p>
+  {% if error %}<p class="banner" role="alert">{{ error }}</p>{% endif %}
+  <div class="form-group">
+    <label class="field"><span>Company</span><input name="name" value="{{ name or '' }}" required autocomplete="off"></label>
+    <label class="field"><span>Careers page</span><input name="url" type="url" value="{{ url or '' }}" placeholder="Optional"></label>
+  </div>
+  <p class="secondary small">Companies the tool already knows are found at once. Otherwise it reads the careers page, or tries the name on every job board it reads and, if none answers, searches the web for the careers site (this can take a minute). You choose before anything is saved; if nothing works, the name is saved with the star only.</p>
+  <footer class="sheet-actions">
+    <button class="btn" type="button" data-close>Cancel</button>
+    <button class="btn btn-primary" type="submit">
+      <span class="when-idle">Find</span><span class="when-busy">Looking…</span>
+    </button>
+  </footer>
+</form>
+{% elif step == "retry_failed" %}
+<div class="sheet-form">
+  <h2 id="sheet-title" class="sheet-title">{{ name }}</h2>
+  <p class="sheet-subtitle">Nothing readable was found; nothing was saved.</p>
+  {% for note in notes %}<p class="banner" role="note">{{ note }}</p>{% endfor %}
+  <footer class="sheet-actions">
+    <button class="btn" type="button" hx-get="/companies/coverage?company={{ company_id|urlencode }}" hx-target="#sheet">Back</button>
+    <button class="btn btn-primary" type="button" data-close>Done</button>
+  </footer>
+</div>
+{% elif step == "saved" %}
+<div class="sheet-form">
+  <h2 id="sheet-title" class="sheet-title">{{ entry.name }}</h2>
+  <p class="sheet-subtitle">Saved with the star only: no jobs could be found to check every run.</p>
+  {% for note in notes %}<p class="banner" role="note">{{ note }}</p>{% endfor %}
+  <p class="secondary small">Its roles found on other boards or the generated list get the star. To try again later, remove it and add it with its careers page.</p>
+  <footer class="sheet-actions">
+    <button class="btn btn-primary" type="button" data-close>Done</button>
+  </footer>
+</div>
+{% else %}
+<form class="sheet-form" method="post" action="/wishlist/set">
+  <h2 id="sheet-title" class="sheet-title">{{ name }}</h2>
+  <p class="sheet-subtitle">{% if searched %}Found with a web search{% elif detected %}What the tool found{% else %}Already known to the tool{% endif %}. Check a sample job is the right company, then choose.</p>
+  <input type="hidden" name="on" value="1">
+  {% for note in notes %}<p class="banner" role="note">{{ note }}</p>{% endfor %}
+  <fieldset class="choices">
+    <legend class="visually-hidden">Board</legend>
+    {% for o in options %}
+      <label class="choice">
+        <input type="radio" name="choice" value='{{ {"name": o.name, "config": o.config, "source": o.source}|tojson }}' {% if loop.first %}checked{% endif %}>
+        <span class="choice-text">
+          <span class="choice-title">{{ o.label }}</span>
+          {% if o.sample %}<a class="small" href="{{ o.sample }}" target="_blank" rel="noopener noreferrer">Sample job: check it is the right company</a>{% endif %}
+          {% if o.samples %}
+            <span class="secondary small">Jobs found, for example:</span>
+            <ul class="sample-jobs">
+              {% for title, link in o.samples %}<li><a href="{{ link }}" target="_blank" rel="noopener noreferrer">{{ title }}</a></li>{% endfor %}
+            </ul>
+          {% endif %}
+          {% for n in o.notes or [] %}<span class="secondary small">{{ n }}</span>{% endfor %}
+        </span>
+      </label>
+    {% endfor %}
+    <label class="choice">
+      <input type="radio" name="choice" value='{{ {"name": name, "config": none, "source": "name only"}|tojson }}' {% if not options %}checked{% endif %}>
+      <span class="choice-text">
+        <span class="choice-title">{% if options %}None of these: {% endif %}save the name only</span>
+        <span class="secondary small">Not checked every run; its roles found elsewhere get the star.</span>
+      </span>
+    </label>
+  </fieldset>
+  {% if options and demo %}<p class="secondary small fetch-now">{{ demo_off.fetch }}</p>
+  {% elif options %}
+    <label class="check fetch-now"><input type="checkbox" name="fetch_now" value="1">
+      Fetch and score now <span class="secondary small">(on this laptop; you see the roles and the usage before anything is scored)</span></label>
+  {% endif %}
+  <footer class="sheet-actions">
+    <button class="btn" type="button" hx-get="/wishlist/add" hx-vals='{{ {"name": name, "url": url}|tojson }}' hx-target="#sheet">Back</button>
+    <button class="btn btn-primary" type="submit">Add to wishlist</button>
+  </footer>
+</form>
+{% endif %}

@@ -1,0 +1,107 @@
+{# Find more companies (2026-10-30): pick countries and fields, see the cost, search, then decide on up to ten verified suggestions. #}
+{% macro pct(x, digits=0) %}{{ ("%." ~ digits ~ "f")|format(100 * x) }}%{% endmacro %}
+{% if step == "ask" %}
+<form class="sheet-form find-sheet"{% if demo %} onsubmit="return false"{% else %} hx-post="/companies/find/start" hx-target="#sheet" hx-swap="innerHTML" hx-disabled-elt="find button[type=submit]"{% endif %}>
+  <h2 id="sheet-title" class="sheet-title">Find more companies</h2>
+  <p class="sheet-subtitle">A web search for employers in your fields, then a check that their jobs can be read. You decide on each one; nothing is added before.</p>
+  {% if demo %}<p class="banner" role="note">{{ demo_off.search }}</p>
+  {% elif error %}<p class="banner" role="alert">{{ error }}</p>{% endif %}
+  <fieldset class="find-group">
+    <legend>Countries</legend>
+    <div class="find-options">
+      {% for c in main_countries %}<label class="check"><input type="checkbox" name="country" value="{{ c }}" checked> {{ country_names.get(c, c) }}</label>{% endfor %}
+    </div>
+    <details class="find-more">
+      <summary class="small">More countries</summary>
+      <div class="find-options">
+        {% for c in more_countries %}<label class="check"><input type="checkbox" name="country" value="{{ c }}"> {{ country_names.get(c, c) }}</label>{% endfor %}
+      </div>
+    </details>
+  </fieldset>
+  <fieldset class="find-group">
+    <legend>Fields</legend>
+    <div class="find-options">
+      {% for key, label in domains.items() %}<label class="check"><input type="checkbox" name="domain" value="{{ key }}" checked> {{ label }}</label>{% endfor %}
+    </div>
+  </fieldset>
+  {% if not demo %}
+  <div class="card pad find-cost">
+    <p><strong>Estimated cost: about {{ pct(estimate.window) }} of a five-hour window</strong> (about {{ pct(estimate.week, 1) }} of the week; ${{ "%.2f"|format(estimate.cost_usd) }} API-equivalent), about {{ estimate.minutes }} minutes.</p>
+    <p class="secondary small">Two Sonnet calls with web search only, about 15 employers each, {% if history %}averaged over your last searches{% else %}as measured on 29 October{% endif %}. Checking their job boards uses no Claude calls.
+      {% if week %}Claude reports {{ pct(week.utilization) }} of the week used.{% endif %}</p>
+    {% if week and week.utilization >= 0.75 %}<p class="banner warn small">The week is past 75%: a search now eats into what is left for scoring.</p>{% endif %}
+  </div>
+  {% endif %}
+  {% if history and not demo %}
+    <p class="secondary small">Last search {{ history[0].at[:10]|short_date }}: {{ history[0].suggestions }} suggestions from {{ history[0].candidates }} employers, {{ pct(history[0].window) }} of a window.{% if rejected %} {{ rejected|length }} rejected companies are never suggested again.{% endif %}</p>
+  {% endif %}
+  <footer class="sheet-actions">
+    {% if results and decided.values()|select("none")|list %}<button class="btn" type="button" hx-get="/companies/find" hx-target="#sheet">Back to the suggestions</button>{% endif %}
+    <button class="btn" type="button" data-close>Cancel</button>
+    <button class="btn btn-primary" type="submit"{% if demo %} disabled title="{{ demo_off.search }}"{% endif %}><span class="when-idle">Search</span><span class="when-busy">Starting…</span></button>
+  </footer>
+</form>
+{% elif step == "running" %}
+<div class="sheet-form find-sheet" hx-get="/companies/find/progress" hx-trigger="every 2s" hx-target="#sheet" hx-swap="innerHTML" role="status" aria-live="polite">
+  <h2 id="sheet-title" class="sheet-title">Finding companies…</h2>
+  <p class="sheet-subtitle">{% for c in task.countries %}{{ country_names.get(c, c) }}{{ ", " if not loop.last }}{% endfor %} · {% for d in task.domains %}{{ domains.get(d, d) }}{{ ", " if not loop.last }}{% endfor %}</p>
+  <div class="fetch-line"><span class="spinner" aria-hidden="true"></span><strong>{{ task.line or "Starting…" }}</strong></div>
+  <p class="secondary small">{{ task.seconds // 60 }} min {{ task.seconds % 60 }} s so far; usually {{ estimate.minutes }} minutes. You can close this sheet: the search goes on, and the suggestions are here when you open it again.</p>
+  <footer class="sheet-actions"><button class="btn" type="button" data-close>Close</button></footer>
+</div>
+{% elif step == "error" %}
+<div class="sheet-form find-sheet">
+  <h2 id="sheet-title" class="sheet-title">No suggestions</h2>
+  <p class="banner" role="alert">{{ task.error }}</p>
+  {% if task.cost_usd %}<p class="secondary small">This search used about {{ pct(task.cost_usd * 0.1) }} of a five-hour window (${{ "%.2f"|format(task.cost_usd) }}).</p>{% endif %}
+  <footer class="sheet-actions">
+    <button class="btn" type="button" hx-get="/companies/find?new=1" hx-target="#sheet">Try again</button>
+    <button class="btn btn-primary" type="button" data-close>Done</button>
+  </footer>
+</div>
+{% else %}
+<div class="sheet-form find-sheet">
+  <h2 id="sheet-title" class="sheet-title">Suggestions</h2>
+  {% set last = history[0] if history else None %}
+  <p class="sheet-subtitle">{% if last %}{% for c in last.countries %}{{ country_names.get(c, c) }}{{ ", " if not loop.last }}{% endfor %} · {{ last.suggestions }} of {{ last.candidates }} employers found{% if last.checked != last.candidates %} ({{ last.candidates - last.checked }} already known){% endif %} can be read and have roles there.{% endif %}</p>
+  {% if last %}<p class="secondary small find-usage">This search used about {{ pct(last.window) }} of a five-hour window ({{ pct(last.week, 1) }} of the week, ${{ "%.2f"|format(last.cost_usd) }}) and took {{ (last.seconds / 60)|round|int }} min.</p>{% endif %}
+  {% if not results %}
+    <p class="banner" role="note">None of the employers found could be suggested: they are known already, their jobs cannot be read, or they have no roles in these countries.</p>
+  {% endif %}
+  <ul class="find-results">
+    {% for r in results %}
+      <li class="find-result{% if r.decision %} is-decided{% endif %}">
+        <div class="find-head">
+          <strong>{{ r.name }}</strong>
+          <span class="tag">{{ domains.get(r.domain, "Mixed") }}</span>
+          {% if r.city %}<span class="secondary small">{{ r.city }}</span>{% endif %}
+        </div>
+        <p class="small">{{ r.why }}</p>
+        <p class="secondary small">{{ board_labels.get(r.board, r.board) }}:
+          {% if r.jobs_here is not none %}{{ r.jobs_here|num }} open roles in these countries ({{ r.jobs_total|num }} in all){% else %}{{ r.jobs_total|num }} job pages on its own site{% endif %}.
+          {% if r.entry_level and r.entry_level|lower != "not seen" %}Entry level: {{ r.entry_level }}{% else %}No graduate or junior hiring seen in the search.{% endif %}</p>
+        {% if r.samples %}
+          <ul class="sample-jobs small">{% for title, link in r.samples %}<li><a href="{{ link }}" target="_blank" rel="noopener noreferrer">{{ title }}</a></li>{% endfor %}</ul>
+        {% endif %}
+        <div class="find-actions">
+          {% if r.decision %}
+            <span class="small find-decision">{{ {"covered": "Covered: checked daily with the generated list’s rules", "wishlist": "On your wishlist", "rejected": "Rejected: never suggested again"}[r.decision] }}</span>
+            <button class="btn btn-small" type="button" hx-post="/companies/find/decide" hx-vals='{"company": {{ r.id|tojson }}, "decision": "undo"}' hx-target="#sheet">Undo</button>
+          {% else %}
+            <button class="btn btn-small btn-primary" type="button" title="Checked once a day with the generated list’s rules: graduate wording, title check, Haiku then Sonnet"
+                    hx-post="/companies/find/decide" hx-vals='{"company": {{ r.id|tojson }}, "decision": "covered"}' hx-target="#sheet">Cover it</button>
+            <button class="btn btn-small" type="button" title="Checked every 2 hours and scored by Sonnet directly"
+                    hx-post="/companies/find/decide" hx-vals='{"company": {{ r.id|tojson }}, "decision": "wishlist"}' hx-target="#sheet">Add to wishlist</button>
+            <button class="btn btn-small" type="button" title="Never suggested again"
+                    hx-post="/companies/find/decide" hx-vals='{"company": {{ r.id|tojson }}, "decision": "rejected"}' hx-target="#sheet">Reject</button>
+          {% endif %}
+        </div>
+      </li>
+    {% endfor %}
+  </ul>
+  <footer class="sheet-actions">
+    <button class="btn" type="button" hx-get="/companies/find?new=1" hx-target="#sheet">New search</button>
+    <button class="btn btn-primary" type="button" data-close>Done</button>
+  </footer>
+</div>
+{% endif %}
