@@ -72,7 +72,8 @@ Each role is scored 3 times with its own example left out of the prompt.
 | 2026-10-24 | **Sonnet, final (rules frozen)** | 19 | **89%** | **86%** | **82%** | **86%** | 0 / 0 | 0.74 | $3.02 |
 
 - Final Sonnet run: no experience blocker without years left in scores (2 produced, moved to gaps by code), and no `watch_for_reopening` needed correcting.
-- Stopping rule (fit within 1 ≥ 80%, action ≥ 85%, no experience blockers without years) met, so the rules were frozen.
+- Stopping rule (fit within 1 ≥ 80%, action ≥ 85%, no experience blockers without years) met, so the rules were frozen. In counts: 51 of 57 scores within one point of the hand score, 49 of 57 with the same action (19 roles, 3 scores each).
+- Not rerun since (as of 2026-11-20): the scoring rules changed on 2026-11-18 and the profile they score against on 2026-10-29, 2026-11-18 and 2026-11-19, and the hand-scored set has grown to 32 roles. These figures describe the rules of 2026-10-24.
 - Haiku as a backlog filter, same date: of runs on roles the candidate rated 7+, 2 of 30 came out below 6 (both on one role that is blocked anyway); of runs on roles rated 5 or less, 8 of 18 came out at 6+ and would go on to Sonnet.
 
 ## 6. Batch title check

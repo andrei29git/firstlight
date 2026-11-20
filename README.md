@@ -21,12 +21,12 @@ Company job boards publish roles first. So Firstlight reads the boards themselve
 
 ## Features
 
-- **Roles straight from company job boards**: Greenhouse, Lever, Ashby, Workday, Recruitee, SmartRecruiters, Personio, Workable, Teamtailor, Homerun, Oracle, Avature, Eightfold, and custom career sites (sitemaps, schema.org `JobPosting` data or plain listing pages).
-- **About 17,000 companies**, discovered in the [Common Crawl](https://commoncrawl.org) index, checked live, and kept only if they have a role in an allowed country.
+- **Roles straight from company job boards**: 14 hiring systems (Greenhouse, Lever, Ashby, Workday, Recruitee, SmartRecruiters, Personio, Workable, Teamtailor, Homerun, Oracle Recruiting Cloud, Avature, Eightfold and Jibe), a few employers' own career sites, and custom career sites (sitemaps, schema.org `JobPosting` data or plain listing pages).
+- **About 17,000 companies** (17,338 after the October 2026 harvest) on 10 of those hiring systems, found in the [Common Crawl](https://commoncrawl.org) index, checked live when harvested, and kept only if they had a role in an allowed country.
 - **A score for every role**: fit from 0 to 10, blockers listed beside it (language, enrolment, experience and so on), odds, a suggested action, what to lead with and the gaps.
 - **An application tracker** that replaces a spreadsheet: stages with their history, next steps, follow-ups after 21 days of silence, and per-company application limits.
 - **Application help**: drafts answers to application questions and a cover letter from the profile only. Anything the profile does not say becomes a placeholder to fill in, never an invented fact.
-- **Runs on a schedule** on GitHub Actions every two hours, with a laptop job for the few sites that refuse cloud servers.
+- **Runs on a schedule** on GitHub Actions every two hours (every four when the month's free Actions minutes run short), with a laptop job for the few sites that refuse cloud servers.
 - **A local, Mac-style web app** (FastAPI, Jinja2 and htmx) in light and dark mode, with keyboard shortcuts.
 - **One threshold for what matters**: the Apply now threshold on the Settings page also decides which roles reach your phone, so the two always agree.
 
@@ -56,7 +56,7 @@ uv run jobhunt eval            # score the hand-scored calibration roles and com
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/how-it-works-dark.svg">
-  <img src="docs/images/how-it-works-light.svg" width="880" alt="How it works. A monthly harvest of the Common Crawl index builds the generated company list. That list and your config (profile, rules, companies) feed a run, on GitHub Actions every 2 hours or on the laptop: fetch the job boards (polite HTTP, robots.txt), pre-filter (titles, countries, duplicates), a title check (Haiku, batches of 100), then scoring (Haiku, then Sonnet for promising roles). Scores go to the data branch as JSONL records, and roles at fit 7 or more send a phone alert. The data branch syncs to the local web app, which also reads its own SQLite database of applications, notes and drafts.">
+  <img src="docs/images/how-it-works-light.svg" width="880" alt="How it works. A monthly harvest of the Common Crawl index builds the generated company list. That list and your config (profile, rules, companies) feed a run, on GitHub Actions (every 2 hours, or every 4 when the month's free minutes run short) or on the laptop: fetch the job boards (polite HTTP, robots.txt), pre-filter (titles, countries, duplicates), a title check (Haiku, batches of 100), then scoring (Haiku, then Sonnet for promising roles). Scores go to the data branch as JSONL records, and roles at fit 7 or more send a phone alert. The data branch syncs to the local web app, which also reads its own SQLite database of applications, notes and drafts.">
 </picture>
 
 Each run pulls the pipeline's state from a separate git branch, fetches its share of the companies, merges new roles into what it knows, scores within its budget and pushes the result back. The web app reads the same state through a disposable SQLite catalogue, and keeps the user's own data (applications, notes, hidden roles, drafts) in a local SQLite database that never leaves the machine.
@@ -80,14 +80,14 @@ demo/            the demo's invented data (scripts/build_demo.py writes it)
 Most fetched roles are obviously wrong for a given candidate, and the subscription's five-hour window is shared with everything else the candidate does with Claude. So scoring is a cascade, cheapest first:
 
 1. **Rules** remove only clear noise: senior and non-engineering titles, places outside the allowed countries, and the same role posted in several cities or on several boards.
-2. **A batch title check** sends 100 titles to Haiku in one call. It may drop a title only with a word-for-word quote from the profile as its reason; a drop without a grounded quote is rejected. In measurements it kept every role that Sonnet later rated 7 or more.
+2. **A batch title check** sends 100 titles to Haiku in one call. It may drop a title only with a word-for-word quote from the profile as its reason; a drop without a grounded quote is rejected. In a measurement on about 1,000 roles (October 2026), it dropped none of the 42 that Sonnet rated 7 or more.
 3. **Haiku** scores what is left. Only roles it rates 6 or more go on to **Sonnet**, whose score is the one shown.
 
 Every call reserves its model's usual share of the window before it starts, and is charged its actual cost when it returns. A scheduled run stops at 10% of a window (20% while more than 1,000 roles wait), and a weekly guard that follows Claude's own seven-day figure pauses part of the generated list at 75% and resumes below 65% (the user's own companies are never paused), so the tool never locks its user out. Figures are kept per Claude account, so a run on another account never counts towards the wrong limit.
 
 ### Evaluation against hand scores
 
-The scoring rules were tuned against a regression set of 19 roles the candidate scored by hand. `jobhunt eval` scores each one three times with its own example left out of the prompt, and reports how often the model agrees. The rules were frozen once they met a stopping rule set in advance: Sonnet's fit lands within one point of the hand score 89% of the time, and its suggested action matches 86% of the time. They are reworded only for systematic problems, never to fix a single role. The measurements behind these and other numbers are in [docs/measurements.md](docs/measurements.md).
+The scoring rules were tuned against 19 roles the candidate scored by hand. `jobhunt eval` scores each one three times with its own example left out of the prompt, and reports how often the model agrees. In the final run, in October 2026, 51 of Sonnet's 57 scores were within one point of the hand score (89%), and 49 of 57 suggested the same action (86%). That met a stopping rule set in advance, so the rules were frozen. Since then the scoring rules (November 2026) and the profile they score against (October and November 2026) have changed, and the evaluation has not been rerun, so these figures describe the October version, not the current one. The rules are reworded only for systematic problems, never to fix a single role. The measurements behind these and other numbers are in [docs/measurements.md](docs/measurements.md).
 
 ### Fit is separate from blockers
 
@@ -128,7 +128,7 @@ Everything about the candidate lives in `config/`. A leak check runs on every co
 ## Development
 
 ```sh
-uv run pytest              # about 680 tests, offline: saved board responses, no model calls
+uv run pytest              # about 690 tests, offline: saved board responses, no model calls
 uv run playwright install chromium && uv run pytest -m e2e
                            # browser tests on the demo: every page, sheet, menu and shortcut,
                            # at two widths in light and dark mode
